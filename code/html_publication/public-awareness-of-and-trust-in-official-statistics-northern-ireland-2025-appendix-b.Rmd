@@ -58,7 +58,7 @@ Detailed tables including the source data for all the charts and commentary and 
  * `r f_embed_ods(df = table_1b_data, sheet_title = if (current_year == ons_year) {paste0("Table 1b: Awareness of NISRA and ONS, ", current_year)} else {paste0("Table 1b: Awareness of NISRA (", current_year, ") and ONS (", ons_year, ")")}, tab_name = "awareness_of_nisra_and_ons", app_b = TRUE)`
  * `r f_embed_ods_timeseries(df = table_1c_data, sheet_title = paste0("Table 1c: Awareness of ONS, 2014 to ", ons_year), tab_name = "awareness_of_ons", app_b = TRUE, startyear = 2014)`
 
-### Awareness of NISRA statistics among those who had not previously heard of NISRA
+### Awareness of NISRA statistics
 
 * `r f_embed_ods(df = table_2.1a_data, sheet_title = paste0("Table 2.1a: Aware of NISRA statistics on the number of deaths in Northern Ireland, ", current_year), tab_name = "aware_death_statistics", app_b = TRUE)`
 * `r f_embed_ods(df = table_2.1b_data, sheet_title = paste0("Table 2.1b: Aware of NISRA statistics on recorded levels of crime in Northern Ireland, ", current_year), tab_name = "aware_crime_statistics", app_b = TRUE)`
@@ -70,20 +70,6 @@ Detailed tables including the source data for all the charts and commentary and 
 * `r f_embed_ods(df = table_2.1h_data, sheet_title = paste0("Table 2.1h: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty", app_b = TRUE)`
 * `r f_embed_ods(df = table_2.1i_data, sheet_title = paste0("Table 2.1i: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport", app_b = TRUE)`
 * `r f_embed_ods(df = table_2.1j_data, sheet_title = paste0("Table 2.1j: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), ", current_year), tab_name = "aware_num_stats", app_b = TRUE)`
-
-### Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA
-
-* `r f_embed_ods(df = table_2.2a_data, sheet_title = paste0("Table 2.2a: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_death_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2b_data, sheet_title = paste0("Table 2.2b: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_crime_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2c_data, sheet_title = paste0("Table 2.2c: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_qualifications_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2d_data, sheet_title = paste0("Table 2.2d: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_people_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2e_data, sheet_title = paste0("Table 2.2e: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_hospital_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2f_data, sheet_title = paste0("Table 2.2f: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians, ", current_year), tab_name = "aware_census_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2g_data, sheet_title = paste0("Table 2.2g: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_unemployment_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2h_data, sheet_title = paste0("Table 2.2h: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_poverty_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2i_data, sheet_title = paste0("Table 2.2i: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians, ", current_year), tab_name = "aware_walking_by_nisra", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.2j_data, sheet_title = paste0("Table 2.2j: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA), ", current_year), tab_name = "aware_num_stats_by_nisra", app_b = TRUE)`
-
 
 ### Trust in NISRA
 
@@ -116,6 +102,14 @@ f_embed_ods_timeseries(df = table_3.3a_data, sheet_title = paste0("Table 3.3a: T
 * `r f_embed_ods(df = table_4b_data, sheet_title = if (current_year == ons_year) {paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")} else {paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")}, tab_name ="trust_nisra_ons_stats", app_b = TRUE)`
 * `r f_embed_ods(df = table_4c_data, sheet_title = paste0("Table 4c: Trust in NISRA statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness", app_b = TRUE)`
 * `r f_embed_ods_timeseries(df = table_4d_data, sheet_title = paste0("Table 4d: Trust in ONS statistics, 2014 to ", ons_year), tab_name = "trust_ons_stats", app_b = TRUE, startyear = 2014)`
+
+### Reasons trust
+
+* `r f_embed_ods(df = table_3.1aa_data, sheet_title = paste0("Table 3.1aa: Reasons for Trusting NISRA in ", current_year), tab_name = "reasons_trust", app_b = TRUE)`
+
+### Reasons distrust
+
+* `r f_embed_ods(df = table_3.1ab_data, sheet_title = paste0("Table 3.1ab: Reasons for Distrusting NISRA in ", current_year), tab_name = "reasons_distrust", app_b = TRUE)`
 
 ### Value
 

@@ -1,5 +1,5 @@
 ---
-title: "Public Awareness Of And Trust In Official Statistics, Northern Ireland 2024"
+title: "Public Awareness Of And Trust In Official Statistics, Northern Ireland 2025"
 lang: "en"
 output:
   rmarkdown::html_document:
@@ -224,13 +224,13 @@ f_embed_ods_timeseries(df = table_1c_data,
 
 ## 2. Awareness of NISRA Statistics
 
-### Awareness of NISRA statistics, where not previously heard of NISRA
+### Awareness of NISRA statistics
 
-Respondents who had not previously heard of NISRA were asked whether they had heard of specific NISRA statistics. `r not_heard_aware_none`% of these respondents had not heard of any of the statistics listed, while `r not_heard_aware_all`% had heard of all the statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
+Respondents were asked whether they had heard of specific NISRA statistics. `r aware_none`% of had not heard of any of the statistics listed, while `r aware_all`% had heard of all the statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
-Just over half (`r not_heard_aware_census`%) of those respondents who had not previously heard of NISRA were aware of the Northern Ireland Census, and almost two in five (`r not_heard_aware_hospital`%) were aware of statistics on hospital waiting times. However, less than one in ten (`r not_heard_aware_cycling`%) of these respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
+Just over half (`r aware_waste`%) of those respondents who had not previously heard of NISRA were aware of household waste, and almost two in five (`r aware_hospital`%) were aware of statistics on hospital waiting times. However, less than one in ten (`r aware_cycling`%) of these respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
 
-#### Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA, `r current_year`
+#### Chart 3: Awareness of specific NISRA statistics, `r current_year`
 
 ```{r Chart 3, fig.alt = "Horizontal stacked bar chart, with those aware of the statistics represented by the dark blue segment, those who weren't in light blue, and those who said they didn't know in grey."}
 
@@ -277,67 +277,9 @@ plot_ly(aware_stats_data,
 
 f_extract_sheet(path = xl_filename,
   sheet_name = "Awareness_NISRA_Statistics",
-  sheet_title = paste0("Table 2.1a-j: Awareness of NISRA statistics among those who had not previously heard of NISRA, ", current_year))
+  sheet_title = paste0("Table 2.1a-j: Awareness of NISRA statistics, ", current_year))
 
 ```
-### Awareness of statistics produced by NISRA, where heard of NISRA
-
-Respondents who had heard of NISRA were asked whether they were aware that NISRA produced certain statistics. Of these respondents, `r heard_aware_all`% were aware that NISRA produced all the listed statistics while `r heard_aware_none`% were unaware that NISRA produced any of the listed statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
-
-Awareness was highest for the Northern Ireland Census (`r heard_aware_census`%), followed by statistics on the number of people who live in Northern Ireland (`r heard_aware_people`%), and the unemployment rate (`r heard_aware_unemployment`%). Statistics on  the percentage of journeys made by walking, cycling or public transport (`r heard_of_aware_cycling`%) were the least recognised as being produced by NISRA (Chart 4).
-
-#### Chart 4: Aware NISRA produces specific statistics for respondents who were aware of NISRA, `r current_year`
-
-```{r Chart 4, fig.alt = "Horizontal stacked bar chart, with those aware of the statistics represented by the dark blue segment, those who weren't in light blue, and those who said they didn't know in grey."}
-
-plot_ly(aware_stats_by_nisra_data,
-        x = ~yes,
-        y = ~paste0(output, " "),
-        type = "bar",
-        marker = list(color = nisra_navy),
-        name = "Yes",
-        hovertext = ~paste0(output, ": ", round_half_up(yes), "%"),
-        hoverinfo = "name+text",
-        texttemplate = "<b>%{x:.0f}</b>",
-        textposition = "inside",
-        insidetextanchor = "start") %>%
-  add_trace(x = ~no,
-            marker = list(color = nisra_blue),
-            name = "No",
-            hovertext = ~paste0(output, ": ", round_half_up(no), "%"),
-            insidetextanchor = "end") %>%
-  add_trace(x = ~dont_know,
-            marker = list(color = "#757575"),
-            name = "Don't Know",
-            hovertext = ~paste0(output, ": ", round_half_up(dont_know, 1), "%"),
-            texttemplate = "<b>%{x:.1f}</b>",
-            textposition = "outside",
-            font = list (color = "#757575")) %>%
-  layout(font = list(family = "Arial", size = 12),
-         barmode = "stack",
-         yaxis = list(categoryorder = "array",  # How to order the categories
-                      categoryarray = ~output,
-                      title = "",
-                      fixedrange = TRUE),
-         xaxis = list(title = "Percentage",
-                      titlefont = list(size = 11),
-                      fixedrange = TRUE),
-         legend = list(orientation = "h",
-                       x = 0.5,
-                       y = 1.1,
-                       xanchor = "center",
-                       traceorder = "normal"),
-         bargap = 0.3,
-         margin = list(l = 0, r = 0)) %>%
-  config(displayModeBar = FALSE)
-
-f_extract_sheet(path = xl_filename,
-  sheet_name = "Aware_Statistics_by_NISRA", 
-  sheet_title = paste0("Table 2.2a-j: Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA, ", current_year))
-
-```
-
-`r f_borderline()`
 
 ## 3. Trust in NISRA
 
@@ -502,6 +444,108 @@ f_embed_ods(df = table_4b_data,
 ```
 
 `r f_borderline()`
+
+### Reasons for trusting NISRA
+
+This is a percentage of experience `r Reasons_trust_experience`%. Below is a chart:
+
+```{r Chart 9.1, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
+
+wrap_label <- function(x, width = 16) {
+  sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
+}
+
+percent_weighted_df$option_wrapped <- wrap_label(percent_weighted_df$option, width = 30)
+
+plot_ly(
+  data = percent_weighted_df,
+  x = ~percent_weighted,
+  y = ~option_wrapped,
+  type = "bar",
+  orientation = "h",
+  marker = list(color = nisra_navy),
+  hovertext = ~paste0(option, ": ", round_half_up(percent_weighted), "%"),
+  hoverinfo = "text"
+) %>%
+  layout(font = list(family = "Arial", size = 12),
+         bargap = 0.2,
+         legend = list(orientation = "h",
+                       x = 0.5,
+                       y = -0.05,
+                       xanchor = "center"),
+         xaxis = list(title = "",
+                      range = c(0,100),
+                      showline = TRUE,
+                      fixedrange = TRUE),
+         yaxis = list(title = "",
+                      fixedrange = TRUE,
+                      tickangle = 0,
+                      automargin = TRUE),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1.05,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE),
+         margin = list(t = 50)) %>%
+  config(displayModeBar = FALSE)
+
+f_extract_sheet(path = xl_filename,
+  sheet_name = "Reasons_Trust_NISRA_Stats",
+  sheet_title = paste0("Table 4.1a: Reasons for Trusting NISRA in ", current_year))
+
+```
+
+```{r Chart 9.2, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
+
+wrap_label <- function(x, width = 16) {
+  sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
+}
+
+percent_weighted_distrust_df$option_wrapped <- wrap_label(percent_weighted_distrust_df$option, width = 30)
+
+plot_ly(
+  data = percent_weighted_distrust_df,
+  x = ~percent_weighted,
+  y = ~option_wrapped,
+  type = "bar",
+  orientation = "h",
+  marker = list(color = nisra_navy),
+  hovertext = ~paste0(option, ": ", round_half_up(percent_weighted), "%"),
+  hoverinfo = "text"
+) %>%
+  layout(font = list(family = "Arial", size = 12),
+         bargap = 0.2,
+         legend = list(orientation = "h",
+                       x = 0.5,
+                       y = -0.05,
+                       xanchor = "center"),
+         xaxis = list(title = "",
+                      range = c(0,100),
+                      showline = TRUE,
+                      fixedrange = TRUE),
+         yaxis = list(title = "",
+                      fixedrange = TRUE,
+                      tickangle = 0,
+                      automargin = TRUE),
+         annotations = list(text = "Percentage",
+                            x = 0,
+                            xref = "paper",
+                            xanchor = "center",
+                            y = 1.05,
+                            yref = "paper",
+                            yanchor = "bottom",
+                            showarrow = FALSE),
+         margin = list(t = 50)) %>%
+  config(displayModeBar = FALSE)
+
+f_extract_sheet(path = xl_filename,
+  sheet_name = "Reasons_Distrust_NISRA_Stats",
+  sheet_title = paste0("Table 4.2a: Reasons for Distrusting NISRA in ", current_year))
+
+```
 
 ## 5. Value
 
