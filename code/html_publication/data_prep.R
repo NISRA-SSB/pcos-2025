@@ -1,3 +1,4 @@
+message("data_prep.R has started running")
 # Set folder path
 library(here)
 
@@ -66,21 +67,21 @@ data_final <- data_raw %>%
       AGE <= 59 ~ "59",
       TRUE ~ "60+"
     )),
-    DERHIanalysis = case_when(
-      DERHI == "Other qualifications" ~ NA,
-      TRUE ~ DERHI
-    ),
-    DERHIanalysis = factor(DERHIanalysis,
-      levels = c(
-        "Degree, or Degree equivalent and above",
-        "Other higher education below degree level",
-        "A levels, vocational level 3 and equivalents",
-        "GCSE/O level grade A*-C. vocational level 2 and equivalents",
-        "Qualifications at level 1 and below",
-        "No qualification"
-      )
-    ),
-    EMPST2 = factor(EMPST2, levels = c("In paid employment", "Not in paid employment")),
+    # DERHIanalysis = case_when(
+    #   DERHI == "Other qualifications" ~ NA,
+    #   TRUE ~ DERHI
+    # ),
+    # DERHIanalysis = factor(DERHIanalysis,
+    #   levels = c(
+    #     "Degree, or Degree equivalent and above",
+    #     "Other higher education below degree level",
+    #     "A levels, vocational level 3 and equivalents",
+    #     "GCSE/O level grade A*-C. vocational level 2 and equivalents",
+    #     "Qualifications at level 1 and below",
+    #     "No qualification"
+    #   )
+    # ),
+    # EMPST2 = factor(EMPST2, levels = c("In paid employment", "Not in paid employment")),
     remove = FALSE,
     AwareNISRA2 = factor(PCOS1, levels = setdiff(levels(PCOS1), "Refusal"), labels = gsub("DontKnow", "Don't know", setdiff(levels(PCOS1), "Refusal")))
   ) %>% ## Added for later
@@ -88,6 +89,66 @@ data_final <- data_raw %>%
   relocate("AGE2a", .after = "AGE2")
 
 attributes(data_final$AwareNISRA2)$label <- attributes(data_final$PCOS1)$label
+
+## Could use this to be more robust ##
+# data_final <- data_raw %>%
+#   mutate(
+#     ## Only create AGE2 if AGE exists
+#     AGE2 = if ("AGE" %in% names(.)) {
+#       as.factor(case_when(
+#         AGE <= 24 ~ "16-24",
+#         AGE <= 34 ~ "25-34",
+#         AGE <= 44 ~ "35-44",
+#         AGE <= 54 ~ "45-54",
+#         AGE <= 64 ~ "55-64",
+#         AGE <= 74 ~ "65-74",
+#         TRUE ~ "75 and over"
+#       ))
+#     } else { NULL },
+#     
+#     ## Only create AGE2a if AGE exists
+#     AGE2a = if ("AGE" %in% names(.)) {
+#       as.factor(case_when(
+#         AGE <= 15 ~ "0-15",
+#         AGE <= 29 ~ "20-29",
+#         AGE <= 39 ~ "30-39",
+#         AGE <= 49 ~ "40-49",
+#         AGE <= 59 ~ "59",
+#         TRUE ~ "60+"
+#       ))
+#     } else { NULL },
+#     
+#     ## Only create DERHIanalysis if DERHI exists
+#     DERHIanalysis = if ("DERHI" %in% names(.)) {
+#       case_when(
+#         DERHI == "Other qualifications" ~ NA,
+#         TRUE ~ DERHI
+#       )
+#     } else { NULL }
+#   ) %>%
+#   mutate(
+#     ## Only apply factor levels if DERHIanalysis exists
+#     DERHIanalysis = if ("DERHIanalysis" %in% names(.)) {
+#       factor(DERHIanalysis,
+#              levels = c(
+#                "Degree, or Degree equivalent and above",
+#                "Other higher education below degree level",
+#                "A levels, vocational level 3 and equivalents",
+#                "GCSE/O level grade A*-C. vocational level 2 and equivalents",
+#                "Qualifications at level 1 and below",
+#                "No qualification"
+#              ))
+#     } else { NULL },
+#     
+#     EMPST2 = factor(EMPST2, levels = c("In paid employment", "Not in paid employment")),
+#     remove = FALSE,
+#     AwareNISRA2 = factor(PCOS1, levels = setdiff(levels(PCOS1), "Refusal"),
+#                          labels = gsub("DontKnow", "Don't know", setdiff(levels(PCOS1), "Refusal")))
+#   ) %>%
+#   relocate("AGE2", .after = "AGE") %>%
+#   relocate("AGE2a", .after = "AGE2")
+# 
+# attributes(data_final$AwareNISRA2)$label <- attributes(data_final$PCOS1)$label
 
 ## Loop to recode all "Trust" based answers ####
 
@@ -117,12 +178,39 @@ for (i in 1:length(agree_q_old)) {
   attributes(data_final[[agree_q_new[i]]])$label <- attributes(data_final[[agree_q_old[i]]])$label
 }
 
+## Merge pcos3b 1/2/3 and pcos3c 1/2/3 ####
+# unnecessary?
+
 ## Recode Refusals to Missing ####
+# Added pcos1d10 and pcos3b/3c to recode logic
 
 vars_to_recode_to_missing <- names(data_final)[c(
-  which(names(data_final) == "PCOS1"):which(names(data_final) == "PCOS1d9"),
-  which(names(data_final) == "TrustCivilService2"):which(names(data_final) == "Confidential2")
+  which(names(data_final) == "PCOS1"):which(names(data_final) == "PCOS1d10"),
+  which(names(data_final) == "TrustCivilService2"):which(names(data_final) == "Confidential2"),
+  which(names(data_final) == "PCOS3b_1"):which(names(data_final) == "PCOS3cOth")
 )]
+
+## Convert all "" to NA in vars_to_recode_to_missing
+# data_final <- data_final %>%
+#   mutate(across(all_of(vars_to_recode_to_missing),
+#                 ~ na_if(trimws(as.character(.)), "")))
+
+problematic_cols <- c("PCOS3bOth", "PCOS3cOth")
+
+data_final <- data_final %>%
+  mutate(across(all_of(problematic_cols),
+                ~ na_if(trimws(as.character(.)), "")))
+
+## Maybe for future - more elegant way to deal with ""
+# empty_cols <- data_final %>%
+#   summarise(across(all_of(vars_to_recode_to_missing),
+#                    ~ any(trimws(as.character(.)) == "", na.rm = TRUE))) %>%
+#   select(where(~ .x)) %>%
+#   names()
+# 
+# data_final <- data_final %>%
+#   mutate(across(all_of(empty_cols),
+#                 ~ na_if(trimws(as.character(.)), "")))
 
 for (i in 1:length(vars_to_recode_to_missing)) {
   data_final[[vars_to_recode_to_missing[i]]] <- case_when(
@@ -132,7 +220,6 @@ for (i in 1:length(vars_to_recode_to_missing)) {
 }
 
 ## Check all above variables for Missing across all Q's ####
-
 for (i in 1:nrow(data_final)) {
   for (j in 1:length(vars_to_recode_to_missing)) {
     if (is.na(data_final[[vars_to_recode_to_missing[j]]][i])) {
@@ -148,13 +235,20 @@ for (i in 1:nrow(data_final)) {
   }
 }
 
+## Test that NA/DK removal logic working - if any non zero, then no working
+# data_final %>%
+#   select(all_of(vars_to_recode_to_missing)) %>% 
+#   summarise(across(everything(), ~ sum(. == "", na.rm=TRUE)))
+
+
 ## Tidy up data ####
 data_final <- data_final %>%
   filter(!remove) %>%
-  select(-remove) %>%
-  relocate("DERHIanalysis", .after = "Confidential2")
+  select(-remove) #%>%
+  # relocate("DERHIanalysis", .after = "Confidential2")
 
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
+#saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year, " TEST.RDS"))
 
 # Check for existence of pre 2021 data
 if (!file.exists(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))) {
@@ -170,12 +264,16 @@ if (!file.exists(paste0(data_folder, "Final/PCOS ", current_year - 1, " Final Da
 ## Check created variables against originals (see outputs folder) ####
 source(paste0(here(), "/code/html_publication/check_created_variables.R"))
 
+# Might not be needed?
+# calls supplementary tables function
 ## Supplementary tables output to outputs folder ####
 f_supplementary_tables(data = data_final,
                        year = current_year,
                        trust_q = trust_q_new,
                        agree_q = agree_q_new,
-                       co_var = c("AGE2", "DERHIanalysis", "EMPST2"),
+                       co_var = c("AGE2"
+                                  # , "DERHIanalysis", "EMPST2"
+                                  ),
                        age_weight = age_weight,
                        sex_weight = sex_weight,
                        weight = weight)
@@ -226,7 +324,11 @@ saveRDS(aware_nisra_ons_data, paste0(data_folder, "Trend/", current_year, "/awar
 aware_nisra_ons_data <- aware_nisra_ons_data %>%
   mutate(year = as.character(year))
 
+
+
 ## Chart 3: Awareness of specific NISRA statistics for respondents who were not aware of NISRA ####
+## This chart/dataframe and its created object "aware_stats_data" encapsulate the old pcos1d and pcos1c variables
+## and becomes "Awareness of specific NISRA statistics" only
 
 # Use variable label to extract output name
 
@@ -254,32 +356,33 @@ sort_order <- aware_stats_data %>%
   mutate(order = as.numeric(rownames(.))) %>%
   select(output, order)
 
+# Removing chart 4 for 2025
+
 ## Chart 4: Awareness of specific NISRA statistics for respondents who were aware of NISRA ####
 
-aware_stats_by_nisra_data <- data.frame(
-  output = character(),
-  yes = numeric(),
-  no = numeric(),
-  dont_know = numeric()
-)
-
-for (i in 1:length(PCOS1c_vars)) {
-  aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
-    rbind(data.frame(
-      output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws(), 47),
-      yes = f_return_p(data_final, PCOS1c_vars[i], "Yes") * 100,
-      no = f_return_p(data_final, PCOS1c_vars[i], "No") * 100,
-      dont_know = f_return_p(data_final, PCOS1c_vars[i], "DontKnow") * 100
-    ))
-}
-
-aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
-  left_join(sort_order) %>%
-  arrange(order) %>%
-  select(-order)
+# aware_stats_by_nisra_data <- data.frame(
+#   output = character(),
+#   yes = numeric(),
+#   no = numeric(),
+#   dont_know = numeric()
+# )
+# 
+# for (i in 1:length(PCOS1c_vars)) {
+#   aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
+#     rbind(data.frame(
+#       output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws(), 47),
+#       yes = f_return_p(data_final, PCOS1c_vars[i], "Yes") * 100,
+#       no = f_return_p(data_final, PCOS1c_vars[i], "No") * 100,
+#       dont_know = f_return_p(data_final, PCOS1c_vars[i], "DontKnow") * 100
+#     ))
+# }
+# 
+# aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
+#   left_join(sort_order) %>%
+#   arrange(order) %>%
+#   select(-order)
 
 ## Chart 5: Trust in NISRA by year ####
-
 trust_nisra_data <- trust_nisra_data %>%
   rbind(data.frame(
     year = current_year,
@@ -292,6 +395,138 @@ saveRDS(trust_nisra_data, paste0(data_folder, "Trend/", current_year, "/trust_ni
 
 trust_nisra_data <- trust_nisra_data %>%
   mutate(year = as.character(year))
+
+## PCOS3
+total_n <- sum(data_raw$PCOS3 == "Tend to trust them") + sum(data_raw$PCOS3 == "Trust them greatly")
+total_n2 <- sum(data_raw$PCOS3 == "Tend not to trust them") + sum(data_raw$PCOS3 == "Distrust them greatly")
+
+## Create pcos3b dataframe
+# my_list <- c(as.character(data_final$PCOS3b_1),
+#              as.character(data_final$PCOS3b_2),
+#              as.character(data_final$PCOS3b_3))
+# counts <- as.data.frame(table(unlist(my_list)))
+# 
+# pcos3b_long <- data_final %>%
+#   select(PCOS3b_1, PCOS3b_2, PCOS3b_3, W3) %>%
+#   tidyr::pivot_longer(cols = PCOS3b_1:PCOS3b_3,
+#                       names_to = "item",
+#                       values_to = "value")
+# 
+# pcos3b_long$value <- as.character(pcos3b_long$value)
+# counts$Var1 <- as.character(counts$Var1)
+# 
+# counts$percent <- sapply(counts$Var1, function(v) {
+#   f_return_p(pcos3b_long, "value", v, weight = "W3", dk = TRUE) * 100
+# })
+
+#counts$percent <- (counts$Freq / total_n) * 100
+
+## Create PCOS3B percent of cases data
+
+# List all unique answer options
+options <- sort(unique(c(
+  as.character(data_final$PCOS3b_1),
+  as.character(data_final$PCOS3b_2),
+  as.character(data_final$PCOS3b_3)
+)))
+
+# Create column concatinating reasons trust answers
+data_final <- data_final %>%
+  rowwise() %>%
+  mutate(
+    all_answers = list(c_across(PCOS3b_1:PCOS3b_3))
+  ) %>%
+  ungroup()
+
+# Filter trust-only respondents
+trust_only <- data_final %>%
+  filter(PCOS3 %in% c("Trust them greatly", "Tend to trust them"))
+
+
+# Calculate unweighted & weighted indicators for each option
+percent_individuals_trust <- sapply(options, function(opt) {
+  
+  # TRUE/FALSE per person for this option
+  indicators <- sapply(trust_only$all_answers, function(ans) opt %in% ans)
+  
+  list(
+    unweighted = mean(indicators) * 100,
+    weighted   = (sum(indicators * trust_only$W3) / sum(trust_only$W3)) * 100
+  )
+}, simplify = FALSE)
+
+# Dataframe: unweighted percentages
+percent_unweighted_df <- data.frame(
+  option = options,
+  percent_unweighted = sapply(percent_individuals_trust, `[[`, "unweighted"),
+  row.names = NULL
+)
+
+# Dataframe: weighted percentages
+percent_weighted_df <- data.frame(
+  option = options,
+  percent_weighted = sapply(percent_individuals_trust, `[[`, "weighted"),
+  row.names = NULL
+)
+
+
+## Create PCOS3C dataframe
+# my_list2 <- c(as.character(data_final$PCOS3c_1),
+#               as.character(data_final$PCOS3c_2),
+#               as.character(data_final$PCOS3c_3))
+# counts2 <- as.data.frame(table(unlist(my_list2)))
+# counts2$percent <- (counts2$Freq / total_n2) * 100
+
+## Create pcos3c percent of cases data
+
+# List all unique answer options
+options2 <- sort(unique(c(
+  as.character(data_final$PCOS3c_1),
+  as.character(data_final$PCOS3c_2),
+  as.character(data_final$PCOS3c_3)
+)))
+
+# Add all_answers_distrust to data_final
+data_final <- data_final %>%
+  rowwise() %>%
+  mutate(
+    all_answers_distrust = list(c_across(PCOS3c_1:PCOS3c_3))
+  ) %>%
+  ungroup()
+
+# Filter distrust-only respondents
+distrust_only <- data_final %>%
+  filter(PCOS3 %in% c("Tend not to trust them", "Distrust them greatly"))
+
+# Calculate unweighted + weighted percentages
+percent_individuals_distrust <- sapply(options2, function(opt) {
+  
+  # TRUE/FALSE per person
+  indicators <- sapply(distrust_only$all_answers_distrust, function(ans) opt %in% ans)
+  
+  list(
+    unweighted = mean(indicators) * 100,
+    weighted   = (sum(indicators * distrust_only$W3) / sum(distrust_only$W3)) * 100
+  )
+  
+}, simplify = FALSE)
+
+# Create separate dataframes
+
+# Unweighted DF
+percent_unweighted_distrust_df <- data.frame(
+  option = options2,
+  percent_unweighted = sapply(percent_individuals_distrust, `[[`, "unweighted"),
+  row.names = NULL
+)
+
+# Weighted-only DF
+percent_weighted_distrust_df <- data.frame(
+  option = options2,
+  percent_weighted = sapply(percent_individuals_distrust, `[[`, "weighted"),
+  row.names = NULL
+)
+
 
 ## Chart 6: Trust in NISRA and ONS as institutions ####
 
@@ -358,6 +593,9 @@ saveRDS(trust_stats_data, paste0(data_folder, "Trend/", current_year, "/trust_st
 
 trust_stats_data <- trust_stats_data %>%
   mutate(year = as.character(year))
+
+## Add charts for "Reasons for trusting NISRA statistics" and "Reasons for distrusting NISRA statistics" ####
+# Need to create trend_data_for_charts.R section for each new chart? ods tables?
 
 ## Chart 9: Trust in statistics produced by NISRA  and ONS ####
 
@@ -485,81 +723,63 @@ free_from_interference <- round_half_up(political_data$agree[political_data$year
 aware_of_ons <- round_half_up(aware_nisra_ons_data$ons[aware_nisra_ons_data$year == ons_year])
 
 ## Awareness of NISRA Statistics ####
+## We need: aware of all, aware of none and aware of each individual answer
 
 ### Not heard of NISRA and aware of all / none of the statistics ####
 
+# Initialise new count column
 data_final <- data_final %>%
   mutate(
-    not_heard_yes_count = NA,
-    heard_yes_count = NA
+    pcos_yes_count = NA
   )
 
+# Loop only through PCOS1d_vars
 for (i in 1:nrow(data_final)) {
-  if (data_final$PCOS1[i] == "No") {
-    data_final$not_heard_yes_count[i] <- 0
-    for (j in 1:length(PCOS1d_vars)) {
-      if (!is.na(data_final[[PCOS1d_vars[j]]][i])) {
-        if (data_final[[PCOS1d_vars[j]]][i] == "Yes") {
-          data_final$not_heard_yes_count[i] <- data_final$not_heard_yes_count[i] + 1
-        }
-      }
-    }
-  } else {
-    data_final$heard_yes_count[i] <- 0
-    for (j in 1:length(PCOS1c_vars)) {
-      if (!is.na(data_final[[PCOS1c_vars[j]]][i])) {
-        if (data_final[[PCOS1c_vars[j]]][i] == "Yes") {
-          data_final$heard_yes_count[i] <- data_final$heard_yes_count[i] + 1
-        }
-      }
+  data_final$pcos_yes_count[i] <- 0
+  
+  for (j in 1:length(PCOS1d_vars)) {
+    value <- data_final[[PCOS1d_vars[j]]][i]
+    
+    if (!is.na(value) && value == "Yes") {
+      data_final$pcos_yes_count[i] <- data_final$pcos_yes_count[i] + 1
     }
   }
 }
 
+# Add summary flags
 data_final <- data_final %>%
   mutate(
-    not_heard_aware_none = case_when(
-      not_heard_yes_count == 0 ~ TRUE,
-      TRUE ~ FALSE
-    ),
-    not_heard_aware_all = case_when(
-      not_heard_yes_count == length(PCOS1c_vars) ~ TRUE,
-      TRUE ~ FALSE
-    ),
-    heard_aware_none = case_when(
-      heard_yes_count == 0 ~ TRUE,
-      TRUE ~ FALSE
-    ),
-    heard_aware_all = case_when(
-      heard_yes_count == length(PCOS1c_vars) ~ TRUE,
-      TRUE ~ FALSE
-    )
+    aware_none = pcos_yes_count == 0,
+    aware_all  = pcos_yes_count == length(PCOS1d_vars)
   )
 
-
-not_heard_aware_none <- round_half_up(f_return_p_group(data_final, "not_heard_aware_none", TRUE, "PCOS1", "No") * 100)
-not_heard_aware_all <- round_half_up(f_return_p_group(data_final, "not_heard_aware_all", TRUE, "PCOS1", "No") * 100)
+aware_none <- round_half_up(f_return_p_group(data_final, "aware_none", TRUE, "PCOS1", "No") * 100)
+aware_all <- round_half_up(f_return_p_group(data_final, "aware_all", TRUE, "PCOS1", "No") * 100)
 
 ### Not heard of NISRA but aware of outputs ####
+## Removing census for 2025 and adding household waste
 
-not_heard_aware_census <- round_half_up(aware_stats_data$yes[grepl("NI Census", aware_stats_data$output)])
-not_heard_aware_unemployment <- round_half_up(aware_stats_data$yes[grepl("unemployment", aware_stats_data$output)])
-not_heard_aware_hospital <- round_half_up(aware_stats_data$yes[grepl("hospital", aware_stats_data$output)])
-not_heard_aware_people <- round_half_up(aware_stats_data$yes[grepl("number of people", aware_stats_data$output)])
-not_heard_aware_cycling <- round_half_up(aware_stats_data$yes[grepl("cycling", aware_stats_data$output)])
+#not_heard_aware_census <- round_half_up(aware_stats_data$yes[grepl("NI Census", aware_stats_data$output)])
+aware_unemployment <- round_half_up(aware_stats_data$yes[grepl("unemployment", aware_stats_data$output)])
+aware_hospital <- round_half_up(aware_stats_data$yes[grepl("hospital", aware_stats_data$output)])
+aware_people <- round_half_up(aware_stats_data$yes[grepl("number of people", aware_stats_data$output)])
+aware_cycling <- round_half_up(aware_stats_data$yes[grepl("cycling", aware_stats_data$output)])
+aware_waste <- round_half_up(aware_stats_data$yes[grepl("household waste", aware_stats_data$output)])
 
 ### Heard of NISRA and aware of all / none of the statistics ####
 
-heard_aware_none <- round_half_up(f_return_p_group(data_final, "heard_aware_none", TRUE, "PCOS1", "Yes") * 100)
-heard_aware_all <- round_half_up(f_return_p_group(data_final, "heard_aware_all", TRUE, "PCOS1", "Yes") * 100)
+# heard_aware_none <- round_half_up(f_return_p_group(data_final, "heard_aware_none", TRUE, "PCOS1", "Yes") * 100)
+# heard_aware_all <- round_half_up(f_return_p_group(data_final, "heard_aware_all", TRUE, "PCOS1", "Yes") * 100)
 
-heard_aware_census <- round_half_up(aware_stats_by_nisra_data$yes[grepl("NI Census", aware_stats_by_nisra_data$output)])
-heard_aware_people <- round_half_up(aware_stats_by_nisra_data$yes[grepl("number of people", aware_stats_by_nisra_data$output)])
-heard_aware_deaths <- round_half_up(aware_stats_by_nisra_data$yes[grepl("deaths", aware_stats_by_nisra_data$output)])
-heard_aware_unemployment <- round_half_up(aware_stats_by_nisra_data$yes[grepl("unemployment", aware_stats_by_nisra_data$output)])
-heard_of_aware_qualifications <- round_half_up(aware_stats_by_nisra_data$yes[grepl("Qualifications", aware_stats_by_nisra_data$output)])
-heard_of_aware_poverty <- round_half_up(aware_stats_by_nisra_data$yes[grepl("poverty", aware_stats_by_nisra_data$output)])
-heard_of_aware_cycling <- round_half_up(aware_stats_by_nisra_data$yes[grepl("cycling", aware_stats_by_nisra_data$output)])
+### Not heard of NISRA and aware of outputs ####
+
+# heard_aware_census <- round_half_up(aware_stats_by_nisra_data$yes[grepl("NI Census", aware_stats_by_nisra_data$output)])
+# heard_aware_people <- round_half_up(aware_stats_by_nisra_data$yes[grepl("number of people", aware_stats_by_nisra_data$output)])
+# heard_aware_deaths <- round_half_up(aware_stats_by_nisra_data$yes[grepl("deaths", aware_stats_by_nisra_data$output)])
+# heard_aware_unemployment <- round_half_up(aware_stats_by_nisra_data$yes[grepl("unemployment", aware_stats_by_nisra_data$output)])
+# heard_of_aware_qualifications <- round_half_up(aware_stats_by_nisra_data$yes[grepl("Qualifications", aware_stats_by_nisra_data$output)])
+# heard_of_aware_poverty <- round_half_up(aware_stats_by_nisra_data$yes[grepl("poverty", aware_stats_by_nisra_data$output)])
+# heard_of_aware_cycling <- round_half_up(aware_stats_by_nisra_data$yes[grepl("cycling", aware_stats_by_nisra_data$output)])
 
 ## Trust in NISRA ####
 
@@ -584,6 +804,32 @@ heard_of_and_trust_nisra_stats <- round_half_up(f_return_p_group(data_final, "Tr
 trust_in_ons_stats <- round_half_up(trust_stats_nisra_ons_data$trust[grepl("ONS", trust_stats_nisra_ons_data$org)])
 distrust_ons_stats <- round_half_up(trust_stats_nisra_ons_data$distrust[grepl("ONS", trust_stats_nisra_ons_data$org)])
 dont_know_trust_ons_stats <- round_half_up(trust_stats_nisra_ons_data$dont_know[grepl("ONS", trust_stats_nisra_ons_data$org)])
+
+## Reasons Trust in NISRA Statistics ####
+## Need to add figures for PCOS3b and PCOS3c
+
+Reasons_trust_experience <- round_half_up(percent_weighted_df$percent_weighted[grepl("experience", percent_weighted_df$option)])
+Reasons_trust_accurate <- round_half_up(percent_weighted_df$percent_weighted[grepl("accurate", percent_weighted_df$option)])
+Reasons_trust_good <- round_half_up(percent_weighted_df$percent_weighted[grepl("good", percent_weighted_df$option)])
+Reasons_trust_easy <- round_half_up(percent_weighted_df$percent_weighted[grepl("easy", percent_weighted_df$option)])
+Reasons_trust_nisra_vested <- round_half_up(percent_weighted_df$percent_weighted[grepl("NISRA does not have a vested interest", percent_weighted_df$option)])
+Reasons_trust_gov_vested <- round_half_up(percent_weighted_df$percent_weighted[grepl("Government departments in Northern Ireland", percent_weighted_df$option)])
+Reasons_trust_experts <- round_half_up(percent_weighted_df$percent_weighted[grepl("experts", percent_weighted_df$option)])
+Reasons_trust_other <- round_half_up(percent_weighted_df$percent_weighted[grepl("Other reason", percent_weighted_df$option)])
+
+## Reasons distrust in NISRA Statistics ####
+
+Reasons_distrust_experience <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("experience", percent_weighted_distrust_df$option)])
+Reasons_distrust_accurate <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("accurate", percent_weighted_distrust_df$option)])
+Reasons_distrust_bad <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("bad", percent_weighted_distrust_df$option)])
+Reasons_distrust_difficult <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("difficult", percent_weighted_distrust_df$option)])
+Reasons_distrust_nisra_vested <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("NISRA has a vested interest", percent_weighted_distrust_df$option)])
+Reasons_distrust_gov_vested <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("Government departments in Northern Ireland", percent_weighted_distrust_df$option)])
+Reasons_distrust_politicians <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("politicians", percent_weighted_distrust_df$option)])
+Reasons_distrust_media <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("media", percent_weighted_distrust_df$option)])
+Reasons_distrust_story <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("story", percent_weighted_distrust_df$option)])
+Reasons_distrust_understanding <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("understanding", percent_weighted_distrust_df$option)])
+Reasons_distrust_other <- round_half_up(percent_weighted_distrust_df$percent_weighted[grepl("Other", percent_weighted_distrust_df$option)])
 
 ## Value ####
 

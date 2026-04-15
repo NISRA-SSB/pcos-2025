@@ -1,3 +1,4 @@
+message("run_ods_tables.R has started running")
 # Read in the data prep script ####
 library(here)
 source(paste0(here(), "/code/ods_tables/data_prep_for_ods.R"))
@@ -164,6 +165,16 @@ f_worksheet(wb,
 )
 
 ## Awareness of NISRA Statistics ####
+## Needs to be updated for 2025
+## Table 2.1a: Aware of NISRA statistics on the number of deaths in Northern Ireland ####
+## Table 2.1b: Aware of NISRA statistics on recorded levels of crime in Northern Ireland ####
+## Table 2.1c: Aware of NISRA statistics on the qualifications of school leavers in Northern Ireland ####
+## Table 2.1d: Aware of NISRA statistics on the number of people who live in Northern Ireland ####
+## Table 2.1e: Aware of NISRA statistics on hospital waiting times in Northern Ireland ####
+## Table 2.1f: Aware of NISRA statistics on the unemployment rate in Northern Ireland ####
+## Table 2.1g: Aware of NISRA statistics on people living in poverty in Northern Ireland ####
+## Table 2.1h: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland ####
+## Table 2.1i: Aware of NISRA statistics on percentage of household waste that is reused, recycled or composted ####
 
 f_worksheet(wb,
   sheet_name = "Awareness_NISRA_Statistics",
@@ -196,80 +207,81 @@ f_worksheet(wb,
     ),
     list(
       data = table_2.1f_data,
-      title = paste("Table 2.1f: Aware of NISRA statistics on the Northern Ireland Census every ten years,", current_year)
+      title = paste("Table 2.1f: Aware of NISRA statistics on the unemployment rate in Northern Ireland,", current_year)
     ),
     list(
       data = table_2.1g_data,
-      title = paste("Table 2.1g: Aware of NISRA statistics on the unemployment rate in Northern Ireland,", current_year)
+      title = paste("Table 2.1g: Aware of NISRA statistics on people living in poverty in Northern Ireland,", current_year)
     ),
     list(
       data = table_2.1h_data,
-      title = paste("Table 2.1h: Aware of NISRA statistics on people living in poverty in Northern Ireland,", current_year)
+      title = paste("Table 2.1h: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland,", current_year)
     ),
     list(
       data = table_2.1i_data,
-      title = paste("Table 2.1i: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland,", current_year)
+      title = paste("Table 2.1i: Aware of NISRA statistics on percentage of household waste that is reused, recycled or composted,", current_year)
     ),
     list(
       data = table_2.1j_data,
-      title = paste("Table 2.1j: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA),", current_year)
+      title = paste("Table 2.1j: Number of selected NISRA statistics respondents had heard of,", current_year)
     )
   )
 )
 
 ## Aware Statistics by NISRA ####
+## Removed for 2025
 
-f_worksheet(wb,
-  sheet_name = "Aware_Statistics_by_NISRA",
-  contents = "Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA",
-  title = c(
-    "Question asked of those who were aware of NISRA before being contacted about the survey:",
-    "Qu 2.2: NISRA produces official statistics for Northern Ireland on a wide range of issues. Were you aware that this information was produced by NISRA statisticians?"
-  ),
-  outlining = "outlining awareness that specified statistics are produced by NISRA statisticians, among those who had heard of NISRA.",
-  tables = list(
-    list(
-      data = table_2.2a_data,
-      title = paste("Table 2.2a: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2b_data,
-      title = paste("Table 2.2b: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2c_data,
-      title = paste("Table 2.2c: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2d_data,
-      title = paste("Table 2.2d: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2e_data,
-      title = paste("Table 2.2e: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2f_data,
-      title = paste("Table 2.2f: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2g_data,
-      title = paste("Table 2.2g: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2h_data,
-      title = paste("Table 2.2h: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2i_data,
-      title = paste("Table 2.2i: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians,", current_year)
-    ),
-    list(
-      data = table_2.2j_data,
-      title = paste("Table 2.2j: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA),", current_year)
-    )
-  )
-)
+# f_worksheet(wb,
+#   sheet_name = "Aware_Statistics_by_NISRA",
+#   contents = "Awareness that specified statistics are produced by NISRA statisticians among those who were aware of NISRA",
+#   title = c(
+#     "Question asked of those who were aware of NISRA before being contacted about the survey:",
+#     "Qu 2.2: NISRA produces official statistics for Northern Ireland on a wide range of issues. Were you aware that this information was produced by NISRA statisticians?"
+#   ),
+#   outlining = "outlining awareness that specified statistics are produced by NISRA statisticians, among those who had heard of NISRA.",
+#   tables = list(
+#     list(
+#       data = table_2.2a_data,
+#       title = paste("Table 2.2a: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2b_data,
+#       title = paste("Table 2.2b: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2c_data,
+#       title = paste("Table 2.2c: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2d_data,
+#       title = paste("Table 2.2d: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2e_data,
+#       title = paste("Table 2.2e: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2f_data,
+#       title = paste("Table 2.2f: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2g_data,
+#       title = paste("Table 2.2g: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2h_data,
+#       title = paste("Table 2.2h: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2i_data,
+#       title = paste("Table 2.2i: Aware that statistics on the percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians,", current_year)
+#     ),
+#     list(
+#       data = table_2.2j_data,
+#       title = paste("Table 2.2j: Number of specified statistics respondents are aware are produced by NISRA statisticians (among those who had previously heard of NISRA),", current_year)
+#     )
+#   )
+# )
 
 ## Trust in NISRA ####
 
@@ -402,6 +414,36 @@ f_worksheet(wb,
     list(
       data = table_4d_data,
       title = paste0("Table 4d: Trust in ONS statistics, 2014 to ", ons_year)
+    )
+  )
+)
+
+## Add pcos3b table
+
+f_worksheet(wb,
+  sheet_name = "Reasons_Trust_NISRA_Stats",
+  contents = "Reason for Trust in NISRA",
+  title = "Qu 4.1: What are your main reasons for trusting statistics produced by NISRA? ",
+  outlining = "outlining trust in NISRA as an institution.",
+  tables = list(
+    list(
+      data = table_4.1a_data,
+      title = paste0("Table 4.1a: Reasons for Trusting NISRA in ", current_year)
+    )
+  )
+)
+
+## Add pcos3c table
+
+f_worksheet(wb,
+  sheet_name = "Reasons_Distrust_NISRA_Stats",
+  contents = "Reasons for Distrust in NISRA",
+  title = "Qu 4.2: What are your main reasons for not trusting statistics produced by NISRA?",
+  outlining = "outlining trust in NISRA as an institution.",
+  tables = list(
+    list(
+      data = table_4.2a_data,
+      title = paste0("Table 4.2a: Reasons for Distrusting NISRA in ", current_year)
     )
   )
 )

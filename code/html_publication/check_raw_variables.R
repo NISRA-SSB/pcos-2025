@@ -1,17 +1,40 @@
+## Creates variable checks spreadsheet with frequency tables and crosstabs
+
+# creates rds file for this years data
 saveRDS(data_raw, paste0(data_folder, "Raw/PCOS ", current_year, " Dataset.RDS"))
 
-PCOS_vars <- c(names(data_raw)[grepl("PCOS", names(data_raw))], "DERHI", "EMPST2", "AGE")
-PCOS1c_vars <- names(data_raw)[grepl("PCOS1c", names(data_raw)) & names(data_raw) != "PCOS1c"]
+PCOS_vars <- c(names(data_raw)[grepl("PCOS", names(data_raw))]
+               # , "DERHI", "EMPST2"
+               , "AGE"
+               )
+#PCOS1c_vars <- names(data_raw)[grepl("PCOS1c", names(data_raw)) & names(data_raw) != "PCOS1c"]
 PCOS1d_vars <- names(data_raw)[grepl("PCOS1d", names(data_raw)) & names(data_raw) != "PCOS1d"]
-PCOS_vars <- PCOS_vars[PCOS_vars != c("PCOS1c")]
+#PCOS_vars <- PCOS_vars[PCOS_vars != c("PCOS1c")]
 PCOS_vars <- PCOS_vars[PCOS_vars != c("PCOS1d")]
 
+# assigns last years data to data_last variable
 data_last <- readRDS(paste0(data_folder, "Raw/PCOS ", current_year - 1, " Dataset.RDS"))
 
 # first_label <- which(grepl("Before being contacted", attributes(data_raw)$var.label))
 
 old_q <- c("PCOS1", trust_q_old, agree_q_old)
 new_q <- c("AwareNISRA2", trust_q_new, agree_q_new)
+
+data_raw_f <- data_raw
+data_last_f <- data_last
+data_last_f[PCOS_vars[10]] <- NA
+data_last_f[PCOS_vars[16]] <- NA
+data_last_f[PCOS_vars[17]] <- NA
+data_last_f[PCOS_vars[18]] <- NA
+data_last_f[PCOS_vars[19]] <- NA
+data_last_f[PCOS_vars[20]] <- NA
+data_last_f[PCOS_vars[21]] <- NA
+data_last_f[PCOS_vars[22]] <- NA
+data_last_f[PCOS_vars[23]] <- NA  # create col for missing pcos vars and fill with NA
+                                  # LATER: add function to check if column exists from PCOS, if not, fill with NA
+
+#data_last_f$PCOS_vars[10] <- PCOS_vars[10]
+                                   
 
 wb <- createWorkbook()
 modifyBaseFont(wb, fontSize = 12, fontName = "Arial")
@@ -20,34 +43,56 @@ addWorksheet(wb, "Raw Variables")
 
 r <- 1
 
+# Attempts
+# for (i in PCOS_vars) {
+#   if (!col %in% names(data_last_f)) {
+#     data_last_f[[col]] <- NA
+#   }
+# }
+
+# data_last_f <- data_last_f %>%
+#   mutate(across(
+#     .cols = setdiff(PCOS_vars, names(data_last_f)),
+#     .fns = ~ NA
+#   ))
+
+# for (i in 1:length(PCOS_vars)) {
+#   if (!PCOS_vars[i] %in% colnames(data_last_f)) {
+#     colnames(data_last_f)[[PCOS_vars[i]]] <- NA
+#   }
+# }
+
+
 for (i in 1:length(PCOS_vars)) {
-  if (PCOS_vars[i] %in% PCOS1c_vars) {
-    data_raw_f <- data_raw %>%
-      filter(PCOS1 == "Yes")
-
-    data_last_f <- data_last %>%
-      filter(PCOS1 == "Yes")
-  } else if (PCOS_vars[i] %in% PCOS1d_vars) {
-    data_raw_f <- data_raw %>%
-      filter(PCOS1 == "No")
-
-    data_last_f <- data_last %>%
-      filter(PCOS1 == "No")
-  } else {
-    data_raw_f <- data_raw
-
-    data_last_f <- data_last
-  }
+   # if (PCOS_vars[i] %in% PCOS1c_vars) {
+   #   data_raw_f <- data_raw %>%
+   #     filter(PCOS1 == "Yes")
+   # 
+   #   data_last_f <- data_last %>%
+   #     filter(PCOS1 == "Yes")
+   # } else 
+   # if (PCOS_vars[i] %in% PCOS1d_vars) {
+   #   data_raw_f <- data_raw %>%
+   #     filter(PCOS1 == "No")
+   # 
+   #   data_last_f <- data_last %>%
+   #     filter(PCOS1 == "No")
+   # } else {
+    # data_raw_f <- data_raw
+    # 
+    # data_last_f <- data_last
+   # }
+  
 
   frequency_table <- data_last_f %>%
-    group_by(var = .[[PCOS_vars[i]]]) %>%
+    group_by(var = .data[[PCOS_vars[i]]]) %>%
     summarise(
       unweighted_last = n(),
       weighted_last = sum(W3)
     ) %>%
     full_join(
       data_raw_f %>%
-        group_by(var = .[[PCOS_vars[i]]]) %>%
+        group_by(var = .data[[PCOS_vars[i]]]) %>%
         summarise(
           unweighted_current = n(),
           weighted_current = sum(W3)
@@ -155,14 +200,14 @@ for (i in 1:length(PCOS_vars)) {
     cols = c(2, 3, 6, 7, 9, 10, 13, 14),
     gridExpand = TRUE
   )
-  
+
   addStyle(wb, "Raw Variables",
            ns3d,
            rows = r + nrow(frequency_table),
            cols = c(13, 14),
            gridExpand = TRUE
   )
-  
+
   addStyle(wb, "Raw Variables",
            ns_comma,
            rows = (r + 1):(r + nrow(frequency_table)),
@@ -171,6 +216,7 @@ for (i in 1:length(PCOS_vars)) {
   )
 
   r <- r + nrow(frequency_table) + 2
+
 }
 
 setColWidths(wb, "Raw Variables",
@@ -184,71 +230,71 @@ freezePane(wb, "Raw Variables",
 
 # PCOS 1c Crosstabs ####
 
-addWorksheet(wb, "PCOS1c Raw")
-
-r <- 1
-
-for (i in 1:length(PCOS1c_vars)) {
-  responses <- levels(data_raw[[PCOS1c_vars[i]]])
-
-  crosstab <- data.frame(PCOS1 = c("Yes", "No", "Don't know"))
-
-  for (j in 1:length(responses)) {
-    crosstab[[responses[j]]] <- c(
-      data_raw %>%
-        filter(PCOS1 == "Yes" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
-        nrow(),
-      data_raw %>%
-        filter(PCOS1 == "No" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
-        nrow(),
-      data_raw %>%
-        filter(PCOS1 == "Don't know" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
-        nrow()
-    )
-  }
-
-  writeData(wb, "PCOS1c Raw",
-    x = paste0(PCOS1c_vars[i], " by PCOS1"),
-    startRow = r
-  )
-
-  addStyle(wb, "PCOS1c Raw",
-    pt2,
-    rows = r,
-    cols = 1
-  )
-
-  r <- r + 1
-
-  writeData(wb, "PCOS1c Raw",
-    x = PCOS1c_vars[i],
-    startRow = r,
-    startCol = 2
-  )
-
-  mergeCells(wb, "PCOS1c Raw",
-    cols = 2:ncol(crosstab),
-    rows = r
-  )
-
-  addStyle(wb, "PCOS1c Raw",
-    ch2,
-    rows = r,
-    cols = 2
-  )
-
-  r <- r + 1
-
-  writeDataTable(wb, "PCOS1c Raw",
-    crosstab,
-    tableStyle = "none",
-    headerStyle = ch,
-    withFilter = FALSE,
-    startRow = r
-  )
-
-  r <- r + nrow(crosstab) + 2
-}
+# addWorksheet(wb, "PCOS1c Raw")
+# 
+# r <- 1
+# 
+# for (i in 1:length(PCOS1c_vars)) {
+#   responses <- levels(data_raw[[PCOS1c_vars[i]]])
+# 
+#   crosstab <- data.frame(PCOS1 = c("Yes", "No", "Don't know"))
+# 
+#   for (j in 1:length(responses)) {
+#     crosstab[[responses[j]]] <- c(
+#       data_raw %>%
+#         filter(PCOS1 == "Yes" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
+#         nrow(),
+#       data_raw %>%
+#         filter(PCOS1 == "No" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
+#         nrow(),
+#       data_raw %>%
+#         filter(PCOS1 == "Don't know" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
+#         nrow()
+#     )
+#   }
+# 
+#   writeData(wb, "PCOS1c Raw",
+#     x = paste0(PCOS1c_vars[i], " by PCOS1"),
+#     startRow = r
+#   )
+# 
+#   addStyle(wb, "PCOS1c Raw",
+#     pt2,
+#     rows = r,
+#     cols = 1
+#   )
+# 
+#   r <- r + 1
+# 
+#   writeData(wb, "PCOS1c Raw",
+#     x = PCOS1c_vars[i],
+#     startRow = r,
+#     startCol = 2
+#   )
+# 
+#   mergeCells(wb, "PCOS1c Raw",
+#     cols = 2:ncol(crosstab),
+#     rows = r
+#   )
+# 
+#   addStyle(wb, "PCOS1c Raw",
+#     ch2,
+#     rows = r,
+#     cols = 2
+#   )
+# 
+#   r <- r + 1
+# 
+#   writeDataTable(wb, "PCOS1c Raw",
+#     crosstab,
+#     tableStyle = "none",
+#     headerStyle = ch,
+#     withFilter = FALSE,
+#     startRow = r
+#   )
+# 
+#   r <- r + nrow(crosstab) + 2
+# }
 
 # PCOS 1d Crosstabs ####
 

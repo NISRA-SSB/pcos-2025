@@ -1,3 +1,5 @@
+## Called before charts are created, creates dataframes
+
 # Check Trend folder exists
 if (!exists(paste0(data_folder, "Trend"))) {
   dir.create(paste0(data_folder, "Trend"))

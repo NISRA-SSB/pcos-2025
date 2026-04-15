@@ -1,3 +1,5 @@
+## Iterates on variables checks with recoded vars
+
 # Load checks workbook ####
 
 wb <- loadWorkbook(paste0(here(), "/outputs/Variable checks ", current_year, ".xlsx"))
@@ -10,7 +12,10 @@ data_last <- readRDS(paste0(data_folder, "Final/PCOS ", current_year - 1, " Fina
 
 r <- 1
 
-recoded_vars <- c(new_q, "DERHIanalysis", "DERHI", "AGE2")
+recoded_vars <- c(new_q
+                  # , "DERHIanalysis", "DERHI"
+                  , "AGE2"
+                  )
 recoded_vars <- recoded_vars[recoded_vars != c("TrustNIAssembly2")]
 recoded_vars <- recoded_vars[recoded_vars != c("TrustElectedRep2")]
 
@@ -145,8 +150,14 @@ addWorksheet(wb, "Crosstabs")
 
 r <- 1
 
-old_q <- c(old_q, "DERHI", "AGE")
-new_q <- c(new_q, "DERHIanalysis", "AGE2")
+old_q <- c(old_q
+           # , "DERHI"
+           , "AGE"
+           )
+new_q <- c(new_q
+           # , "DERHIanalysis"
+           , "AGE2"
+           )
 
 for (i in 1:length(new_q)) {
   if (old_q[i] == "AGE") {
