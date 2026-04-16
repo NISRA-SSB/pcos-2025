@@ -445,11 +445,13 @@ f_embed_ods(df = table_4b_data,
 
 `r f_borderline()`
 
-### Reasons for trusting NISRA
+### Reasons for trusting NISRA Statistics, `r current_year`
 
 This is a percentage of experience `r Reasons_trust_experience`%. Below is a chart:
 
-```{r Chart 9.1, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
+#### Chart 9.1, Reasons for trusting NISRA Statistics, `r current_year`
+
+```{r Chart 9.1, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=7}
 
 wrap_label <- function(x, width = 16) {
   sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
@@ -464,32 +466,35 @@ plot_ly(
   type = "bar",
   orientation = "h",
   marker = list(color = nisra_navy),
+  text = ~paste0(round_half_up(percent_weighted)), # add text inside bars
+  textposition = "inside",
+  insidetextanchor = "end",
+  texttemplate = "<b>%{x:.0f}</b>",
+  cliponaxis = FALSE,
   hovertext = ~paste0(option, ": ", round_half_up(percent_weighted), "%"),
   hoverinfo = "text"
 ) %>%
   layout(font = list(family = "Arial", size = 12),
-         bargap = 0.2,
+         bargap = 0.45,
          legend = list(orientation = "h",
                        x = 0.5,
                        y = -0.05,
                        xanchor = "center"),
-         xaxis = list(title = "",
-                      range = c(0,100),
+         xaxis = list(title = "Percentage",
+                      titlefont = list(size = 11),
+                      range = c(0,60),
                       showline = TRUE,
                       fixedrange = TRUE),
-         yaxis = list(title = "",
+         yaxis = list(categoryorder = "array",  # How to order the categories
+                      categoryarray = ~option_wrapped,
+                      title = "",
                       fixedrange = TRUE,
-                      tickangle = 0,
-                      automargin = TRUE),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1.05,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         margin = list(t = 50)) %>%
+                      ticks = "outside",
+                      ticklen = 2,          # very small
+                      tickwidth = 0,        # invisible
+                      tickcolor = "rgba(0,0,0,0)",
+                      tickpadding = 8),
+         margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
 f_extract_sheet(path = xl_filename,
@@ -498,7 +503,13 @@ f_extract_sheet(path = xl_filename,
 
 ```
 
-```{r Chart 9.2, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
+### Reasons for distrusting NISRA Statistics, `r current_year`
+
+Text
+
+#### Chart 9.2 Reasons for distrusting NISRA Statistics, `r current_year`
+
+```{r Chart 9.2, fig.alt = "Vertical bar chart, Reasons for distrusting NISRA.", fig.height=8}
 
 wrap_label <- function(x, width = 16) {
   sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
@@ -513,32 +524,36 @@ plot_ly(
   type = "bar",
   orientation = "h",
   marker = list(color = nisra_navy),
+  text = ~paste0(round_half_up(percent_weighted)), # add text inside bars
+  textposition = "inside",
+  insidetextanchor = "end",
+  texttemplate = "<b>%{x:.0f}</b>",
+  cliponaxis = FALSE,
   hovertext = ~paste0(option, ": ", round_half_up(percent_weighted), "%"),
   hoverinfo = "text"
 ) %>%
   layout(font = list(family = "Arial", size = 12),
-         bargap = 0.2,
+         bargap = 0.45,
          legend = list(orientation = "h",
                        x = 0.5,
                        y = -0.05,
                        xanchor = "center"),
-         xaxis = list(title = "",
-                      range = c(0,100),
+         xaxis = list(title = "Percentage",
+                      titlefont = list(size = 11),
+                      range = c(0,40),
                       showline = TRUE,
                       fixedrange = TRUE),
-         yaxis = list(title = "",
+         yaxis = list(categoryorder = "array",  # How to order the categories
+                      categoryarray = ~option_wrapped,
+                      title = "",
                       fixedrange = TRUE,
-                      tickangle = 0,
-                      automargin = TRUE),
-         annotations = list(text = "Percentage",
-                            x = 0,
-                            xref = "paper",
-                            xanchor = "center",
-                            y = 1.05,
-                            yref = "paper",
-                            yanchor = "bottom",
-                            showarrow = FALSE),
-         margin = list(t = 50)) %>%
+                      automargin = TRUE,
+                      ticks = "outside",
+                      ticklen = 2,          # very small
+                      tickwidth = 0,        # invisible
+                      tickcolor = "rgba(0,0,0,0)",
+                      tickpadding = 8),
+         margin = list(l = 0, r = 0)) %>%
   config(displayModeBar = FALSE)
 
 f_extract_sheet(path = xl_filename,
@@ -546,6 +561,8 @@ f_extract_sheet(path = xl_filename,
   sheet_title = paste0("Table 4.2a: Reasons for Distrusting NISRA in ", current_year))
 
 ```
+
+`r f_borderline()`
 
 ## 5. Value
 
