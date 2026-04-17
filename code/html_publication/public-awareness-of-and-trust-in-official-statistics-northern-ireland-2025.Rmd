@@ -457,7 +457,7 @@ wrap_label <- function(x, width = 16) {
   sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
 }
 
-percent_weighted_df$option_wrapped <- wrap_label(percent_weighted_df$option, width = 30)
+percent_weighted_df$option_wrapped <- wrap_label(percent_weighted_df$option_label, width = 30)
 
 plot_ly(
   data = percent_weighted_df,
@@ -471,7 +471,7 @@ plot_ly(
   insidetextanchor = "end",
   texttemplate = "<b>%{x:.0f}</b>",
   cliponaxis = FALSE,
-  hovertext = ~paste0(option, ": ", round_half_up(percent_weighted), "%"),
+  hovertext = ~paste0(option_label, ": ", round_half_up(percent_weighted), "%"),
   hoverinfo = "text"
 ) %>%
   layout(font = list(family = "Arial", size = 12),
@@ -486,12 +486,12 @@ plot_ly(
                       showline = TRUE,
                       fixedrange = TRUE),
          yaxis = list(categoryorder = "array",  # How to order the categories
-                      categoryarray = ~option_wrapped,
+                      categoryarray = rev(percent_weighted_df$option_wrapped),
                       title = "",
                       fixedrange = TRUE,
                       ticks = "outside",
-                      ticklen = 2,          # very small
-                      tickwidth = 0,        # invisible
+                      ticklen = 2,
+                      tickwidth = 0,
                       tickcolor = "rgba(0,0,0,0)",
                       tickpadding = 8),
          margin = list(l = 0, r = 0)) %>%
@@ -515,7 +515,7 @@ wrap_label <- function(x, width = 16) {
   sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
 }
 
-percent_weighted_distrust_df$option_wrapped <- wrap_label(percent_weighted_distrust_df$option, width = 30)
+percent_weighted_distrust_df$option_wrapped <- wrap_label(percent_weighted_distrust_df$option_label, width = 30)
 
 plot_ly(
   data = percent_weighted_distrust_df,
@@ -529,7 +529,7 @@ plot_ly(
   insidetextanchor = "end",
   texttemplate = "<b>%{x:.0f}</b>",
   cliponaxis = FALSE,
-  hovertext = ~paste0(option, ": ", round_half_up(percent_weighted), "%"),
+  hovertext = ~paste0(option_label, ": ", round_half_up(percent_weighted), "%"),
   hoverinfo = "text"
 ) %>%
   layout(font = list(family = "Arial", size = 12),
@@ -544,7 +544,7 @@ plot_ly(
                       showline = TRUE,
                       fixedrange = TRUE),
          yaxis = list(categoryorder = "array",  # How to order the categories
-                      categoryarray = ~option_wrapped,
+                      categoryarray = rev(percent_weighted_distrust_df$option_wrapped),
                       title = "",
                       fixedrange = TRUE,
                       automargin = TRUE,

@@ -400,29 +400,7 @@ trust_nisra_data <- trust_nisra_data %>%
 total_n <- sum(data_raw$PCOS3 == "Tend to trust them") + sum(data_raw$PCOS3 == "Trust them greatly")
 total_n2 <- sum(data_raw$PCOS3 == "Tend not to trust them") + sum(data_raw$PCOS3 == "Distrust them greatly")
 
-## Create pcos3b dataframe
-# my_list <- c(as.character(data_final$PCOS3b_1),
-#              as.character(data_final$PCOS3b_2),
-#              as.character(data_final$PCOS3b_3))
-# counts <- as.data.frame(table(unlist(my_list)))
-# 
-# pcos3b_long <- data_final %>%
-#   select(PCOS3b_1, PCOS3b_2, PCOS3b_3, W3) %>%
-#   tidyr::pivot_longer(cols = PCOS3b_1:PCOS3b_3,
-#                       names_to = "item",
-#                       values_to = "value")
-# 
-# pcos3b_long$value <- as.character(pcos3b_long$value)
-# counts$Var1 <- as.character(counts$Var1)
-# 
-# counts$percent <- sapply(counts$Var1, function(v) {
-#   f_return_p(pcos3b_long, "value", v, weight = "W3", dk = TRUE) * 100
-# })
-
-#counts$percent <- (counts$Freq / total_n) * 100
-
 ## Create PCOS3B percent of cases data
-
 # List all unique answer options
 options <- sort(unique(c(
   as.character(data_final$PCOS3b_1),
@@ -441,7 +419,6 @@ data_final <- data_final %>%
 # Filter trust-only respondents
 trust_only <- data_final %>%
   filter(PCOS3 %in% c("Trust them greatly", "Tend to trust them"))
-
 
 # Calculate unweighted & weighted indicators for each option
 percent_individuals_trust <- sapply(options, function(opt) {
@@ -469,16 +446,28 @@ percent_weighted_df <- data.frame(
   row.names = NULL
 )
 
+# Reorders options for plot output leaving DKs last
+percent_weighted_df <- percent_weighted_df %>%
+  mutate(
+    order_group = case_when(
+      option %in% c("DontKnow") ~ 2,
+      TRUE ~ 1
+    )
+  ) %>%
+  arrange(
+    order_group,
+    desc(percent_weighted)
+  )
 
-## Create PCOS3C dataframe
-# my_list2 <- c(as.character(data_final$PCOS3c_1),
-#               as.character(data_final$PCOS3c_2),
-#               as.character(data_final$PCOS3c_3))
-# counts2 <- as.data.frame(table(unlist(my_list2)))
-# counts2$percent <- (counts2$Freq / total_n2) * 100
+# Create new column for plot labels that reduces label size
+percent_weighted_df <- percent_weighted_df %>%
+  mutate(
+    option_label = option %>%
+      str_replace_all("\\bNorthern Ireland\\b", "NI") %>%
+      str_replace("^DontKnow$", "Don't Know")
+  )
 
 ## Create pcos3c percent of cases data
-
 # List all unique answer options
 options2 <- sort(unique(c(
   as.character(data_final$PCOS3c_1),
@@ -512,7 +501,6 @@ percent_individuals_distrust <- sapply(options2, function(opt) {
 }, simplify = FALSE)
 
 # Create separate dataframes
-
 # Unweighted DF
 percent_unweighted_distrust_df <- data.frame(
   option = options2,
@@ -526,7 +514,26 @@ percent_weighted_distrust_df <- data.frame(
   percent_weighted = sapply(percent_individuals_distrust, `[[`, "weighted"),
   row.names = NULL
 )
+# Reorders options for plot output leaving DKs last
+percent_weighted_distrust_df <- percent_weighted_distrust_df %>%
+  mutate(
+    order_group = case_when(
+      option %in% c("DontKnow") ~ 2,
+      TRUE ~ 1
+    )
+  ) %>%
+  arrange(
+    order_group,
+    desc(percent_weighted)
+  )
 
+# Create new column for plot labels that reduces label size
+percent_weighted_distrust_df <- percent_weighted_distrust_df %>%
+  mutate(
+    option_label = option %>%
+      str_replace_all("\\bNorthern Ireland\\b", "NI") %>%
+      str_replace("^DontKnow$", "Don't Know")
+  )
 
 ## Chart 6: Trust in NISRA and ONS as institutions ####
 
