@@ -105,11 +105,11 @@ f_embed_ods_timeseries(df = table_3.3a_data, sheet_title = paste0("Table 3.3a: T
 
 ### Reasons trust
 
-* `r f_embed_ods(df = table_3.1aa_data, sheet_title = paste0("Table 3.1aa: Reasons for Trusting NISRA in ", current_year), tab_name = "reasons_trust", app_b = TRUE)`
+* `r f_embed_ods(df = table_4.1a_data, sheet_title = paste0("table_4.1a_data: Reasons for Trusting NISRA in ", current_year), tab_name = "reasons_trust", app_b = TRUE)`
 
 ### Reasons distrust
 
-* `r f_embed_ods(df = table_3.1ab_data, sheet_title = paste0("Table 3.1ab: Reasons for Distrusting NISRA in ", current_year), tab_name = "reasons_distrust", app_b = TRUE)`
+* `r f_embed_ods(df = table_4.2a_data, sheet_title = paste0("table_4.2a_data: Reasons for Distrusting NISRA in ", current_year), tab_name = "reasons_distrust", app_b = TRUE)`
 
 ### Value
 
