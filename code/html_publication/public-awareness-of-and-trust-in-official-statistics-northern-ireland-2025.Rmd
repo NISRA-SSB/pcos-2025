@@ -451,7 +451,7 @@ f_embed_ods(df = table_4b_data,
 
 Respondents who indicated that they trust NISRA statistics were asked their reasons for doing so and could select up to three reasons from a predetermined list (Chart 9.1). The most frequently chosen reasons were that official statistics in Northern Ireland are generally accurate (`r Reasons_trust_accurate`%), that they trust the statistics from a personal experience (`r Reasons_trust_experience`%) and that NISRA does not have a vested interest in or manipulate the figures (`r Reasons_trust_nisra_vested`%).  
 
-#### Chart 9.1, Reasons for trusting NISRA statistics, `r current_year`
+#### Chart 9.1: Reasons for trusting NISRA statistics, `r current_year`
 
 ```{r Chart 9.1, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
 
@@ -509,7 +509,7 @@ f_extract_sheet(path = xl_filename,
 
 Similarly, respondents who indicated they do not trust NISRA statistics were asked their reasons for not doing so (chart 9.2). The reason most frequently chosen by respondents was that the statistics alone do not tell the whole story (`r Reasons_distrust_story`%). The next most common reason given was that Government departments have a vested interest in or manipulate the figures (`r Reasons_distrust_gov_vested`%).  
 
-#### Chart 9.2 Reasons for distrusting NISRA statistics, `r current_year`
+#### Chart 9.2: Reasons for distrusting NISRA statistics, `r current_year`
 
 ```{r Chart 9.2, fig.alt = "Vertical bar chart, Reasons for distrusting NISRA.", fig.height=7}
 
