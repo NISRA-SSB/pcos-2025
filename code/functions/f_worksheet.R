@@ -3,6 +3,7 @@ f_worksheet <- function(wb,
                         contents,
                         title,
                         outlining,
+                        post_outlining_text = NULL,
                         tables) {
   addWorksheet(wb, sheetName = sheet_name)
 
@@ -53,6 +54,28 @@ f_worksheet <- function(wb,
   }
 
   r <- r + 1
+  
+  ## Add new line
+  if (!is.null(post_outlining_text)) {
+    writeData(
+      wb,
+      sheet_name,
+      x = post_outlining_text,
+      startRow = r
+    )
+    
+    addStyle(
+      wb,
+      sheet_name,
+      rows = r,
+      cols = 1,
+      style = pt2,
+      gridExpand = TRUE
+    )
+    
+    r <- r + 1
+  }
+  
 
   writeData(wb, "Contents",
     contents,
