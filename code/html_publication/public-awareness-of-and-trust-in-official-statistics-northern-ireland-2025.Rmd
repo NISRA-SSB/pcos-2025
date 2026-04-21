@@ -61,7 +61,7 @@ This report presents findings on public awareness of NISRA (Northern Ireland Sta
 
 **Political Interference**
 
--   Almost four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference.
+-   Four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference.
 
 `r f_borderline()`
 
@@ -226,9 +226,9 @@ f_embed_ods_timeseries(df = table_1c_data,
 
 ### Awareness of NISRA statistics
 
-Respondents were asked whether they had heard of specific NISRA statistics. `r aware_none`% of had not heard of any of the statistics listed, while `r aware_all`% had heard of all the statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
+Respondents were asked whether they had heard of specific NISRA statistics. 33% of had not heard of any of the statistics listed, while 10% had heard of all the statistics. A more detailed breakdown is available in the accompanying tables (see [Appendix B](public-awareness-of-and-trust-in-official-statistics-northern-ireland-`r current_year`-appendix-b.html)).
 
-Just over half (`r aware_waste`%) of respondents were aware of statistics on the number of people who live in Northern Ireland (`r aware_people`%), statistics on hospital waiting times (`r aware_hospital`%) and the unemployment rate (`r aware_unemployment`%). However, less than one in five (`r aware_cycling`%) of respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
+Just over half of respondents were aware of statistics on the number of people who live in Northern Ireland (`r aware_people`%), statistics on hospital waiting times (`r aware_hospital`%) and the unemployment rate (`r aware_unemployment`%). However, less than one in five (`r aware_cycling`%) of respondents had heard of statistics on journeys made by walking, cycling or public transport in Northern Ireland (Chart 3).
 
 #### Chart 3: Awareness of specific NISRA statistics, `r current_year`
 
@@ -449,11 +449,11 @@ f_embed_ods(df = table_4b_data,
 
 ### Reasons for trusting NISRA statistics, `r current_year`
 
-Respondents who indicated that they trust NISRA statistics were asked their reasons for doing so and could select up to three reasons from a predetermined list (Chart 9.1). The most frequently chosen reasons were that official statistics in Northern Ireland are generally accurate (`r Reasons_trust_accurate`%), that they trust the statistics from a personal experience (`r Reasons_trust_experience`%) and that NISRA does not have a vested interest in or manipulate the figures (`r Reasons_trust_nisra_vested`%).  
+Respondents who indicated that they trust NISRA statistics were asked their reasons for doing so and could select up to three reasons from a predetermined list (Chart 10). The most frequently chosen reasons were that official statistics in Northern Ireland are generally accurate (`r Reasons_trust_accurate`%), that they trust the statistics from a personal experience (`r Reasons_trust_experience`%) and that NISRA does not have a vested interest in or manipulate the figures (`r Reasons_trust_nisra_vested`%).  
 
-#### Chart 9.1: Reasons for trusting NISRA statistics, `r current_year`
+#### Chart 10: Reasons for trusting NISRA statistics, `r current_year`
 
-```{r Chart 9.1, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
+```{r Chart 10, fig.alt = "Vertical bar chart, Reasons for trusting NISRA.", fig.height=6}
 
 wrap_label <- function(x, width = 16) {
   sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
@@ -507,11 +507,11 @@ f_extract_sheet(path = xl_filename,
 
 ### Reasons for distrusting NISRA statistics, `r current_year`
 
-Similarly, respondents who indicated they do not trust NISRA statistics were asked their reasons for not doing so (chart 9.2). The reason most frequently chosen by respondents was that the statistics alone do not tell the whole story (`r Reasons_distrust_story`%). The next most common reason given was that Government departments have a vested interest in or manipulate the figures (`r Reasons_distrust_gov_vested`%).  
+Similarly, respondents who indicated they do not trust NISRA statistics were asked their reasons for not doing so (Chart 11). The reason most frequently chosen by respondents was that the statistics alone do not tell the whole story (`r Reasons_distrust_story`%). The next most common reason given was that Government departments have a vested interest in or manipulate the figures (`r Reasons_distrust_gov_vested`%).  
 
-#### Chart 9.2: Reasons for distrusting NISRA statistics, `r current_year`
+#### Chart 11: Reasons for distrusting NISRA statistics, `r current_year`
 
-```{r Chart 9.2, fig.alt = "Vertical bar chart, Reasons for distrusting NISRA.", fig.height=7}
+```{r Chart 11, fig.alt = "Vertical bar chart, Reasons for distrusting NISRA.", fig.height=7}
 
 wrap_label <- function(x, width = 16) {
   sapply(x, function(s) paste(str_wrap(s, width = width), collapse = "<br>"))
@@ -570,18 +570,18 @@ f_extract_sheet(path = xl_filename,
 
 ### Current year, `r current_year`
 
-The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r disagree_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 10).
+The majority of respondents (`r importance_of_stats`%) agree that the statistics produced by NISRA are important to understand Northern Ireland. Most of the remaining respondents (`r dont_know_importance`%) don’t know, while `r disagree_importance`% of respondents disagree that statistics produced by NISRA are important to understand Northern Ireland (Chart 12).
 
 ### Comparison over time
 
-The percentage of respondents agreeing that NISRA statistics are important to understand Northern Ireland in 2025 is not significantly different than in 2022 to 2024 but is lower than earlier years (2020 and 2021) (Chart 10).
+The percentage of respondents agreeing that NISRA statistics are important to understand Northern Ireland in 2025 is not significantly different from 2022 to 2024 but is lower than earlier years (2020 and 2021) (Chart 12).
 
 When only those respondents who had a view are considered, i.e. excluding 'don't knows', agreement that NISRA statistics are important to understand Northern Ireland is higher than in 2024 and similar to 2020 to 2023.
 
 
-#### Chart 10: NISRA statistics are important to understand Northern Ireland (2016-`r current_year`)
+#### Chart 12: NISRA statistics are important to understand Northern Ireland (2016-`r current_year`)
 
-```{r Chart 10, fig.alt = "Vertical bar chart showing belief that NISRA statistics are important to understand Northern Ireland - agree responses in dark blue, disagree responses in light blue, and don't know responses in grey. Each bar represents a different year."}
+```{r Chart 12, fig.alt = "Vertical bar chart showing belief that NISRA statistics are important to understand Northern Ireland - agree responses in dark blue, disagree responses in light blue, and don't know responses in grey. Each bar represents a different year."}
 
 f_stacked_bar_vertical(stats_important_data)
 
@@ -595,12 +595,12 @@ f_embed_ods_timeseries(df = table_5a_data,
 
 The percentage of NISRA respondents (`r importance_of_stats`%) who agree that the statistics produced are important to understand their country is similar to ONS respondents (`r importance_of_ons`%).
 
-While NISRA respondents are more likely to answer ‘don’t know’ (`r dont_know_importance`%) than ONS respondents (`r dont_know_importance_ons`%), the percentage of respondents who disagree is notably lower for NISRA (`r disagree_importance`%) than it is for ONS (`r disagre_importance_ons`%) (Chart 11).
+While NISRA respondents are more likely to answer ‘don’t know’ (`r dont_know_importance`%) than ONS respondents (`r dont_know_importance_ons`%), the percentage of respondents who disagree is notably lower for NISRA (`r disagree_importance`%) than it is for ONS (`r disagre_importance_ons`%) (Chart 13).
 
 
-#### Chart 11: Statistics produced are important to understand our country, NISRA (`r current_year`) and ONS (`r ons_year`)
+#### Chart 13: Statistics produced are important to understand our country, NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 11, fig.alt = "Vertical bar chart showing belief that statistics produced by each institution are important in understanding the country. 89% for NISRA in 2022, 87% for ONS in 2021."}
+```{r Chart 13, fig.alt = "Vertical bar chart showing belief that statistics produced by each institution are important in understanding the country. 89% for NISRA in 2022, 87% for ONS in 2021."}
 
 f_stacked_bar_vertical(stats_important_nisra_ons_data)
 
@@ -620,17 +620,17 @@ f_embed_ods(df = table_5b_data,
 
 ### Current year, `r current_year`
 
-Four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference. Less than 1 in twenty (`r disagree_interference`%) of respondents disagree that NISRA statistics are free from political interference whilst the remaining respondents (`r dont_know_interference`%) answered that they ‘don’t know’ (Chart 12).
+Four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference. Less than 1 in twenty (`r disagree_interference`%) respondents disagree that NISRA statistics are free from political interference whilst the remaining respondents (`r dont_know_interference`%) answered that they ‘don’t know’ (Chart 14).
 
 ### Comparison over time
 
-Agreement that NISRA statistics are free from political interference is not significantly different than in 2021 to 2024 but lower than in 2020 (88%). However, when only those respondents who expressed an opinion are considered, agreement has increased since 2023 and 2024 and is similar to that in 2020 to 2022. 
+Agreement that NISRA statistics are free from political interference is not significantly different to earlier years (2021 to 2024) but lower than in 2020 (88%). However, when only those respondents who expressed an opinion are considered, agreement has increased since 2023 and 2024 and is similar to that between 2020 and 2022. 
 
 The percentage of respondents disagreeing that NISRA statistics are free from political interference (`r disagree_interference`%) has decreased since 2024 (10%).
 
-#### Chart 12: NISRA statistics are free from political interference (2014-`r current_year`)
+#### Chart 14: NISRA statistics are free from political interference (2014-`r current_year`)
 
-```{r Chart 12, fig.alt = "Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
+```{r Chart 14, fig.alt = "Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
 
 f_stacked_bar_vertical(political_data)
 
@@ -642,11 +642,11 @@ f_embed_ods_timeseries(df = table_6a_data,
 
 ###	Comparison with ONS
 
-In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 13). This is significantly lower than the NISRA figure.
+In comparison, `r free_from_interference_ons`% of respondents agree that statistics produced by ONS are free from political interference (Chart 15). This is significantly lower than the NISRA figure.
 
-#### Chart 13: Statistics produced are free from political interference, NISRA (`r current_year`) and ONS (`r ons_year`)
+#### Chart 15: Statistics produced are free from political interference, NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 13, fig.alt = "Vertical stacked bar chart showing belief that statistics are free from political interference. Belief that NISRA statistics are free from interference is at 80% in 2023 (dark blue segment), compared to 67% for ONS in 2023."}
+```{r Chart 15, fig.alt = "Vertical stacked bar chart showing belief that statistics are free from political interference. Belief that NISRA statistics are free from interference is at 80% in 2023 (dark blue segment), compared to 67% for ONS in 2023."}
 
 f_stacked_bar_vertical(political_nisra_ons_data)
 
@@ -665,7 +665,7 @@ f_embed_ods(df = table_6b_data,
 
 ### Current year, `r current_year`
 
-Ninety-one percent of respondents (`r agree_confidential`%) agree that personal information provided to NISRA will be kept confidential while `r disagree_confidential`% disagree. The remaining respondents 'don’t know' (`r dont_know_confidential`%) (Chart 14).
+Ninety-one percent of respondents (`r agree_confidential`%) agree that personal information provided to NISRA will be kept confidential while `r disagree_confidential`% disagree. The remaining respondents 'don’t know' (`r dont_know_confidential`%) (Chart 16).
 
 ### Comparison over time
 
@@ -673,9 +673,9 @@ The percentage of respondents agreeing that personal information provided to NIS
 
 Disagreement with the statement is lower than in 2023 and 2024, but similar to the previous three years (2020 to 2022). 
 
-#### Chart 14: Personal information provided to NISRA will be kept confidential (2014-`r current_year`)
+#### Chart 16: Personal information provided to NISRA will be kept confidential (2014-`r current_year`)
 
-```{r Chart 14, fig.alt = "Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
+```{r Chart 16, fig.alt = "Vertical bar chart, each bar represents a different year. Agree responses are in dark blue, disagree responses in light blue, don't know responses are in grey."}
 
 f_stacked_bar_vertical(confidential_data)
 
@@ -687,11 +687,11 @@ f_embed_ods_timeseries(df = table_7a_data,
 
 ###	Comparison with ONS
 
-In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` (the latest available data) agree that personal information provided to ONS will be kept confidential. This is significantly lower than for NISRA (Chart 15).
+In comparison, `r agree_confidential_ons`% of ONS respondents in `r ons_year` (the latest available data) agree that personal information provided to ONS will be kept confidential. This is significantly lower than for NISRA (Chart 17).
 
-#### Chart 15: Belief that personal information provided will be kept confidential, NISRA (`r current_year`) and ONS (`r ons_year`)
+#### Chart 17: Belief that personal information provided will be kept confidential, NISRA (`r current_year`) and ONS (`r ons_year`)
 
-```{r Chart 15, fig.alt = "Vertical bar chart showing belief that personal information will be kept confidential by institution. In 2023, 85% believed that NISRA would keep personal information confidential (dark blue segment), compared to 88% for ONS in 2023."}
+```{r Chart 17, fig.alt = "Vertical bar chart showing belief that personal information will be kept confidential by institution. In 2023, 85% believed that NISRA would keep personal information confidential (dark blue segment), compared to 88% for ONS in 2023."}
 
 f_stacked_bar_vertical(condifential_nisra_ons_data)
 
@@ -741,7 +741,7 @@ Each year CSU sets the content of the CHS questionnaire in consultation with cli
 
 ### Data Collection
 
-The CHS is based on a systematic random sample of approximately 9,000 addresses drawn each year from the NISRA Address Register. The NISRA Address Register is maintained by Census Branch and is created by merging the POINTER database (maintained by Land and Property Services) with additional records, and removing duplicates and communal establishments. The interviews are spread over the 12 months from April to March. Data are collected through face-to-face interviews using CAPI (Computer Assisted Personal Interviewing) or telephone interviews using CATI (Computer-assisted telephone interviewing). Of the <mark>2,340</mark> addresses selected for interview from `r survey_start_mth` to `r survey_end_mth` `r current_year`, `r sample_size` persons participated in this module of the survey.
+The CHS is based on a systematic random sample of approximately 9,000 addresses drawn each year from the NISRA Address Register. The NISRA Address Register is maintained by Census Branch and is created by merging the POINTER database (maintained by Land and Property Services) with additional records, and removing duplicates and communal establishments. The interviews are spread over the 12 months from April to March. Data are collected through face-to-face interviews using CAPI (Computer Assisted Personal Interviewing) or telephone interviews using CATI (Computer-assisted telephone interviewing). Of the 2,340 addresses selected for interview from `r survey_start_mth` to `r survey_end_mth` `r current_year`, `r sample_size` persons participated in this module of the survey.
 
 ### Survey Estimates
 
@@ -751,7 +751,7 @@ Significance tests were carried out to determine if there were likely to be real
 
 ### Weighting
 
-The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduces non-response bias to the results. To counter this, weights are applied to the analysis on the basis of age and sex. Weights are calculated based on how the age and sex profile of the survey respondents differs from that of the latest mid-year population estimates published by NISRA. <mark>The 2023 mid-year estimates (published in September 2024) were used for the 2024/25 CHS</mark>. This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults across Northern Ireland, thus allowing inferences to be made about the population. The percentages given in the tables in this report are based on weighted data. The totals in the tables are not weighted.
+The CHS aspires to interview everyone aged 16 or over at a selected household, but non-response either by the household as a whole or by individuals within the household introduces non-response bias to the results. To counter this, weights are applied to the analysis on the basis of age and sex. Weights are calculated based on how the age and sex profile of the survey respondents differs from that of the latest mid-year population estimates published by NISRA. The 2024 mid-year estimates were used for the 2025/26 CHS. This weighting process adjusts the results to those that would have been achieved if the sample had been drawn as a random sample of adults across Northern Ireland, thus allowing inferences to be made about the population. The percentages given in the tables in this report are based on weighted data. The totals in the tables are not weighted.
 
 ### Quality Checks
 
@@ -763,7 +763,7 @@ On receipt of the CHS data, Statistical Support Branch validate and perform qual
 
 Due to the COVID-19 pandemic, data collection for the CHS moved from face-to-face interviewing to telephone mode in March 2020. This required a reduction in the number of questions in the overall questionnaire. While the Public Awareness and Trust in Official Statistics questions were unaltered, the change in data collection mode and the number of questions may have altered how people responded to the survey. In July 2022, face-to-face interviewing was reinstated alongside telephone interviewing, thus making the survey dual modality. In 2024/25, interviewers were advised that face to face interviewing should be used where possible.
 
-The achieved response rate for the CHS was also lower than normal in 2020/21 (16% compared to the normal achieved response rate of 55% in face-to-face mode) and slightly lower than normal in 2021/22 (41%). As a result, the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this maintained the precision of the 2020 estimates and has enabled comparisons with other years in the time series, the timing of the 2020 module does not align as well with other years. The achieved response rate for the <mark>2024/25 CHS was 46%</mark>. More information is available on the [NISRA website](https://www.nisra.gov.uk/publications/chs-survey-documents).
+The achieved response rate for the CHS was also lower than normal in 2020/21 (16% compared to the normal achieved response rate of 55% in face-to-face mode) and slightly lower than normal in 2021/22 (41%). As a result, the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this maintained the precision of the 2020 estimates and has enabled comparisons with other years in the time series, the timing of the 2020 module does not align as well with other years. The achieved response rate for the 2025/26 CHS is 43%. More information is available on the [NISRA website](https://www.nisra.gov.uk/publications/chs-survey-documents).
 
 ### Further Information
 
