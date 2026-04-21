@@ -14,8 +14,10 @@ trust_q_new <- c("TrustCivilService2", trust_body_var, "TrustAssemblyElectedBody
 agree_q_old <- c("PCOS4", "PCOS5", "PCOS6")
 agree_q_new <- c("NISRAstatsImp2", "Political2", "Confidential2")
 
-# Read data in from SPSS ####
+# Set locale to always use UTF-8
+Sys.setlocale("LC_CTYPE", "UTF-8")
 
+# Read data in from SPSS ####
 data_raw <- f_read_spss(filepath = paste0(data_folder, "Raw/", data_filename),
                         pass = password)
 
@@ -450,7 +452,8 @@ percent_weighted_df <- data.frame(
 percent_weighted_df <- percent_weighted_df %>%
   mutate(
     order_group = case_when(
-      option %in% c("DontKnow") ~ 2,
+      option %in% c("DontKnow") ~ 3,
+      option %in% c("Other reason") ~ 2,
       TRUE ~ 1
     )
   ) %>%
@@ -518,7 +521,8 @@ percent_weighted_distrust_df <- data.frame(
 percent_weighted_distrust_df <- percent_weighted_distrust_df %>%
   mutate(
     order_group = case_when(
-      option %in% c("DontKnow") ~ 2,
+      option %in% c("DontKnow") ~ 3,
+      option %in% c("Other reason") ~ 2,
       TRUE ~ 1
     )
   ) %>%
@@ -760,8 +764,8 @@ data_final <- data_final %>%
     aware_all  = pcos_yes_count == length(PCOS1d_vars)
   )
 
-aware_none <- round_half_up(f_return_p_group(data_final, "aware_none", TRUE, "PCOS1", "No") * 100)
-aware_all <- round_half_up(f_return_p_group(data_final, "aware_all", TRUE, "PCOS1", "No") * 100)
+aware_none <- round_half_up(f_return_p_group(data_final, "aware_none", TRUE, "PCOS1", unique(data_final$PCOS1)) * 100)
+aware_all <- round_half_up(f_return_p_group(data_final, "aware_all", TRUE, "PCOS1", unique(data_final$PCOS1)) * 100)
 
 ### Not heard of NISRA but aware of outputs ####
 ## Removing census for 2025 and adding household waste
