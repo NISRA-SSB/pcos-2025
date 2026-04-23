@@ -1,5 +1,5 @@
 ---
-title: "Public Awareness Of And Trust In Official Statistics, Northern Ireland 2024"
+title: "Public Awareness Of And Trust In Official Statistics, Northern Ireland 2025"
 lang: "en"
 output:
   html_document:
@@ -59,52 +59,28 @@ Before being contacted about this survey had you heard of NISRA, the Northern Ir
 1. Yes
 1. No
 
-_If answered 'yes' to Qu1 then_
-
-<div style = "margin-left: 2em">
-
 #### Qu 2a: Aware statistics produced by NISRA 
 
 NISRA produces official statistics for Northern Ireland on a wide range of issues. 
 
 I am going to list a number of these and want you to tell me if you knew before today that this information was produced by NISRA statisticians. 
 
-```{r PCOS1c}
+```{r PCOS1d}
 
 outputs <- c()
 
-for (i in 1:length(PCOS1c_vars)) {
-  outputs[i] <- sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws()
+for (i in 1:length(PCOS1d_vars)) {
+  outputs[i] <- sub("\\..*", "", attributes(data_final[[PCOS1d_vars[i]]])$label) %>% trimws()
 }
 
-pcos1c <- data.frame(
+pcos1d <- data.frame(
   Question = outputs) %>%
   mutate(`Aware produced by NISRA?` = rep("Yes/No", nrow(.)))
 
-kbl(pcos1c) %>%
+kbl(pcos1d) %>%
   kable_styling()
 
 ```
-
-</div>
-
-_If answered 'no' to Qu1 then_
-
-<div style = "margin-left: 2em">
-
-#### Qu 2b: Aware of NISRA statistics 
-
-NISRA produces official statistics for Northern Ireland on a wide range of issues.
-
-I am going to list a number of these and want you to tell me if you have heard of them or not.
-
-```{r PCOS1d}
-kbl(pcos1c %>%
-      rename(`Heard of?` = `Aware produced by NISRA?`)) %>%
-  kable_styling()
-```
-
-</div>
 
 ### Qu 3: Trust – Institutions
 
@@ -121,7 +97,7 @@ How much do you trust the Civil Service?
 1. Tend to distrust
 1. Distrust greatly
 
-#### Qu 3a: Trust NI Assembly
+#### Qu 3b: Trust NI Assembly
 
 How much do you trust the NI Assembly?
 
@@ -130,7 +106,7 @@ How much do you trust the NI Assembly?
 1. Tend to distrust
 1. Distrust greatly
 
-#### Qu 3a: Trust media
+#### Qu 3c: Trust media
 
 How much do you trust the media?
 
@@ -139,7 +115,7 @@ How much do you trust the media?
 1. Tend to distrust
 1. Distrust greatly
 
-#### Qu 3a: Trust NISRA
+#### Qu 3d: Trust NISRA
 
 How much do you trust NISRA?
 
@@ -158,6 +134,47 @@ Personally, how much trust do you have in statistics produced by NISRA?
 1. Tend to trust them
 1. Tend not to trust them
 1. Distrust them greatly
+
+_If answered 'Trust them greatly' or 'Tend to trust them' to Qu4 then_
+
+<div style = "margin-left: 2em">
+
+#### Qu 4a: Reasons trust in NISRA Statistics
+
+What are your main reasons for trusting statistics produced by NISRA? Please select up to 3 answers.
+
+1.	I trust the statistics from personal experience 
+1.	Official statistics in Northern Ireland are generally accurate
+1.	I have heard something good about official statistics 
+1.	The statistics are easy to use
+1.	NISRA does not have a vested interest in, or manipulate the figures
+1.	Government departments in Northern Ireland do not have a vested interest in, or manipulate the figures 
+1.	NISRA are experts in statistics
+1.	Other reason
+
+</div>
+
+_If answered 'Tend not to trust them' or 'Distrust them greatly' to Qu4 then_
+
+<div style = "margin-left: 2em">
+
+#### Qu 4b: Reasons disrust in NISRA Statistics
+
+What are your main reasons for not trusting statistics produced by NISRA? Please select up to 3 answers.
+
+1.	I don’t trust the statistics from personal experience
+1.	Official statistics in Northern Ireland are not generally accurate
+1.	I have heard something bad about official statistics
+1.	The statistics are difficult to use
+1.	NISRA has a vested interest in, or manipulates the figures
+1.	Government departments in Northern Ireland have a vested interest in, or manipulate the figures
+1.	The statistics are misrepresented by politicians
+1.	The statistics are misrepresented by the media 
+1.	The statistics alone do not tell the whole story
+1.	I personally don’t have a good understanding of statistics
+1.	Other reason
+
+</div>
 
 ### Qu 5: Value
 

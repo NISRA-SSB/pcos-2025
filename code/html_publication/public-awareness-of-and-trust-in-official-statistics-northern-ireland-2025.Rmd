@@ -91,7 +91,7 @@ Just under half of respondents (`r heard_of_nisra`%) said they had heard of NISR
 
 ### Comparison over time
 
-Awareness is higher than in 2024, when 42% of respondents had heard of NISRA, but similar to 2022 (49%) and 2023 (48%). Awareness of NISRA has decreased since 2020 and 2021 (during the COVID-19 pandemic) but remains notably higher than in 2019 and earlier years (Chart 1).
+Awareness is higher than in 2024, when 42% of respondents had heard of NISRA, but similar to 2022 (49%) and 2023 (48%). Public awareness of NISRA has decreased since 2020 and 2021 (during the COVID-19 pandemic) but remains notably higher than in 2019 and earlier years (Chart 1).
 
 #### Chart 1: Awareness of NISRA (2009-`r current_year`)
 
@@ -289,7 +289,7 @@ Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respon
 
 ### Comparison over time
 
-There is no significant difference in the level of trust in NISRA between 2025 and 2024 (79%). Since 2020 (during the COVID-19 pandemic), trust in NISRA has decreased from 90% to `r trust_in_nisra`%, and the percentage of respondents answering 'don't know' has increased from 7% to `r dont_know_trust_nisra`%. Current trust levels are comparable to those recorded in 2019 and 2016 (Chart 5).
+There is no significant difference in the level of trust in NISRA between 2025 and 2024 (79%). Since 2020 (during the COVID-19 pandemic), trust in NISRA has decreased from 90% and the percentage of respondents answering 'don't know' has increased from 7% to `r dont_know_trust_nisra`%. Current trust levels are comparable to those recorded in 2019 and 2016 (Chart 5).
 
 When only respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, trust in NISRA is higher than in 2024 and similar to levels recorded between 2020 and 2023.
 
@@ -501,7 +501,7 @@ plot_ly(
 
 f_extract_sheet(path = xl_filename,
   sheet_name = "Reasons_Trust_NISRA_Stats",
-  sheet_title = paste0("Table 4.1a: Reasons for trusting NISRA statistics ", current_year))
+  sheet_title = paste0("Table 4.1a: Reasons for trusting NISRA statistics, ", current_year))
 
 ```
 
@@ -560,7 +560,7 @@ plot_ly(
 
 f_extract_sheet(path = xl_filename,
   sheet_name = "Reasons_Distrust_NISRA_Stats",
-  sheet_title = paste0("Table 4.2a: Reasons for distrusting NISRA statistics ", current_year))
+  sheet_title = paste0("Table 4.2a: Reasons for distrusting NISRA statistics, ", current_year))
 
 ```
 
@@ -574,7 +574,7 @@ The majority of respondents (`r importance_of_stats`%) agree that the statistics
 
 ### Comparison over time
 
-The percentage of respondents agreeing that NISRA statistics are important to understand Northern Ireland in 2025 is not significantly different from 2022 to 2024 but is lower than earlier years (2020 and 2021) (Chart 12).
+The percentage of respondents agreeing that NISRA statistics are important to understand Northern Ireland in 2025 is not significantly different from 2022 to 2024 levels but is lower than in 2020 and 2021 (Chart 12).
 
 When only those respondents who had a view are considered, i.e. excluding 'don't knows', agreement that NISRA statistics are important to understand Northern Ireland is higher than in 2024 and similar to 2020 to 2023.
 
@@ -624,7 +624,7 @@ Four-fifths (`r free_from_interference`%) of respondents agree that statistics p
 
 ### Comparison over time
 
-Agreement that NISRA statistics are free from political interference is not significantly different to earlier years (2021 to 2024) but lower than in 2020 (88%). However, when only those respondents who expressed an opinion are considered, agreement has increased since 2023 and 2024 and is similar to that between 2020 and 2022. 
+Agreement that NISRA statistics are free from political interference is not significantly different to earlier years (2021 to 2024) but is lower than in 2020 (88%). However, when only those respondents who expressed an opinion are considered, agreement has increased since 2023 and 2024 and is similar to 2020 to 2022 levels. 
 
 The percentage of respondents disagreeing that NISRA statistics are free from political interference (`r disagree_interference`%) has decreased since 2024 (10%).
 
@@ -671,7 +671,7 @@ Ninety-one percent of respondents (`r agree_confidential`%) agree that personal 
 
 The percentage of respondents agreeing that personal information provided to NISRA will be kept confidential is higher than in 2023 and 2024, but similar to 2021 and 2022 and lower than in 2020. 
 
-Disagreement with the statement is lower than in 2023 and 2024, but similar to the previous three years (2020 to 2022). 
+Disagreement with the statement is lower than in 2023 and 2024, but similar to earlier years (2020 to 2022). 
 
 #### Chart 16: Personal information provided to NISRA will be kept confidential (2014-`r current_year`)
 
@@ -763,7 +763,7 @@ On receipt of the CHS data, Statistical Support Branch validate and perform qual
 
 Due to the COVID-19 pandemic, data collection for the CHS moved from face-to-face interviewing to telephone mode in March 2020. This required a reduction in the number of questions in the overall questionnaire. While the Public Awareness and Trust in Official Statistics questions were unaltered, the change in data collection mode and the number of questions may have altered how people responded to the survey. In July 2022, face-to-face interviewing was reinstated alongside telephone interviewing, thus making the survey dual modality. In 2024/25, interviewers were advised that face to face interviewing should be used where possible.
 
-The achieved response rate for the CHS was also lower than normal in 2020/21 (16% compared to the normal achieved response rate of 55% in face-to-face mode) and slightly lower than normal in 2021/22 (41%). As a result, the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this maintained the precision of the 2020 estimates and has enabled comparisons with other years in the time series, the timing of the 2020 module does not align as well with other years. The achieved response rate for the 2025/26 CHS is 43%. More information is available on the [NISRA website](https://www.nisra.gov.uk/publications/chs-survey-documents).
+The achieved response rate for the CHS was also lower than normal in 2020/21 (16% compared to the normal achieved response rate of 55% in face-to-face mode) and slightly lower than normal in 2021/22 (41%). As a result, the 2020 Public Awareness and Trust in Official Statistics module ran for an additional three months (October 2020 to March 2021). While this maintained the precision of the 2020 estimates and has enabled comparisons with other years in the time series, the timing of the 2020 module does not align as well with other years. The provisional achieved response rate for the 2025/26 CHS is 43%. More information is available on the [NISRA website](https://www.nisra.gov.uk/publications/chs-survey-documents).
 
 ### Further Information
 

@@ -358,12 +358,12 @@ f_worksheet(wb,
   sheet_name = "Reasons_Trust_NISRA_Stats",
   contents = "Reason for Trust in NISRA",
   title = "Qu 4.1: What are your main reasons for trusting statistics produced by NISRA? ",
-  outlining = "outlining reasons for trusting NISRA statistics [Note 3].",
-  post_outlining_text = "Note 3: Percentages don’t add to 100% as multiple responses were allowed.",
+  outlining = "outlining reasons for trusting NISRA statistics, among those who tend to trust NISRA statistics or trust them a great deal [Note 3].",
   tables = list(
     list(
       data = table_4.1a_data,
-      title = paste0("Table 4.1a: Reasons for trusting NISRA statistics ", current_year)
+      title = paste0("Table 4.1a: Reasons for trusting NISRA statistics, ", current_year),
+      note = "Note 3: Percentages don’t add to 100% as multiple responses were allowed."
     )
   )
 )
@@ -376,12 +376,12 @@ f_worksheet(wb,
   sheet_name = "Reasons_Distrust_NISRA_Stats",
   contents = "Reasons for Distrust in NISRA",
   title = "Qu 4.2: What are your main reasons for not trusting statistics produced by NISRA?",
-  outlining = "outlining reasons for not trusting NISRA statistics [Note 4].",
-  post_outlining_text = "Note 4: Percentages don’t add to 100% as multiple responses were allowed.",
+  outlining = "outlining reasons for not trusting NISRA statistics, among those who tend to distrust NISRA statistics or distrust them greatly [Note 4].",
   tables = list(
     list(
       data = table_4.2a_data,
-      title = paste0("Table 4.2a: Reasons for distrusting NISRA statistics ", current_year)
+      title = paste0("Table 4.2a: Reasons for distrusting NISRA statistics, ", current_year),
+      note = "Note 4: Percentages don’t add to 100% as multiple responses were allowed."
     )
   )
 )
