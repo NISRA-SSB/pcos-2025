@@ -56,7 +56,7 @@ statistic_type <- "os" # options: as  (Accredited Official Statistics),
 
 # Set the report publication data and next publication data if required
 
-pub_date <- "26 March 2026"
+pub_date <- "7 May 2026"
 next_pub_date <- "10 June 2026"
 
 ##### CONTACT DETAILS #####
