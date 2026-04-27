@@ -166,7 +166,7 @@ f_embed_ods_timeseries(df = table_1a_data,
 
 ### Comparison with ONS
 
-Public awareness of NISRA remains lower than awareness of ONS, with three quarters (`r aware_of_ons`%) of respondents having heard of ONS in 2023 (the latest available data). The difference between public awareness levels for NISRA and ONS has narrowed since 2018, which was before the COVID-19 pandemic (Chart 2).
+Public awareness of NISRA remains lower than awareness of ONS, with nearly three quarters (`r aware_of_ons`%) of respondents having heard of ONS in 2023 (the latest available data). The difference between public awareness levels for NISRA and ONS has narrowed since 2018, which was before the COVID-19 pandemic (Chart 2).
 
 #### Chart 2: Awareness of NISRA (2014-`r current_year`) and ONS (2014-`r ons_year`)
 
@@ -211,8 +211,8 @@ plot_ly(aware_nisra_ons_data,
 
 
 f_embed_ods_timeseries(df = table_1a_data,
-  sheet_title = paste0("Table 1a: Awareness of NISRA, 2009 to ", current_year),
-  tab_name = "awareness_of_nisra", startyear = 2009)
+  sheet_title = paste0("Table 1a: Awareness of NISRA, 2009 to ", current_year," [Note 1]"),
+  tab_name = "awareness_of_nisra", note = "Note 1: The percentages for 2009 and 2010 are rounded figures", startyear = 2009)
 
 div(style = "height: 20px; width: 100%")
 
@@ -289,7 +289,7 @@ Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respon
 
 ### Comparison over time
 
-There is no significant difference in the level of trust in NISRA between 2025 and 2024 (79%). Since 2020 (during the COVID-19 pandemic), trust in NISRA has decreased from 90% and the percentage of respondents answering 'don't know' has increased from 7% to `r dont_know_trust_nisra`%. Current trust levels are comparable to those recorded in 2019 and 2016 (Chart 5).
+There is no significant difference in the level of trust in NISRA in 2025 compared with 2024 (79%) and 2023 (83%). Since 2020 (during the COVID-19 pandemic), trust in NISRA has decreased from 90% and the percentage of respondents answering 'don't know' has increased from 7% to `r dont_know_trust_nisra`%. Current trust levels are comparable to those recorded in 2019 and 2016 (Chart 5).
 
 When only respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, trust in NISRA is higher than in 2024 and similar to levels recorded between 2020 and 2023.
 
@@ -325,7 +325,7 @@ f_embed_ods(df = table_3.1b_data,
 
 ###	Comparison with other institutions
 
-Trust in NISRA is significantly higher than trust in the media, the NI Assembly and the Civil Service.
+Trust in NISRA is significantly higher than trust in the media, the NI Assembly and the Civil Service (Chart 7).
 
 Across all institutions, trust is lowest for the media (`r trust_in_media`%) and the NI Assembly (`r trust_in_assem_elect_body`%), while `r trust_in_nics`% of respondents said they trust the Civil Service.
 
@@ -444,8 +444,6 @@ f_embed_ods(df = table_4b_data,
   tab_name ="trust_nisra_ons_stats")
 
 ```
-
-`r f_borderline()`
 
 ### Reasons for trusting NISRA statistics, `r current_year`
 
@@ -741,7 +739,7 @@ Each year CSU sets the content of the CHS questionnaire in consultation with cli
 
 ### Data Collection
 
-The CHS is based on a systematic random sample of approximately 9,000 addresses drawn each year from the NISRA Address Register. The NISRA Address Register is maintained by Census Branch and is created by merging the POINTER database (maintained by Land and Property Services) with additional records, and removing duplicates and communal establishments. The interviews are spread over the 12 months from April to March. Data are collected through face-to-face interviews using CAPI (Computer Assisted Personal Interviewing) or telephone interviews using CATI (Computer-assisted telephone interviewing). Of the 2,340 addresses selected for interview from `r survey_start_mth` to `r survey_end_mth` `r current_year`, `r sample_size` persons participated in this module of the survey.
+The CHS is based on a systematic random sample of approximately 9,000 addresses drawn each year from the NISRA Address Register. The NISRA Address Register is maintained by Census Branch and is created by merging the POINTER database (maintained by Land and Property Services) with additional records, and removing duplicates and communal establishments. The interviews are spread over the 12 months from April to March. Data are collected through face-to-face interviews using CAPI (Computer-Assisted Personal Interviewing) or telephone interviews using CATI (Computer-Assisted Telephone Interviewing). Of the 2,340 addresses selected for interview from `r survey_start_mth` to `r survey_end_mth` `r current_year`, `r sample_size` persons participated in this module of the survey.
 
 ### Survey Estimates
 
