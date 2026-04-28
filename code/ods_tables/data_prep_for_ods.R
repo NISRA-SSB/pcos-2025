@@ -157,7 +157,7 @@ saveRDS(table_3.1a_data, paste0(data_folder, "Trend/", current_year, "/table_3.1
 # Create table
 table_4.1a_data <- setNames(
   data.frame(
-    percent_weighted_df[[1]],   # Response labels
+    percent_weighted_df[[4]],   # Response labels
     percent_weighted_df[[2]],   # Percent values
     check.names = FALSE
   ),
@@ -180,7 +180,7 @@ table_4.1a_data <- rbind(table_4.1a_data, new_row)
 # Reasons for distrusting NISRA
 table_4.2a_data <- setNames(
   data.frame(
-    percent_weighted_distrust_df[[1]],
+    percent_weighted_distrust_df[[4]],
     percent_weighted_distrust_df[[2]],
     check.names = FALSE
   ),
