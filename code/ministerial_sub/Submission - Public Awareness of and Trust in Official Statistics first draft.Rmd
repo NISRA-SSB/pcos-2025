@@ -21,7 +21,7 @@ source(paste0(here(), "/code/html_publication/data_prep.R"))
 :::{custom-style="size_9_bold"}
 <!---BLOCK_MULTICOL_START--->
 `r external_img(paste0(here(),"/data/images/NISRA_logo_bilingual_colour.png"), height = 2.5, width = 6.5, unit = "cm")`
-`r run_columnbreak()`Ruth Fulton\
+`r run_columnbreak()`Norma Broomfield\
 Head of Statistical Support Branch\
 NISRA\
 :::
@@ -31,12 +31,12 @@ NISRA\
 Colby House\
 Stranmillis Court\
 BELFAST BT9 5RR\
-Tel No:  028 9038 8466\
-Email:  ruth.fulton@nisra.gov.uk
+Tel No:  028 9038 8481\
+Email:  Norma.Broomfield@nisra.gov.uk
 :::
 <!---BLOCK_MULTICOL_STOP{widths: [4.5, 2.5], space: 0.2, sep: false}--->
 :::{custom-style="left_text"}
-**FROM:**`r f_tab(1)`Ruth Fulton\
+**FROM:**`r f_tab(1)`Norma Broomfield\
 `r f_tab(2)`NISRA Statistical Support Branch
 :::
 :::{custom-style="single_space"}
@@ -184,26 +184,22 @@ Awareness of NISRA `r f_red_text("has decreased since 2021, when 55%")` of respo
 **Trust in NISRA**
 :::
 :::{custom-style="numbered_point"}
-Trust in NISRA as an institution is `r f_red_text("high")`, with `r trust_in_nisra`% of respondents trusting NISRA a great deal or tending to trust NISRA. This is `r f_red_text("higher")` than the level of trust in the Civil Service (`r trust_in_nics`%) and compares `r f_red_text("very favourably")` with the media (`r trust_in_media`%) and the Northern Ireland Assembly (`r trust_in_assem_elect_body`%). Trust levels `r f_red_text("increase")` to `r heard_of_and_trust_nisra`% amongst those that have heard of NISRA by name.
+Trust in NISRA as an institution is `r f_red_text("high")`, with `r trust_in_nisra`% of respondents trusting NISRA a great deal or tending to trust NISRA. This is `r f_red_text("higher")` than the level of trust in the Civil Service (`r trust_in_nics`%) and compares `r f_red_text("very favourably")` with the media (`r trust_in_media`%) and the Northern Ireland Assembly (`r trust_in_assem_elect_body`%).
 :::
 
 :::{custom-style="numbered_point"}
-Trust in NISRA in `r current_year` (`r trust_in_nisra`%) remains `r f_red_text("higher than in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. The level of trust in NISRA is `r f_red_text("similar")` to the level of trust in the UK Office for National Statistics (ONS) (`r trust_in_ons`%). However, when only those who gave an opinion, i.e. excluding ‘don’t knows’, are considered, trust levels are `r f_red_text("higher")` for NISRA.
+Trust in NISRA in `r current_year` (`r trust_in_nisra`%) remains `r f_red_text("as high as in 2019 (80%)")`, prior to the onset of the COVID-19 pandemic. The level of trust in NISRA is `r f_red_text("similar")` to the level of trust in the UK Office for National Statistics (ONS) (`r trust_in_ons`%).
 :::
 
 :::{custom-style="heading_4after"}
 **Trust in NISRA statistics**
 :::
 :::{custom-style="numbered_point"}
-Public trust in the statistics produced by NISRA is `r f_red_text("also high")` (`r trust_in_nisra_stats`%). Among those that have heard of NISRA by name, trust in NISRA statistics `r f_red_text("increases")` to `r heard_of_and_trust_nisra_stats`%.
+Public trust in the statistics produced by NISRA is `r f_red_text("also high")` (`r trust_in_nisra_stats`%).
 :::
 
 :::{custom-style="numbered_point"}
-For respondents who gave an opinion, there was `r f_red_text("no significant difference")` in the level of trust in NISRA statistics between `r current_year - 1` and `r current_year`. However for these respondents, trust in NISRA statistics is `r f_red_text("higher in 2022 compared to 2019 and previous years.")`
-:::
-
-:::{custom-style="numbered_point"}
-Trust in NISRA statistics is `r f_red_text("similar")` to the level of trust in ONS statistics (`r trust_in_ons_stats`%). However, distrust in NISRA statistics (`r distrust_nisra_stats`%) is `r f_red_text("notably lower")` than distrust in ONS statistics (`r distrust_ons_stats`%).
+Trust in NISRA statistics is `r f_red_text("identical")` to the level of trust in ONS statistics (`r trust_in_ons_stats`%). However, distrust in NISRA statistics (`r distrust_nisra_stats`%) is `r f_red_text("notably lower")` than distrust in ONS statistics (`r distrust_ons_stats`%).
 :::
 
 :::{custom-style="heading_4after"}
@@ -217,7 +213,7 @@ The statistics produced by NISRA are `r f_red_text("valued")`, with `r importanc
 **Political Interference**
 :::
 :::{custom-style="numbered_point"}
-`r f_red_text("Over four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference. The `r f_red_text("majority")` of the remaining respondents don’t know (`r dont_know_interference`%), while `r f_red_text("1 in 20")` (`r disagree_interference`%) disagree.
+`r f_red_text("Four-fifths")` (`r free_from_interference`%) of respondents believe that statistics produced by NISRA are free from political interference. The `r f_red_text("majority")` of the remaining respondents don’t know (`r dont_know_interference`%), while only `r disagree_interference`% disagree.
 :::
 
 :::{custom-style="heading_4after"}
@@ -253,23 +249,22 @@ the publication of the Statistics Bulletin today (`r pub_date_words_dmy`).
 <br>
 :::
 
-`r external_img(paste0(here(),"/data/images/ruth_fulton_signature.png"), height = 0.58, width = 4.1, unit = "cm")`
+`r external_img(paste0(here(),"/data/images/norma_broomfield_signature.png"), height = 0.58, width = 4.1, unit = "cm")`
 
 :::{custom-style="single_space"}
 <br>
 :::
 
 :::{custom-style="left_text"}
-**RUTH FULTON**\
-&#9742;028 90 388466
+**NORMA BROOMFIELD**\
+&#9742;028 9038 8481
 :::
 :::{custom-style="single_space"}
 <br>
 :::
 **cc:**`r f_tab()`Neil Gibson (Permanent Secretary, DoF)\
 `r f_tab()`Dr Philip Wales (Chief Executive, NISRA)\
-`r f_tab()`Mark McLaughlin (Head of Communications and Engagement Division, DoF)\
-`r f_tab()`Nicola Fisher (Acting Director of Analysis and Research, NISRA)\
-`r f_tab()`Ciarrai Conlan (Principal Information Officer, DoF)\
+`r f_tab()`Ciarrai Conlon (Acting Director of Communications and Engagement Division, DoF)\
+`r f_tab()`Karly Greene (Director of Analytical Services, NISRA)\
 `r f_tab()`DoF Press Office
 
