@@ -102,8 +102,8 @@ f_embed_ods_timeseries(df = table_3.3a_data, sheet_title = paste0("Table 3.3a: T
 * `r f_embed_ods(df = table_4b_data, sheet_title = if (current_year == ons_year) {paste0("Table 4b: Trust in NISRA statistics and ONS statistics, ", current_year, ")")} else {paste0("Table 4b: Trust in NISRA statistics (", current_year, ") and ONS statistics (", ons_year, ")")}, tab_name ="trust_nisra_ons_stats", app_b = TRUE)`
 * `r f_embed_ods(df = table_4c_data, sheet_title = paste0("Table 4c: Trust in NISRA statistics by respondent’s awareness of NISRA, ", current_year), tab_name = "trust_stats_awareness", app_b = TRUE)`
 * `r f_embed_ods_timeseries(df = table_4d_data, sheet_title = paste0("Table 4d: Trust in ONS statistics, 2014 to ", ons_year), tab_name = "trust_ons_stats", app_b = TRUE, startyear = 2014)`
-* `r f_embed_ods(df = table_4.1a_data, sheet_title = paste0("Table 4.1a: Reasons for Trusting NISRA in ", current_year), tab_name = "reasons_trust", app_b = TRUE)`
-* `r f_embed_ods(df = table_4.2a_data, sheet_title = paste0("Table 4.2a: Reasons for Distrusting NISRA in ", current_year), tab_name = "reasons_distrust", app_b = TRUE)`
+* `r f_embed_ods(df = table_4.1a_data, sheet_title = paste0("Table 4.1a: Reasons for trusting NISRA statistics, ", current_year), tab_name = "reasons_trust", app_b = TRUE)`
+* `r f_embed_ods(df = table_4.2a_data, sheet_title = paste0("Table 4.2a: Reasons for distrusting NISRA statistics, ", current_year), tab_name = "reasons_distrust", app_b = TRUE)`
 
 ### Value
 
