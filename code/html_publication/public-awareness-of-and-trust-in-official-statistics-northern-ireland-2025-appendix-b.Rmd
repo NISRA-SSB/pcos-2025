@@ -69,7 +69,7 @@ Detailed tables including the source data for all the charts and commentary and 
 * `r f_embed_ods(df = table_2.1g_data, sheet_title = paste0("Table 2.1g: Aware of NISRA statistics on the unemployment rate in Northern Ireland, ", current_year), tab_name = "aware_unemploy", app_b = TRUE)`
 * `r f_embed_ods(df = table_2.1h_data, sheet_title = paste0("Table 2.1h: Aware of NISRA statistics on people living in poverty in Northern Ireland, ", current_year), tab_name = "aware_poverty", app_b = TRUE)`
 * `r f_embed_ods(df = table_2.1i_data, sheet_title = paste0("Table 2.1i: Aware of NISRA statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland, ", current_year), tab_name = "aware_transport", app_b = TRUE)`
-* `r f_embed_ods(df = table_2.1j_data, sheet_title = paste0("Table 2.1j: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA), ", current_year), tab_name = "aware_num_stats", app_b = TRUE)`
+* `r f_embed_ods(df = table_2.1j_data, sheet_title = paste0("Table 2.1j: Number of selected NISRA statistics respondents had heard of, ", current_year), tab_name = "aware_num_stats", app_b = TRUE)`
 
 ### Trust in NISRA
 
