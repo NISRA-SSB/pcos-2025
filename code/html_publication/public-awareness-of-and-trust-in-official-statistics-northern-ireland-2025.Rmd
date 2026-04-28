@@ -222,6 +222,8 @@ f_embed_ods_timeseries(df = table_1c_data,
 
 ```
 
+`r f_borderline()`
+
 ## 2. Awareness of NISRA Statistics
 
 ### Awareness of NISRA statistics
@@ -280,6 +282,8 @@ f_extract_sheet(path = xl_filename,
   sheet_title = paste0("Table 2.1a-j: Awareness of NISRA statistics, ", current_year))
 
 ```
+
+`r f_borderline()`
 
 ## 3. Trust in NISRA
 
