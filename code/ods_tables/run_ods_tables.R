@@ -352,11 +352,11 @@ f_worksheet(wb,
   )
 )
 
-## Reasons for trust in NISRA stats ####
+## Reasons for trusting NISRA statistics ####
 
 f_worksheet(wb,
   sheet_name = "Reasons_Trust_NISRA_Stats",
-  contents = "Reason for Trust in NISRA",
+  contents = "Reasons for trusting NISRA statistics",
   title = "Qu 4.1: What are your main reasons for trusting statistics produced by NISRA? ",
   outlining = "outlining reasons for trusting NISRA statistics, among those who tend to trust NISRA statistics or trust them a great deal [Note 3].",
   tables = list(
@@ -370,11 +370,11 @@ f_worksheet(wb,
 
 setColWidths(wb, "Reasons_Trust_NISRA_Stats", widths = 90, cols = 1)
 
-## Reasons for distrust in NISRA stats ####
+## Reasons for distrusting NISRA statistics ####
 
 f_worksheet(wb,
   sheet_name = "Reasons_Distrust_NISRA_Stats",
-  contents = "Reasons for Distrust in NISRA",
+  contents = "Reasons for distrusting NISRA statistics",
   title = "Qu 4.2: What are your main reasons for not trusting statistics produced by NISRA?",
   outlining = "outlining reasons for not trusting NISRA statistics, among those who tend to distrust NISRA statistics or distrust them greatly [Note 4].",
   tables = list(

@@ -622,7 +622,7 @@ f_embed_ods(df = table_5b_data,
 
 ### Current year, `r current_year`
 
-Four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference. Less than 1 in twenty (`r disagree_interference`%) respondents disagree that NISRA statistics are free from political interference whilst the remaining respondents (`r dont_know_interference`%) answered that they ‘don’t know’ (Chart 14).
+Four-fifths (`r free_from_interference`%) of respondents agree that statistics produced by NISRA are free from political interference. Less than one in twenty (`r disagree_interference`%) respondents disagree that NISRA statistics are free from political interference whilst the remaining respondents (`r dont_know_interference`%) answered that they ‘don’t know’ (Chart 14).
 
 ### Comparison over time
 
