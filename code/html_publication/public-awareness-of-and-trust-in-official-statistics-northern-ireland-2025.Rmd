@@ -429,7 +429,7 @@ f_embed_ods_timeseries(df = table_4a_data,
 
 ###	Comparison with ONS
 
-The level of trust in NISRA statistics (`r trust_in_nisra_stats`%) in 2024 is the same as the level of trust in ONS statistics (`r trust_in_ons_stats`%), based on the latest available data (2023). However, distrust in ONS statistics (`r distrust_ons_stats`%) is significantly higher than distrust in NISRA statistics (`r distrust_nisra_stats`%) (Chart 9).
+The level of trust in NISRA statistics (`r trust_in_nisra_stats`%) in 2025 is the same as the level of trust in ONS statistics (`r trust_in_ons_stats`%), based on the latest available data (2023). However, distrust in ONS statistics (`r distrust_ons_stats`%) is significantly higher than distrust in NISRA statistics (`r distrust_nisra_stats`%) (Chart 9).
 
 More respondents answered 'don't know' with regard to NISRA statistics (`r dont_know_trust_nisra_stats`%) than for ONS statistics (`r dont_know_trust_ons_stats`%).
 
