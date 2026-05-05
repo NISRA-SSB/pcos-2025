@@ -295,7 +295,7 @@ Trust in NISRA as an institution is high, with `r trust_in_nisra`% of all respon
 
 There is no significant difference in the level of trust in NISRA in 2025 compared with 2024 (79%) and 2023 (83%). Since 2020 (during the COVID-19 pandemic), trust in NISRA has decreased from 90% and the percentage of respondents answering 'don't know' has increased from 7% to `r dont_know_trust_nisra`%. Current trust levels are comparable to those recorded in 2019 and 2016 (Chart 5).
 
-When only respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, trust in NISRA is higher than in 2024 and similar to levels recorded between 2020 and 2023.
+When only respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, trust in NISRA is higher than in 2024, similar to levels recorded between 2020 and 2023 and higher than in 2019 and earlier years.
 
 #### Chart 5: Trust in NISRA (2014-`r current_year`)
 
@@ -410,9 +410,9 @@ Trust in NISRA statistics is higher among those who have heard of NISRA as an in
 
 ### Comparison over time
 
-Trust in NISRA statistics in 2025 is similar to 2024, when 83% of respondents expressed trust. Since 2020 (during the COVID-19 pandemic), trust in NISRA statistics has decreased from 90% to 82%, and the percentage of respondents answering ‘don’t know’ has increased from 6% to 15%. 
+Trust in NISRA statistics in 2025 is similar to 2024, when 83% of respondents expressed trust. Since 2020 (during the COVID-19 pandemic), trust in NISRA statistics has decreased from 90% to 82%, and the percentage of respondents answering ‘don’t know’ has increased from 6% to 15%. The level of trust in 2025 is similar to 2019 and earlier years.
 
-When only those respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, trust in NISRA statistics in 2025 is higher than 2024 and similar to that recorded in 2020 to 2023.
+When only those respondents who expressed an opinion are considered, i.e. excluding ‘don’t knows’, trust in NISRA statistics in 2025 is higher than 2024, similar to that recorded in 2020 to 2023 and higher than 2019 and earlier years.
 
 
 #### Chart 8: Trust in NISRA statistics (2014-`r current_year`)
@@ -576,9 +576,9 @@ The majority of respondents (`r importance_of_stats`%) agree that the statistics
 
 ### Comparison over time
 
-The percentage of respondents agreeing that NISRA statistics are important to understand Northern Ireland in 2025 is not significantly different from 2022 to 2024 levels but is lower than in 2020 and 2021 (Chart 12).
+The percentage of respondents agreeing that NISRA statistics are important to understand Northern Ireland in 2025 is not significantly different from 2022 to 2024 levels, lower than in 2020 and 2021 and comparable to 2019 and 2016 (Chart 12).
 
-When only those respondents who had a view are considered, i.e. excluding 'don't knows', agreement that NISRA statistics are important to understand Northern Ireland is higher than in 2024 and similar to 2020 to 2023.
+When only those respondents who had a view are considered, i.e. excluding 'don't knows', agreement that NISRA statistics are important to understand Northern Ireland is higher than in 2024, similar to 2020 to 2023 and higher than 2019 and 2016.
 
 
 #### Chart 12: NISRA statistics are important to understand Northern Ireland (2016-`r current_year`)
@@ -712,7 +712,6 @@ f_embed_ods(df = table_7b_data,
 ## Useful links
 
 -   [Previous bulletins in this series](https://www.nisra.gov.uk/statistics/government/public-awareness-and-confidence-trust-official-statistics-pcos)
--   [Summary infographics](https://www.nisra.gov.uk/publications/public-awareness-and-trust-official-statistics-`r current_year`)
 -   [Statistics produced by NISRA](https://www.nisra.gov.uk/statistics)
 -   [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/the-code/)
 -   [ONS - Public Confidence in Official Statistics](https://natcen.ac.uk/publications/public-confidence-official-statistics/)
