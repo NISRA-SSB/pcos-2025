@@ -605,7 +605,7 @@ trust_chart_4 <- ggplot(trust_info_data4, aes(x = Year, y = Percentage, group = 
     size = 0,
     width = 0.6,
     aes(fill = factor(Organisation)),
-    position = position_dodge(width = 0.7)
+    position = position_dodge2(preserve = "single")
   ) +
   labs(
     title = bquote("Trust in" ~ bold("NISRA") ~ "statistics is" ~ bold(.(nisra_ons_sig)) ~ .(if (nisra_ons_sig == "similar") "to" else "than")),

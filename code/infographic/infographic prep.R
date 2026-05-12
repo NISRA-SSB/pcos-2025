@@ -170,7 +170,7 @@ trust_info_data4 <- readRDS(paste0(data_folder, "Trend/", current_year, "/table_
   tail(5) %>%
   bind_rows(trust_info_data2 %>%
     as.data.frame() %>%
-    filter((Year != 2019) & (Year != 2020) & (Year != 2022)) %>%
+    filter((Year != 2019) & (Year != 2020) & (Year != 2022) & (Year != 2024)) %>%
     mutate(
       Organisation = "NISRA",
       Year = as.character((Year))
