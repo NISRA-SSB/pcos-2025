@@ -196,6 +196,19 @@ if (current_year != ons_year) {
 ## Chart 2 ####
 ## double check if colours of bubbles and text need adjusted
 
+## Better logic for below rank system that could be added in future:
+# awareness_info_data1 <- awareness_info_data1 %>%
+#   mutate(
+#     perc_rank = percent_rank(Percentage),
+#     shape = case_when(
+#       perc_rank >= 0.9 ~ "blue circle 1",   # top 10%
+#       perc_rank >= 0.75 ~ "blue circle 2",  # top 25%
+#       perc_rank >= 0.5 ~ "blue circle 3",   # top 50%
+#       perc_rank > 0 ~ "blue circle 4",
+#       TRUE ~ "green circle"
+#     )
+#   )
+
 new_info_names <- c("Category", "Year", "Percentage")
 
 awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year, "/table_1a_data.RDS")) %>%
@@ -212,9 +225,9 @@ awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year, "/ta
     rank = rank(-Percentage, ties.method = "first"),
     shape = case_when(
       rank == 1 ~ "blue circle 1",
-      rank == 2 ~ "blue circle 1",
-      rank == 3 ~ "blue circle 2",
-      rank == 4 ~ "blue circle 2",
+      rank == 2 ~ "blue circle 2",
+      rank == 3 ~ "blue circle 3",
+      rank == 4 ~ "blue circle 3",
       rank == 5 ~ "blue circle 3",
       rank == 6 ~ "blue circle 3",
       rank == 7 ~ "blue circle 4",
