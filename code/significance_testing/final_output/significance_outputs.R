@@ -506,195 +506,196 @@ f_insert_z_table(
 
 ## In Work vs Not in work ####
 
-f_insert_sig_table(
-  df = work_status,
-  sheet = "Awareness",
-  title = paste0("Awareness of NISRA - In Work vs Not in Work - ", current_year)
-)
+# f_insert_sig_table(
+#   df = work_status,
+#   sheet = "Awareness",
+#   title = paste0("Awareness of NISRA - In Work vs Not in Work - ", current_year)
+# )
 
 ## Age groups ####
 
-f_insert_sig_table(
-  df = age_stats,
-  sheet = "Awareness",
-  title = paste0("Awareness of NISRA - by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = age_stats,
+#   sheet = "Awareness",
+#   title = paste0("Awareness of NISRA - by Age Group - ", current_year)
+# )
 
-f_insert_z_table(
-  df = age_z_scores,
-  sheet = "Awareness",
-  title = paste0("Awareness of NISRA by Age Group - ", current_year)
-)
+# f_insert_z_table(
+#   df = age_z_scores,
+#   sheet = "Awareness",
+#   title = paste0("Awareness of NISRA by Age Group - ", current_year)
+# )
 
 ## Qualifications ####
 
-f_insert_sig_table(
-  df = qual_stats,
-  sheet = "Awareness",
-  title = paste0("Awareness of NISRA - by Highest Qualification Achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = qual_z_scores,
-  sheet = "Awareness",
-  title = paste0("Awareness of NISRA by Highest Qualification Achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = qual_stats,
+#   sheet = "Awareness",
+#   title = paste0("Awareness of NISRA - by Highest Qualification Achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = qual_z_scores,
+#   sheet = "Awareness",
+#   title = paste0("Awareness of NISRA by Highest Qualification Achieved - ", current_year)
+# )
 
 ## Limiting longstanding illness ####
 
-f_insert_sig_table(
-  df = aware_illness,
-  sheet = "Awareness",
-  title = paste0("Awareness of NISRA by Limiting Longstanding Illness - ", current_year)
-)
-
-
-setColWidths(wb, "Awareness",
-  cols = 1:ncol(aware_trend),
-  widths = c(47, rep(12, ncol(aware_trend) - 1))
-)
+# f_insert_sig_table(
+#   df = aware_illness,
+#   sheet = "Awareness",
+#   title = paste0("Awareness of NISRA by Limiting Longstanding Illness - ", current_year)
+# )
+# 
+# 
+# setColWidths(wb, "Awareness",
+#   cols = 1:ncol(aware_trend),
+#   widths = c(47, rep(12, ncol(aware_trend) - 1))
+# )
 
 # Products ####
+## Removed for 2025 report
 
-addWorksheet(wb, "Products")
-
-r <- 1
-
-writeData(wb, "Products",
-  x = "Products (WEIGHTED)",
-  startRow = r
-)
-
-addStyle(wb, "Products",
-  style = pt,
-  rows = r,
-  cols = 1
-)
-
-r <- r + 2
+# addWorksheet(wb, "Products")
+# 
+# r <- 1
+# 
+# writeData(wb, "Products",
+#   x = "Products (WEIGHTED)",
+#   startRow = r
+# )
+# 
+# addStyle(wb, "Products",
+#   style = pt,
+#   rows = r,
+#   cols = 1
+# )
+# 
+# r <- r + 2
 
 ## Had heard of NISRA: This year vs previous year ####
 
-writeData(wb, "Products",
-  x = paste0("Aware produced by NISRA (Heard of NISRA) - ", current_year, " vs ", current_year - 1),
-  startRow = r
-)
-
-addStyle(wb, "Products",
-  style = pt2,
-  rows = r,
-  cols = 1
-)
-
-r <- r + 1
-
-writeDataTable(wb, "Products",
-  x = heard_stats,
-  startRow = r,
-  tableStyle = "none",
-  headerStyle = ch,
-  withFilter = FALSE
-)
-
-addStyle(wb, "Products",
-  style = ns3d,
-  rows = (r + 1):(r + nrow(heard_stats) - 1),
-  cols = 2:ncol(heard_stats),
-  gridExpand = TRUE
-)
-
-addStyle(wb, "Products",
-         style = ra,
-         rows = (r + 1):(r + nrow(heard_stats)),
-         cols = 1)
-
-for (i in 1:nrow(heard_stats)) {
-  if (!is.na(heard_stats[i, "Z"])) {
-    if (abs(heard_stats[i, "Z"]) > qnorm(0.975)) {
-      addStyle(wb, "Products",
-        style = sig,
-        rows = r + i,
-        cols = which(names(heard_stats) == "Z")
-      )
-    } else {
-      addStyle(wb, "Products",
-        style = not_sig,
-        rows = r + i,
-        cols = which(names(heard_stats) == "Z")
-      )
-    }
-  }
-}
-
-r <- r + nrow(heard_stats) + 2
+# writeData(wb, "Products",
+#   x = paste0("Aware produced by NISRA (Heard of NISRA) - ", current_year, " vs ", current_year - 1),
+#   startRow = r
+# )
+# 
+# addStyle(wb, "Products",
+#   style = pt2,
+#   rows = r,
+#   cols = 1
+# )
+# 
+# r <- r + 1
+# 
+# writeDataTable(wb, "Products",
+#   x = heard_stats,
+#   startRow = r,
+#   tableStyle = "none",
+#   headerStyle = ch,
+#   withFilter = FALSE
+# )
+# 
+# addStyle(wb, "Products",
+#   style = ns3d,
+#   rows = (r + 1):(r + nrow(heard_stats) - 1),
+#   cols = 2:ncol(heard_stats),
+#   gridExpand = TRUE
+# )
+# 
+# addStyle(wb, "Products",
+#          style = ra,
+#          rows = (r + 1):(r + nrow(heard_stats)),
+#          cols = 1)
+# 
+# for (i in 1:nrow(heard_stats)) {
+#   if (!is.na(heard_stats[i, "Z"])) {
+#     if (abs(heard_stats[i, "Z"]) > qnorm(0.975)) {
+#       addStyle(wb, "Products",
+#         style = sig,
+#         rows = r + i,
+#         cols = which(names(heard_stats) == "Z")
+#       )
+#     } else {
+#       addStyle(wb, "Products",
+#         style = not_sig,
+#         rows = r + i,
+#         cols = which(names(heard_stats) == "Z")
+#       )
+#     }
+#   }
+# }
+# 
+# r <- r + nrow(heard_stats) + 2
 
 ## Had not heard of NISRA: This year vs previous year ####
 
-writeData(wb, "Products",
-  x = paste0("Aware of statistics (Had not heard of NISRA) - ", current_year, " vs ", current_year - 1),
-  startRow = r
-)
-
-addStyle(wb, "Products",
-  style = pt2,
-  rows = r,
-  cols = 1
-)
-
-r <- r + 1
-
-writeDataTable(wb, "Products",
-  x = not_heard_stats,
-  startRow = r,
-  tableStyle = "none",
-  headerStyle = ch,
-  withFilter = FALSE
-)
-
-addStyle(wb, "Products",
-  style = ns3d,
-  rows = (r + 1):(r + nrow(not_heard_stats) - 1),
-  cols = 2:ncol(not_heard_stats),
-  gridExpand = TRUE
-)
-
-addStyle(wb, "Products",
-         style = ra,
-         rows = (r + 1):(r + nrow(heard_stats)),
-         cols = 1)
-
-for (i in 1:nrow(not_heard_stats)) {
-  if (!is.na(not_heard_stats[i, "Z"])) {
-    if (abs(not_heard_stats[i, "Z"]) > qnorm(0.975)) {
-      addStyle(wb, "Products",
-        style = sig,
-        rows = r + i,
-        cols = which(names(not_heard_stats) == "Z")
-      )
-    } else {
-      addStyle(wb, "Products",
-        style = not_sig,
-        rows = r + i,
-        cols = which(names(not_heard_stats) == "Z")
-      )
-    }
-  }
-}
-
-r <- r + nrow(not_heard_stats) + 2
-
-setColWidths(wb, "Products",
-  cols = 1:ncol(heard_stats),
-  widths = c(60, rep(12, ncol(heard_stats) - 1))
-)
+# writeData(wb, "Products",
+#   x = paste0("Aware of statistics (Had not heard of NISRA) - ", current_year, " vs ", current_year - 1),
+#   startRow = r
+# )
+# 
+# addStyle(wb, "Products",
+#   style = pt2,
+#   rows = r,
+#   cols = 1
+# )
+# 
+# r <- r + 1
+# 
+# writeDataTable(wb, "Products",
+#   x = not_heard_stats,
+#   startRow = r,
+#   tableStyle = "none",
+#   headerStyle = ch,
+#   withFilter = FALSE
+# )
+# 
+# addStyle(wb, "Products",
+#   style = ns3d,
+#   rows = (r + 1):(r + nrow(not_heard_stats) - 1),
+#   cols = 2:ncol(not_heard_stats),
+#   gridExpand = TRUE
+# )
+# 
+# addStyle(wb, "Products",
+#          style = ra,
+#          rows = (r + 1):(r + nrow(heard_stats)),
+#          cols = 1)
+# 
+# for (i in 1:nrow(not_heard_stats)) {
+#   if (!is.na(not_heard_stats[i, "Z"])) {
+#     if (abs(not_heard_stats[i, "Z"]) > qnorm(0.975)) {
+#       addStyle(wb, "Products",
+#         style = sig,
+#         rows = r + i,
+#         cols = which(names(not_heard_stats) == "Z")
+#       )
+#     } else {
+#       addStyle(wb, "Products",
+#         style = not_sig,
+#         rows = r + i,
+#         cols = which(names(not_heard_stats) == "Z")
+#       )
+#     }
+#   }
+# }
+# 
+# r <- r + nrow(not_heard_stats) + 2
+# 
+# setColWidths(wb, "Products",
+#   cols = 1:ncol(heard_stats),
+#   widths = c(60, rep(12, ncol(heard_stats) - 1))
+# )
 
 # Trust in NISRA ####
 
 addWorksheet(wb, "Trust NISRA")
 
 setColWidths(wb, "Trust NISRA",
-  cols = 1:ncol(trust_age_z_scores),
-  widths = c(55, rep(12, ncol(trust_age_z_scores) - 1))
+  cols = 1:ncol(trust_trend),
+  widths = c(55, rep(12, ncol(trust_trend) - 1))
 )
 
 
@@ -741,88 +742,88 @@ f_insert_z_table(
 
 ## Trust in NISRA by Work Status ####
 
-f_insert_sig_table(
-  df = trust_work_status,
-  sheet = "Trust NISRA",
-  title = paste0("Trust in NISRA - In work vs Not in work - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_work_status,
+#   sheet = "Trust NISRA",
+#   title = paste0("Trust in NISRA - In work vs Not in work - ", current_year)
+# )
 
 
 ## Trust in NISRA by Age group compare ####
 
-f_insert_sig_table(
-  df = trust_age_stats,
-  sheet = "Trust NISRA",
-  title = paste0("Trust in NISRA - by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_age_stats,
+#   sheet = "Trust NISRA",
+#   title = paste0("Trust in NISRA - by Age Group - ", current_year)
+# )
 
-f_insert_z_table(
-  df = trust_age_z_scores,
-  sheet = "Trust NISRA",
-  title = paste0("Yes - Trust in NISRA by Age Group - ", current_year)
-)
+# f_insert_z_table(
+#   df = trust_age_z_scores,
+#   sheet = "Trust NISRA",
+#   title = paste0("Yes - Trust in NISRA by Age Group - ", current_year)
+# )
 
 ## Distrust in NISRA by Age group compare ####
 
-f_insert_z_table(
-  df = distrust_age_z_scores,
-  sheet = "Trust NISRA",
-  title = paste0("No - Trust in NISRA by Age Group - ", current_year)
-)
+# f_insert_z_table(
+#   df = distrust_age_z_scores,
+#   sheet = "Trust NISRA",
+#   title = paste0("No - Trust in NISRA by Age Group - ", current_year)
+# )
 
 ## Don't know trust in NISRA by Age group compare ####
 
-f_insert_z_table(
-  df = dont_know_trust_age_z_scores,
-  sheet = "Trust NISRA",
-  title = paste0("Don't know - Trust in NISRA by Age Group - ", current_year)
-)
+# f_insert_z_table(
+#   df = dont_know_trust_age_z_scores,
+#   sheet = "Trust NISRA",
+#   title = paste0("Don't know - Trust in NISRA by Age Group - ", current_year)
+# )
 
 ## Trust in NISRA by Qualification compare ####
 
-f_insert_sig_table(
-  df = trust_qual_stats,
-  sheet = "Trust NISRA",
-  title = paste0("Trust in NISRA - by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_qual_stats,
+#   sheet = "Trust NISRA",
+#   title = paste0("Trust in NISRA - by highest qualification achieved - ", current_year)
+# )
 
-f_insert_z_table(
-  df = trust_qual_z_scores,
-  sheet = "Trust NISRA",
-  title = paste0("Yes - Trust in NISRA by highest qualification achieved - ", current_year)
-)
+# f_insert_z_table(
+#   df = trust_qual_z_scores,
+#   sheet = "Trust NISRA",
+#   title = paste0("Yes - Trust in NISRA by highest qualification achieved - ", current_year)
+# )
 
 ## Distrust in NISRA by Qualification compare ####
 
-f_insert_z_table(
-  df = distrust_qual_z_scores,
-  sheet = "Trust NISRA",
-  title = paste0("No - Trust in NISRA by highest qualification achieved - ", current_year)
-)
+# f_insert_z_table(
+#   df = distrust_qual_z_scores,
+#   sheet = "Trust NISRA",
+#   title = paste0("No - Trust in NISRA by highest qualification achieved - ", current_year)
+# )
 
 ## Don't know trust in NISRA by Qualification compare ####
 
-f_insert_z_table(
-  df = dont_know_qual_age_z_scores,
-  sheet = "Trust NISRA",
-  title = paste0("Don't know - Trust in NISRA by highest qualification achieved - ", current_year)
-)
+# f_insert_z_table(
+#   df = dont_know_qual_age_z_scores,
+#   sheet = "Trust NISRA",
+#   title = paste0("Don't know - Trust in NISRA by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = trust_illness,
-  sheet = "Trust NISRA",
-  title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_illness,
+#   sheet = "Trust NISRA",
+#   title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year)
+# )
 
 # Trust in NISRA (exc DK) ####
 
 addWorksheet(wb, "TruNISRAexcDK")
 
 setColWidths(wb, "TruNISRAexcDK",
-  cols = 1:ncol(trust_nisra_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(trust_nisra_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(trust_trend_ex_dk),
+  widths = c(47, rep(12, ncol(trust_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -856,51 +857,51 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = trust_nisra_work_ex_dk,
-  sheet = "TruNISRAexcDK",
-  title = paste0("Trust in NISRA - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_nisra_work_ex_dk,
+#   sheet = "TruNISRAexcDK",
+#   title = paste0("Trust in NISRA - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = trust_nisra_age_ex_dk,
-  sheet = "TruNISRAexcDK",
-  title = paste0("Trust in NISRA - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_nisra_age_ex_dk,
+#   sheet = "TruNISRAexcDK",
+#   title = paste0("Trust in NISRA - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = trust_nisra_age_z_scores_ex_dk,
-  sheet = "TruNISRAexcDK",
-  title = paste0("Trust in NISRA by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = trust_nisra_age_z_scores_ex_dk,
+#   sheet = "TruNISRAexcDK",
+#   title = paste0("Trust in NISRA by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = trust_nisra_qual_ex_dk,
-  sheet = "TruNISRAexcDK",
-  title = paste0("Trust in NISRA - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_nisra_qual_ex_dk,
+#   sheet = "TruNISRAexcDK",
+#   title = paste0("Trust in NISRA - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = trust_nisra_qual_z_scores_ex_dk,
-  sheet = "TruNISRAexcDK",
-  title = paste0("Trust in NISRA by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = trust_nisra_qual_z_scores_ex_dk,
+#   sheet = "TruNISRAexcDK",
+#   title = paste0("Trust in NISRA by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = trust_illness_ex_dk,
-  sheet = "TruNISRAexcDK",
-  title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_illness_ex_dk,
+#   sheet = "TruNISRAexcDK",
+#   title = paste0("Trust in NISRA - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Trust NI Assembly ####
 
@@ -955,79 +956,79 @@ f_insert_z_table(
 
 ## Trust NI Assembly by Work Status ####
 
-f_insert_sig_table(
-  df = assembly_work_stats,
-  sheet = "Trust NI Assembly",
-  title = paste("Trust in NI Assembly - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = assembly_work_stats,
+#   sheet = "Trust NI Assembly",
+#   title = paste("Trust in NI Assembly - In work vs Not in work -", current_year)
+# )
 
 ## Trust NI Assembly by Age ####
 
-f_insert_sig_table(
-  df = assembly_age_stats,
-  sheet = "Trust NI Assembly",
-  title = paste("Trust in NI Assembly - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = assembly_age_z_scores,
-  sheet = "Trust NI Assembly",
-  title = paste0("Yes - Trust in NI Assembly by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = assembly_disagree_age_z_scores,
-  sheet = "Trust NI Assembly",
-  title = paste0("No - Trust in NI Assembly by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = assembly_dont_know_age_z_scores,
-  sheet = "Trust NI Assembly",
-  title = paste0("Don't know - Trust in NI Assembly by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = assembly_age_stats,
+#   sheet = "Trust NI Assembly",
+#   title = paste("Trust in NI Assembly - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = assembly_age_z_scores,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("Yes - Trust in NI Assembly by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = assembly_disagree_age_z_scores,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("No - Trust in NI Assembly by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = assembly_dont_know_age_z_scores,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("Don't know - Trust in NI Assembly by Age Group - ", current_year)
+# )
 
 ## Trust NI Assembly by Qualification ####
 
-f_insert_sig_table(
-  df = assembly_qual_stats,
-  sheet = "Trust NI Assembly",
-  title = paste("Trust in NI Assembly - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = assembly_qual_z_scores,
-  sheet = "Trust NI Assembly",
-  title = paste0("Yes - Trust in NI Assembly by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = assembly_disagree_qual_z_scores,
-  sheet = "Trust NI Assembly",
-  title = paste0("No - Trust in NI Assembly by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = assembly_dont_know_qual_z_scores,
-  sheet = "Trust NI Assembly",
-  title = paste0("Don't know - Trust in NI Assembly by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = assembly_qual_stats,
+#   sheet = "Trust NI Assembly",
+#   title = paste("Trust in NI Assembly - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = assembly_qual_z_scores,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("Yes - Trust in NI Assembly by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = assembly_disagree_qual_z_scores,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("No - Trust in NI Assembly by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = assembly_dont_know_qual_z_scores,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("Don't know - Trust in NI Assembly by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = assembly_illness,
-  sheet = "Trust NI Assembly",
-  title = paste0("Trust in NI Assembly - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = assembly_illness,
+#   sheet = "Trust NI Assembly",
+#   title = paste0("Trust in NI Assembly - by Limited Longstanding Illness - ", current_year)
+# )
 
 # Trust NI Assembly (exc DK) ####
 
 addWorksheet(wb, "TruNIAssemExDK")
 
 setColWidths(wb, "TruNIAssemExDK",
-  cols = 1:ncol(assembly_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(assembly_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(assembly_trend_ex_dk),
+  widths = c(47, rep(12, ncol(assembly_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -1062,51 +1063,51 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = assembly_work_ex_dk,
-  sheet = "TruNIAssemExDK",
-  title = paste0("Trust in NI Assembly - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = assembly_work_ex_dk,
+#   sheet = "TruNIAssemExDK",
+#   title = paste0("Trust in NI Assembly - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = assembly_age_ex_dk,
-  sheet = "TruNIAssemExDK",
-  title = paste0("Trust in NI Assembly - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = assembly_age_ex_dk,
+#   sheet = "TruNIAssemExDK",
+#   title = paste0("Trust in NI Assembly - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = assembly_age_z_scores_ex_dk,
-  sheet = "TruNIAssemExDK",
-  title = paste0("Trust in NI Assembly by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = assembly_age_z_scores_ex_dk,
+#   sheet = "TruNIAssemExDK",
+#   title = paste0("Trust in NI Assembly by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = assembly_qual_ex_dk,
-  sheet = "TruNIAssemExDK",
-  title = paste0("Trust in NI Assembly - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = assembly_qual_ex_dk,
+#   sheet = "TruNIAssemExDK",
+#   title = paste0("Trust in NI Assembly - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = assembly_qual_z_scores_ex_dk,
-  sheet = "TruNIAssemExDK",
-  title = paste0("Trust in NI Assembly by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = assembly_qual_z_scores_ex_dk,
+#   sheet = "TruNIAssemExDK",
+#   title = paste0("Trust in NI Assembly by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = assembly_illness_ex_dk,
-  sheet = "TruNIAssemExDK",
-  title = paste0("Trust in NI Assembly - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = assembly_illness_ex_dk,
+#   sheet = "TruNIAssemExDK",
+#   title = paste0("Trust in NI Assembly - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Trust in media ####
 
@@ -1160,79 +1161,79 @@ f_insert_z_table(
 
 ## Trust in media by Work Status ####
 
-f_insert_sig_table(
-  df = media_work_stats,
-  sheet = "Trust Media",
-  title = paste("Trust in the Media - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = media_work_stats,
+#   sheet = "Trust Media",
+#   title = paste("Trust in the Media - In work vs Not in work -", current_year)
+# )
 
 ## Trust in media by Age ####
 
-f_insert_sig_table(
-  df = media_age_stats,
-  sheet = "Trust Media",
-  title = paste("Trust in the Media - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = media_age_z_scores,
-  sheet = "Trust Media",
-  title = paste0("Yes - Trust in the Media by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = media_disagree_age_z_scores,
-  sheet = "Trust Media",
-  title = paste0("No - Trust in the Media by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = media_dont_know_age_z_scores,
-  sheet = "Trust Media",
-  title = paste0("Don't know - Trust in the Media by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = media_age_stats,
+#   sheet = "Trust Media",
+#   title = paste("Trust in the Media - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = media_age_z_scores,
+#   sheet = "Trust Media",
+#   title = paste0("Yes - Trust in the Media by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = media_disagree_age_z_scores,
+#   sheet = "Trust Media",
+#   title = paste0("No - Trust in the Media by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = media_dont_know_age_z_scores,
+#   sheet = "Trust Media",
+#   title = paste0("Don't know - Trust in the Media by Age Group - ", current_year)
+# )
 
 ## Trust in media by Qualification ####
 
-f_insert_sig_table(
-  df = media_qual_stats,
-  sheet = "Trust Media",
-  title = paste("Trust in the Media - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = media_qual_z_scores,
-  sheet = "Trust Media",
-  title = paste0("Yes - Trust in the Media by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = media_disagree_qual_z_scores,
-  sheet = "Trust Media",
-  title = paste0("No - Trust in the Media by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = media_dont_know_qual_z_scores,
-  sheet = "Trust Media",
-  title = paste0("Don't know - Trust in the Media by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = media_qual_stats,
+#   sheet = "Trust Media",
+#   title = paste("Trust in the Media - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = media_qual_z_scores,
+#   sheet = "Trust Media",
+#   title = paste0("Yes - Trust in the Media by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = media_disagree_qual_z_scores,
+#   sheet = "Trust Media",
+#   title = paste0("No - Trust in the Media by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = media_dont_know_qual_z_scores,
+#   sheet = "Trust Media",
+#   title = paste0("Don't know - Trust in the Media by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = media_illness,
-  sheet = "Trust Media",
-  title = paste0("Trust in the Media - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = media_illness,
+#   sheet = "Trust Media",
+#   title = paste0("Trust in the Media - by Limited Longstanding Illness - ", current_year)
+# )
 
 # Trust in media (exc DK) ####
 
 addWorksheet(wb, "TruMediaExDK")
 
 setColWidths(wb, "TruMediaExDK",
-  cols = 1:ncol(media_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(media_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(media_trend_ex_dk),
+  widths = c(47, rep(12, ncol(media_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -1266,59 +1267,59 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = media_work_ex_dk,
-  sheet = "TruMediaExDK",
-  title = paste0("Trust the Media - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = media_work_ex_dk,
+#   sheet = "TruMediaExDK",
+#   title = paste0("Trust the Media - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = media_age_ex_dk,
-  sheet = "TruMediaExDK",
-  title = paste0("Trust the Media - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = media_age_ex_dk,
+#   sheet = "TruMediaExDK",
+#   title = paste0("Trust the Media - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = media_age_z_scores_ex_dk,
-  sheet = "TruMediaExDK",
-  title = paste0("Trust the Media by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = media_age_z_scores_ex_dk,
+#   sheet = "TruMediaExDK",
+#   title = paste0("Trust the Media by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = media_qual_ex_dk,
-  sheet = "TruMediaExDK",
-  title = paste0("Trust the Media - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = media_qual_ex_dk,
+#   sheet = "TruMediaExDK",
+#   title = paste0("Trust the Media - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = media_qual_z_scores_ex_dk,
-  sheet = "TruMediaExDK",
-  title = paste0("Trust the Media by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = media_qual_z_scores_ex_dk,
+#   sheet = "TruMediaExDK",
+#   title = paste0("Trust the Media by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = media_illness_ex_dk,
-  sheet = "TruMediaExDK",
-  title = paste0("Trust the Media - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = media_illness_ex_dk,
+#   sheet = "TruMediaExDK",
+#   title = paste0("Trust the Media - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Trust NISRA Statistics ####
 
 addWorksheet(wb, "TrustNISRAStats")
 
 setColWidths(wb, "TrustNISRAStats",
-  cols = 1:ncol(trust_stats_age_z_scores),
-  widths = c(47, rep(12, ncol(trust_stats_age_z_scores) - 1))
+  cols = 1:ncol(trust_stats_trend),
+  widths = c(47, rep(12, ncol(trust_stats_trend) - 1))
 )
 
 r <- 1
@@ -1365,79 +1366,79 @@ f_insert_z_table(
 
 ## Trust NISRA statistics by Work Status ####
 
-f_insert_sig_table(
-  df = trust_stats_work_stats,
-  sheet = "TrustNISRAStats",
-  title = paste("Trust in NISRA Statistics - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_stats_work_stats,
+#   sheet = "TrustNISRAStats",
+#   title = paste("Trust in NISRA Statistics - In work vs Not in work -", current_year)
+# )
 
 ## Trust NISRA statistics by Age ####
 
-f_insert_sig_table(
-  df = trust_stats_age_stats,
-  sheet = "TrustNISRAStats",
-  title = paste("Trust in NISRA Statistics - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = trust_stats_age_z_scores,
-  sheet = "TrustNISRAStats",
-  title = paste0("Yes - Trust in NISRA Statistics by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = trust_stats_disagree_age_z_scores,
-  sheet = "TrustNISRAStats",
-  title = paste0("No - Trust in NISRA Statistics by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = trust_stats_dont_know_age_z_scores,
-  sheet = "TrustNISRAStats",
-  title = paste0("Don't know - Trust in NISRA Statistics by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_stats_age_stats,
+#   sheet = "TrustNISRAStats",
+#   title = paste("Trust in NISRA Statistics - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = trust_stats_age_z_scores,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("Yes - Trust in NISRA Statistics by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = trust_stats_disagree_age_z_scores,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("No - Trust in NISRA Statistics by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = trust_stats_dont_know_age_z_scores,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("Don't know - Trust in NISRA Statistics by Age Group - ", current_year)
+# )
 
 ## Trust NISRA statistics by Qualification ####
 
-f_insert_sig_table(
-  df = trust_stats_qual_stats,
-  sheet = "TrustNISRAStats",
-  title = paste("Trust in NISRA Statistics - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = trust_stats_qual_z_scores,
-  sheet = "TrustNISRAStats",
-  title = paste0("Yes - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = trust_stats_disagree_qual_z_scores,
-  sheet = "TrustNISRAStats",
-  title = paste0("No - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = trust_stats_dont_know_qual_z_scores,
-  sheet = "TrustNISRAStats",
-  title = paste0("Don't know - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_stats_qual_stats,
+#   sheet = "TrustNISRAStats",
+#   title = paste("Trust in NISRA Statistics - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = trust_stats_qual_z_scores,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("Yes - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = trust_stats_disagree_qual_z_scores,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("No - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = trust_stats_dont_know_qual_z_scores,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("Don't know - Trust in NISRA Statistics by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = trust_stats_illness,
-  sheet = "TrustNISRAStats",
-  title = paste0("Trust in NISRA Statistics - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = trust_stats_illness,
+#   sheet = "TrustNISRAStats",
+#   title = paste0("Trust in NISRA Statistics - by Limited Longstanding Illness - ", current_year)
+# )
 
 # Trust NISRA stats (exc DK) ####
 
 addWorksheet(wb, "TruNISRAStatsexcDK")
 
 setColWidths(wb, "TruNISRAStatsexcDK",
-  cols = 1:ncol(trust_stats_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(trust_stats_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(trust_stats_trend_ex_dk),
+  widths = c(47, rep(12, ncol(trust_stats_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -1471,59 +1472,59 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = trust_stats_work_ex_dk,
-  sheet = "TruNISRAStatsexcDK",
-  title = paste0("Trust NISRA stats - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_stats_work_ex_dk,
+#   sheet = "TruNISRAStatsexcDK",
+#   title = paste0("Trust NISRA stats - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = trust_stats_age_ex_dk,
-  sheet = "TruNISRAStatsexcDK",
-  title = paste0("Trust NISRA stats - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_stats_age_ex_dk,
+#   sheet = "TruNISRAStatsexcDK",
+#   title = paste0("Trust NISRA stats - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = trust_stats_age_z_scores_ex_dk,
-  sheet = "TruNISRAStatsexcDK",
-  title = paste0("Trust NISRA stats by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = trust_stats_age_z_scores_ex_dk,
+#   sheet = "TruNISRAStatsexcDK",
+#   title = paste0("Trust NISRA stats by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = trust_stats_qual_ex_dk,
-  sheet = "TruNISRAStatsexcDK",
-  title = paste0("Trust NISRA stats - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_stats_qual_ex_dk,
+#   sheet = "TruNISRAStatsexcDK",
+#   title = paste0("Trust NISRA stats - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = trust_stats_qual_z_scores_ex_dk,
-  sheet = "TruNISRAStatsexcDK",
-  title = paste0("Trust NISRA stats by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = trust_stats_qual_z_scores_ex_dk,
+#   sheet = "TruNISRAStatsexcDK",
+#   title = paste0("Trust NISRA stats by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = trust_stats_illness_ex_dk,
-  sheet = "TruNISRAStatsexcDK",
-  title = paste0("Trust NISRA stats - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = trust_stats_illness_ex_dk,
+#   sheet = "TruNISRAStatsexcDK",
+#   title = paste0("Trust NISRA stats - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Value ####
 
 addWorksheet(wb, "Value")
 
 setColWidths(wb, "Value",
-  cols = 1:ncol(value_age_z_scores),
-  widths = c(47, rep(12, ncol(value_age_z_scores) - 1))
+  cols = 1:ncol(value_trend),
+  widths = c(47, rep(12, ncol(value_trend) - 1))
 )
 
 r <- 1
@@ -1570,79 +1571,79 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = value_work_stats,
-  sheet = "Value",
-  title = paste("NISRA stats are important - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = value_work_stats,
+#   sheet = "Value",
+#   title = paste("NISRA stats are important - In work vs Not in work -", current_year)
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = value_age_stats,
-  sheet = "Value",
-  title = paste("NISRA stats are important - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = value_age_z_scores,
-  sheet = "Value",
-  title = paste0("Yes - NISRA stats are important by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = value_disagree_age_z_scores,
-  sheet = "Value",
-  title = paste0("No - NISRA stats are important by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = value_dont_know_age_z_scores,
-  sheet = "Value",
-  title = paste0("Don't know - NISRA stats are important by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = value_age_stats,
+#   sheet = "Value",
+#   title = paste("NISRA stats are important - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = value_age_z_scores,
+#   sheet = "Value",
+#   title = paste0("Yes - NISRA stats are important by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = value_disagree_age_z_scores,
+#   sheet = "Value",
+#   title = paste0("No - NISRA stats are important by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = value_dont_know_age_z_scores,
+#   sheet = "Value",
+#   title = paste0("Don't know - NISRA stats are important by Age Group - ", current_year)
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = value_qual_stats,
-  sheet = "Value",
-  title = paste("NISRA stats are important - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = value_qual_z_scores,
-  sheet = "Value",
-  title = paste0("Yes - NISRA stats are important by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = value_disagree_qual_z_scores,
-  sheet = "Value",
-  title = paste0("No - NISRA stats are important by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = value_dont_know_qual_z_scores,
-  sheet = "Value",
-  title = paste0("Don't know - NISRA stats are important by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = value_qual_stats,
+#   sheet = "Value",
+#   title = paste("NISRA stats are important - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = value_qual_z_scores,
+#   sheet = "Value",
+#   title = paste0("Yes - NISRA stats are important by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = value_disagree_qual_z_scores,
+#   sheet = "Value",
+#   title = paste0("No - NISRA stats are important by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = value_dont_know_qual_z_scores,
+#   sheet = "Value",
+#   title = paste0("Don't know - NISRA stats are important by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = value_illness,
-  sheet = "Value",
-  title = paste0("NISRA stats are important - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = value_illness,
+#   sheet = "Value",
+#   title = paste0("NISRA stats are important - by Limited Longstanding Illness - ", current_year)
+# )
 
 # Value NISRA stats (exc DK) ####
 
 addWorksheet(wb, "ValuesExDK")
 
 setColWidths(wb, "ValuesExDK",
-  cols = 1:ncol(value_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(value_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(value_trend_ex_dk),
+  widths = c(47, rep(12, ncol(value_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -1676,59 +1677,59 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = value_work_ex_dk,
-  sheet = "ValuesExDK",
-  title = paste0("NISRA stats are important - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = value_work_ex_dk,
+#   sheet = "ValuesExDK",
+#   title = paste0("NISRA stats are important - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = value_age_ex_dk,
-  sheet = "ValuesExDK",
-  title = paste0("NISRA stats are important - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = value_age_ex_dk,
+#   sheet = "ValuesExDK",
+#   title = paste0("NISRA stats are important - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = value_age_z_scores_ex_dk,
-  sheet = "ValuesExDK",
-  title = paste0("NISRA stats are important by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = value_age_z_scores_ex_dk,
+#   sheet = "ValuesExDK",
+#   title = paste0("NISRA stats are important by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = value_qual_ex_dk,
-  sheet = "ValuesExDK",
-  title = paste0("NISRA stats are important - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = value_qual_ex_dk,
+#   sheet = "ValuesExDK",
+#   title = paste0("NISRA stats are important - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = value_qual_z_scores_ex_dk,
-  sheet = "ValuesExDK",
-  title = paste0("NISRA stats are important by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = value_qual_z_scores_ex_dk,
+#   sheet = "ValuesExDK",
+#   title = paste0("NISRA stats are important by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = value_illness_ex_dk,
-  sheet = "ValuesExDK",
-  title = paste0("NISRA stats are important - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = value_illness_ex_dk,
+#   sheet = "ValuesExDK",
+#   title = paste0("NISRA stats are important - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Interference ####
 
 addWorksheet(wb, "Interference")
 
 setColWidths(wb, "Interference",
-  cols = 1:ncol(interference_age_z_scores),
-  widths = c(47, rep(12, ncol(interference_age_z_scores) - 1))
+  cols = 1:ncol(interference_trend),
+  widths = c(47, rep(12, ncol(interference_trend) - 1))
 )
 
 r <- 1
@@ -1774,79 +1775,79 @@ f_insert_z_table(
 
 ## In work vs Not in work ####
 
-f_insert_sig_table(
-  df = interference_work_stats,
-  sheet = "Interference",
-  title = paste("NISRA stats are free from political interference - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = interference_work_stats,
+#   sheet = "Interference",
+#   title = paste("NISRA stats are free from political interference - In work vs Not in work -", current_year)
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = interference_age_stats,
-  sheet = "Interference",
-  title = paste("NISRA stats are free from political interference - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = interference_age_z_scores,
-  sheet = "Interference",
-  title = paste0("Yes - NISRA stats are free from political interference by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = interference_disagree_age_z_scores,
-  sheet = "Interference",
-  title = paste0("No - NISRA stats are free from political interference by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = interference_dont_know_age_z_scores,
-  sheet = "Interference",
-  title = paste0("Don't know - NISRA stats are free from political interference by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = interference_age_stats,
+#   sheet = "Interference",
+#   title = paste("NISRA stats are free from political interference - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = interference_age_z_scores,
+#   sheet = "Interference",
+#   title = paste0("Yes - NISRA stats are free from political interference by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = interference_disagree_age_z_scores,
+#   sheet = "Interference",
+#   title = paste0("No - NISRA stats are free from political interference by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = interference_dont_know_age_z_scores,
+#   sheet = "Interference",
+#   title = paste0("Don't know - NISRA stats are free from political interference by Age Group - ", current_year)
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = interference_qual_stats,
-  sheet = "Interference",
-  title = paste("NISRA stats are free from political interference - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = interference_qual_z_scores,
-  sheet = "Interference",
-  title = paste0("Yes - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = interference_disagree_qual_z_scores,
-  sheet = "Interference",
-  title = paste0("No - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = interference_dont_know_qual_z_scores,
-  sheet = "Interference",
-  title = paste0("Don't know - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = interference_qual_stats,
+#   sheet = "Interference",
+#   title = paste("NISRA stats are free from political interference - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = interference_qual_z_scores,
+#   sheet = "Interference",
+#   title = paste0("Yes - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = interference_disagree_qual_z_scores,
+#   sheet = "Interference",
+#   title = paste0("No - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = interference_dont_know_qual_z_scores,
+#   sheet = "Interference",
+#   title = paste0("Don't know - NISRA stats are free from political interference by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = interference_illness,
-  sheet = "Interference",
-  title = paste0("NISRA stats are free from political interference - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = interference_illness,
+#   sheet = "Interference",
+#   title = paste0("NISRA stats are free from political interference - by Limited Longstanding Illness - ", current_year)
+# )
 
 # NISRA stats free from interference (exc DK) ####
 
 addWorksheet(wb, "InterfExDK")
 
 setColWidths(wb, "InterfExDK",
-  cols = 1:ncol(interference_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(interference_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(interference_trend_ex_dk),
+  widths = c(47, rep(12, ncol(interference_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -1880,59 +1881,59 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = interference_work_ex_dk,
-  sheet = "InterfExDK",
-  title = paste0("NISRA stats are free from political interference - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = interference_work_ex_dk,
+#   sheet = "InterfExDK",
+#   title = paste0("NISRA stats are free from political interference - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = interference_age_ex_dk,
-  sheet = "InterfExDK",
-  title = paste0("NISRA stats are free from political interference - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = interference_age_ex_dk,
+#   sheet = "InterfExDK",
+#   title = paste0("NISRA stats are free from political interference - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = interference_age_z_scores_ex_dk,
-  sheet = "InterfExDK",
-  title = paste0("NISRA stats are free from political interference by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = interference_age_z_scores_ex_dk,
+#   sheet = "InterfExDK",
+#   title = paste0("NISRA stats are free from political interference by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = interference_qual_ex_dk,
-  sheet = "InterfExDK",
-  title = paste0("NISRA stats are free from political interference - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = interference_qual_ex_dk,
+#   sheet = "InterfExDK",
+#   title = paste0("NISRA stats are free from political interference - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = interference_qual_z_scores_ex_dk,
-  sheet = "InterfExDK",
-  title = paste0("NISRA stats are free from political interference by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = interference_qual_z_scores_ex_dk,
+#   sheet = "InterfExDK",
+#   title = paste0("NISRA stats are free from political interference by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = interference_illness_ex_dk,
-  sheet = "InterfExDK",
-  title = paste0("NISRA stats are free from political interference - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = interference_illness_ex_dk,
+#   sheet = "InterfExDK",
+#   title = paste0("NISRA stats are free from political interference - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Confidentiality ####
 
 addWorksheet(wb, "Confidentiality")
 
 setColWidths(wb, "Confidentiality",
-  cols = 1:ncol(confidential_age_z_scores),
-  widths = c(47, rep(12, ncol(confidential_age_z_scores) - 1))
+  cols = 1:ncol(confidential_trend),
+  widths = c(47, rep(12, ncol(confidential_trend) - 1))
 )
 
 r <- 1
@@ -1978,79 +1979,79 @@ f_insert_z_table(
 
 ## In work vs Not in work ####
 
-f_insert_sig_table(
-  df = confidential_work_stats,
-  sheet = "Confidentiality",
-  title = paste("NISRA will keep my information confidential - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = confidential_work_stats,
+#   sheet = "Confidentiality",
+#   title = paste("NISRA will keep my information confidential - In work vs Not in work -", current_year)
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = confidential_age_stats,
-  sheet = "Confidentiality",
-  title = paste("NISRA will keep my information confidential - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = confidential_age_z_scores,
-  sheet = "Confidentiality",
-  title = paste0("Yes - NISRA will keep my information confidential by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = confidential_disagree_age_z_scores,
-  sheet = "Confidentiality",
-  title = paste0("No - NISRA will keep my information confidential by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = confidential_dont_know_age_z_scores,
-  sheet = "Confidentiality",
-  title = paste0("Don't know - NISRA will keep my information confidential by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = confidential_age_stats,
+#   sheet = "Confidentiality",
+#   title = paste("NISRA will keep my information confidential - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = confidential_age_z_scores,
+#   sheet = "Confidentiality",
+#   title = paste0("Yes - NISRA will keep my information confidential by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = confidential_disagree_age_z_scores,
+#   sheet = "Confidentiality",
+#   title = paste0("No - NISRA will keep my information confidential by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = confidential_dont_know_age_z_scores,
+#   sheet = "Confidentiality",
+#   title = paste0("Don't know - NISRA will keep my information confidential by Age Group - ", current_year)
+# )
 
 ## By qualifiation ####
 
-f_insert_sig_table(
-  df = confidential_qual_stats,
-  sheet = "Confidentiality",
-  title = paste("NISRA will keep my information confidential - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = confidential_qual_z_scores,
-  sheet = "Confidentiality",
-  title = paste0("Yes - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = confidential_disagree_qual_z_scores,
-  sheet = "Confidentiality",
-  title = paste0("No - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = confidential_dont_know_qual_z_scores,
-  sheet = "Confidentiality",
-  title = paste0("Don't know - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = confidential_qual_stats,
+#   sheet = "Confidentiality",
+#   title = paste("NISRA will keep my information confidential - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = confidential_qual_z_scores,
+#   sheet = "Confidentiality",
+#   title = paste0("Yes - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = confidential_disagree_qual_z_scores,
+#   sheet = "Confidentiality",
+#   title = paste0("No - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = confidential_dont_know_qual_z_scores,
+#   sheet = "Confidentiality",
+#   title = paste0("Don't know - NISRA will keep my information confidential by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = confidential_illness,
-  sheet = "Confidentiality",
-  title = paste0("NISRA will keep my information confidential - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = confidential_illness,
+#   sheet = "Confidentiality",
+#   title = paste0("NISRA will keep my information confidential - by Limited Longstanding Illness - ", current_year)
+# )
 
 # NISRA will keep my information confidential (exc DK) ####
 
 addWorksheet(wb, "ConfExDK")
 
 setColWidths(wb, "ConfExDK",
-  cols = 1:ncol(confidential_age_z_scores_ex_dk),
-  widths = c(47, rep(12, ncol(confidential_age_z_scores_ex_dk) - 1))
+  cols = 1:ncol(confidential_trend_ex_dk),
+  widths = c(47, rep(12, ncol(confidential_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -2084,57 +2085,57 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = confidential_work_ex_dk,
-  sheet = "ConfExDK",
-  title = paste0("NISRA will keep my information confidential - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = confidential_work_ex_dk,
+#   sheet = "ConfExDK",
+#   title = paste0("NISRA will keep my information confidential - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = confidential_age_ex_dk,
-  sheet = "ConfExDK",
-  title = paste0("NISRA will keep my information confidential - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = confidential_age_ex_dk,
+#   sheet = "ConfExDK",
+#   title = paste0("NISRA will keep my information confidential - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = confidential_age_z_scores_ex_dk,
-  sheet = "ConfExDK",
-  title = paste0("NISRA will keep my information confidential by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = confidential_age_z_scores_ex_dk,
+#   sheet = "ConfExDK",
+#   title = paste0("NISRA will keep my information confidential by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = confidential_qual_ex_dk,
-  sheet = "ConfExDK",
-  title = paste0("NISRA will keep my information confidential - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = confidential_qual_ex_dk,
+#   sheet = "ConfExDK",
+#   title = paste0("NISRA will keep my information confidential - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = confidential_qual_z_scores_ex_dk,
-  sheet = "ConfExDK",
-  title = paste0("NISRA will keep my information confidential by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
-
-f_insert_sig_table(
-  df = confidential_illness_ex_dk,
-  sheet = "ConfExDK",
-  title = paste0("NISRA will keep my information confidential - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = confidential_qual_z_scores_ex_dk,
+#   sheet = "ConfExDK",
+#   title = paste0("NISRA will keep my information confidential by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
+# 
+# f_insert_sig_table(
+#   df = confidential_illness_ex_dk,
+#   sheet = "ConfExDK",
+#   title = paste0("NISRA will keep my information confidential - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Trust Civil Service ####
 
 addWorksheet(wb, "Trust Civil Service")
 
 setColWidths(wb, "Trust Civil Service",
-             cols = 1:ncol(nics_age_z_scores),
-             widths = c(47, rep(12, ncol(nics_age_z_scores) - 1))
+             cols = 1:ncol(nics_trend),
+             widths = c(47, rep(12, ncol(nics_trend) - 1))
 )
 
 r <- 1
@@ -2180,79 +2181,79 @@ f_insert_z_table(
 
 ## In work vs Not in work ####
 
-f_insert_sig_table(
-  df = nics_work_stats,
-  sheet = "Trust Civil Service",
-  title = paste("Trust Civil Service - In work vs Not in work -", current_year)
-)
+# f_insert_sig_table(
+#   df = nics_work_stats,
+#   sheet = "Trust Civil Service",
+#   title = paste("Trust Civil Service - In work vs Not in work -", current_year)
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = nics_age_stats,
-  sheet = "Trust Civil Service",
-  title = paste("Trust Civil Service - by Age Group -", current_year)
-)
-
-f_insert_z_table(
-  df = nics_age_z_scores,
-  sheet = "Trust Civil Service",
-  title = paste0("Yes - Trust Civil Service by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = nics_disagree_age_z_scores,
-  sheet = "Trust Civil Service",
-  title = paste0("No - Trust Civil Service by Age Group - ", current_year)
-)
-
-f_insert_z_table(
-  df = nics_dont_know_age_z_scores,
-  sheet = "Trust Civil Service",
-  title = paste0("Don't know - Trust Civil Service by Age Group - ", current_year)
-)
+# f_insert_sig_table(
+#   df = nics_age_stats,
+#   sheet = "Trust Civil Service",
+#   title = paste("Trust Civil Service - by Age Group -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = nics_age_z_scores,
+#   sheet = "Trust Civil Service",
+#   title = paste0("Yes - Trust Civil Service by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = nics_disagree_age_z_scores,
+#   sheet = "Trust Civil Service",
+#   title = paste0("No - Trust Civil Service by Age Group - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = nics_dont_know_age_z_scores,
+#   sheet = "Trust Civil Service",
+#   title = paste0("Don't know - Trust Civil Service by Age Group - ", current_year)
+# )
 
 ## By qualifiation ####
 
-f_insert_sig_table(
-  df = nics_qual_stats,
-  sheet = "Trust Civil Service",
-  title = paste("Trust Civil Service - By highest qualification achieved -", current_year)
-)
-
-f_insert_z_table(
-  df = nics_qual_z_scores,
-  sheet = "Trust Civil Service",
-  title = paste0("Yes - Trust Civil Service by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = nics_disagree_qual_z_scores,
-  sheet = "Trust Civil Service",
-  title = paste0("No - Trust Civil Service by highest qualification achieved - ", current_year)
-)
-
-f_insert_z_table(
-  df = nics_dont_know_qual_z_scores,
-  sheet = "Trust Civil Service",
-  title = paste0("Don't know - Trust Civil Service by highest qualification achieved - ", current_year)
-)
+# f_insert_sig_table(
+#   df = nics_qual_stats,
+#   sheet = "Trust Civil Service",
+#   title = paste("Trust Civil Service - By highest qualification achieved -", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = nics_qual_z_scores,
+#   sheet = "Trust Civil Service",
+#   title = paste0("Yes - Trust Civil Service by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = nics_disagree_qual_z_scores,
+#   sheet = "Trust Civil Service",
+#   title = paste0("No - Trust Civil Service by highest qualification achieved - ", current_year)
+# )
+# 
+# f_insert_z_table(
+#   df = nics_dont_know_qual_z_scores,
+#   sheet = "Trust Civil Service",
+#   title = paste0("Don't know - Trust Civil Service by highest qualification achieved - ", current_year)
+# )
 
 ## Limited longstanding illness ####
 
-f_insert_sig_table(
-  df = nics_illness,
-  sheet = "Trust Civil Service",
-  title = paste0("Trust Civil Service - by Limited Longstanding Illness - ", current_year)
-)
+# f_insert_sig_table(
+#   df = nics_illness,
+#   sheet = "Trust Civil Service",
+#   title = paste0("Trust Civil Service - by Limited Longstanding Illness - ", current_year)
+# )
 
 # Trust Civil Service (exc DK) ####
 
 addWorksheet(wb, "TruNICSExDK")
 
 setColWidths(wb, "TruNICSExDK",
-             cols = 1:ncol(nics_age_z_scores_ex_dk),
-             widths = c(47, rep(12, ncol(nics_age_z_scores_ex_dk) - 1))
+             cols = 1:ncol(nics_trend_ex_dk),
+             widths = c(47, rep(12, ncol(nics_trend_ex_dk) - 1))
 )
 
 r <- 1
@@ -2286,49 +2287,49 @@ f_insert_z_table(
 
 ## In work vs not in work ####
 
-f_insert_sig_table(
-  df = nics_work_ex_dk,
-  sheet = "TruNICSExDK",
-  title = paste0("Trust Civil Service - In work vs Not in work - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = nics_work_ex_dk,
+#   sheet = "TruNICSExDK",
+#   title = paste0("Trust Civil Service - In work vs Not in work - ", current_year, " (exc DKs)")
+# )
 
 ## By age ####
 
-f_insert_sig_table(
-  df = nics_age_ex_dk,
-  sheet = "TruNICSExDK",
-  title = paste0("Trust Civil Service - by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = nics_age_ex_dk,
+#   sheet = "TruNICSExDK",
+#   title = paste0("Trust Civil Service - by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## Age comparison ####
 
-f_insert_z_table(
-  df = nics_age_z_scores_ex_dk,
-  sheet = "TruNICSExDK",
-  title = paste0("Trust Civil Service by Age Group - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = nics_age_z_scores_ex_dk,
+#   sheet = "TruNICSExDK",
+#   title = paste0("Trust Civil Service by Age Group - ", current_year, " (exc DKs)")
+# )
 
 ## By qualification ####
 
-f_insert_sig_table(
-  df = nics_qual_ex_dk,
-  sheet = "TruNICSExDK",
-  title = paste0("Trust Civil Service - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
+# f_insert_sig_table(
+#   df = nics_qual_ex_dk,
+#   sheet = "TruNICSExDK",
+#   title = paste0("Trust Civil Service - by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
 
 ## Qualification comparison ####
 
-f_insert_z_table(
-  df = nics_qual_z_scores_ex_dk,
-  sheet = "TruNICSExDK",
-  title = paste0("Trust Civil Service by Highest Qualification Achieved - ", current_year, " (exc DKs)")
-)
-
-f_insert_sig_table(
-  df = nics_illness_ex_dk,
-  sheet = "TruNICSExDK",
-  title = paste0("Trust Civil Service - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
-)
+# f_insert_z_table(
+#   df = nics_qual_z_scores_ex_dk,
+#   sheet = "TruNICSExDK",
+#   title = paste0("Trust Civil Service by Highest Qualification Achieved - ", current_year, " (exc DKs)")
+# )
+# 
+# f_insert_sig_table(
+#   df = nics_illness_ex_dk,
+#   sheet = "TruNICSExDK",
+#   title = paste0("Trust Civil Service - by Limited Longstanding Illness - ", current_year, " (exc DKs)")
+# )
 
 # Trust comparisons ####
 
