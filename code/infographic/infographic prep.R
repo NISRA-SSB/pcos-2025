@@ -212,9 +212,13 @@ awareness_info_data1 <- readRDS(paste0(data_folder, "Trend/", current_year, "/ta
     rank = rank(-Percentage, ties.method = "first"),
     shape = case_when(
       rank == 1 ~ "blue circle 1",
-      rank == 2 ~ "blue circle 2",
-      rank == 3 ~ "blue circle 3",
+      rank == 2 ~ "blue circle 1",
+      rank == 3 ~ "blue circle 2",
       rank == 4 ~ "blue circle 2",
+      rank == 5 ~ "blue circle 3",
+      rank == 6 ~ "blue circle 3",
+      rank == 7 ~ "blue circle 4",
+      rank == 8 ~ "blue circle 4",
       rank == max(rank) ~ "green circle",
       TRUE ~ "blue circle 4"
     ),
@@ -262,13 +266,13 @@ aware_nisra_z <- f_trend_z_scores(aware_nisra_trend, "Yes") %>%
 ## Chart 3 ####
 awareness_info_data2 <- readRDS(paste0(data_folder, "Trend/", current_year, "/aware_nisra_ons_data.RDS"))
 awareness_info_data2$year <- as.character(awareness_info_data2$year)
-awareness_info_data2 <- subset(awareness_info_data2, awareness_info_data2$year == "2016" |
+awareness_info_data2 <- subset(awareness_info_data2, 
+  awareness_info_data2$year == "2016" |
   awareness_info_data2$year == "2018" |
   awareness_info_data2$year == "2021" |
   awareness_info_data2$year == "2023" |
-  awareness_info_data2$year == "2024")
+  awareness_info_data2$year == "2025")
 awareness_info_data2 <- gather(awareness_info_data2, Group, Percentage, -`year`)
-awareness_info_data2$Percentage <- awareness_info_data2$Percentage
 awareness_info_data2$Group <- toupper(awareness_info_data2$Group)
 
 ## Chart 4 ####

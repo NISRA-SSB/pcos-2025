@@ -799,7 +799,7 @@ caption_2 <- ggplot() +
   #ORIGINAL
   # label = bquote(bold(.(previous_trend)) ~ "than in previous years."),
   #2024 EDIT
-  label = bquote(remains ~ bold(.(previous_trend))~ "than in 2019 and earlier years."),
+  label = bquote(remains ~ bold(.("significantly different")) ~ "than in 2019 and earlier years."),
 
     color = "#747474",
     size = 3
@@ -1031,7 +1031,7 @@ pub_awareness_chart_3 <- ggplot(
     color = NA,
     size = 0
   ) +
-  labs(title = bquote(bold("Awareness") ~ "of specific" ~ bold("NISRA statistics") ~ "for respondents who were" ~ bold("not aware of NISRA"))) +
+  labs(title = bquote(bold("Awareness") ~ "of specific" ~ bold("NISRA statistics"))) +
   scale_fill_manual(values = alpha(c("#757575", "#98b4d4", "#00205b"))) +
   geom_text(
     data = awareness_info_data3[awareness_info_data3$Answer == "No", ],
@@ -1062,7 +1062,7 @@ pub_awareness_chart_3 <- ggplot(
     axis.text.y = element_text(size = 16),
     axis.ticks = element_blank(),
     plot.title = element_text(
-      hjust = 1,
+      hjust = 0,
       color = "#747474",
       size = 24
     ),
