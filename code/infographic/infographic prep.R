@@ -152,44 +152,48 @@ line_chart_df <- trust_info_data3
 
 ## Chart 4 ####
 
-# under filter V1, list any years with ONS data but without NISRA data (2018)
-# under filter Year, list any years with NISRA data but without ONS data (2019, 2020, 2022) - do not include current year
-# under tail, make sure number is correct number of columns
-
-trust_info_data4 <- readRDS(paste0(data_folder, "Trend/", current_year, "/table_4d_data.RDS")) %>%
+# --- ONS ---
+ons_data <- readRDS(paste0(data_folder, "Trend/", current_year, "/table_4d_data.RDS")) %>%
   filter(Response == "Yes") %>%
   t() %>%
   as.data.frame() %>%
-  filter(V1 != "Yes" & rownames(.) != "2018") %>%
   mutate(
-    Organisation = "ONS",
     Year = rownames(.),
-    Percentage = as.numeric(V1)
+    Percentage = as.numeric(V1),
+    Organisation = "ONS"
   ) %>%
-  select(-V1) %>%
-  tail(5) %>%
-  bind_rows(trust_info_data2 %>%
-    as.data.frame() %>%
-    filter((Year != 2019) & (Year != 2020) & (Year != 2022)) %>%
-    mutate(
-      Organisation = "NISRA",
-      Year = as.character((Year))
-    ) %>%
-    select(Organisation, Year, Percentage = `Percentage\n`) %>%
-    tail(6)) %>%
-  arrange(Organisation)
+  filter(V1 != "Yes", Year != "2018") %>%
+  select(Year, Organisation, Percentage)
 
-rownames(trust_info_data4) <- 1:nrow(trust_info_data4)
+# --- NISRA ---
+nisra_data <- trust_info_data2 %>%
+  as.data.frame() %>%
+  mutate(
+    Year = as.character(Year),
+    Organisation = "NISRA",
+    Percentage = `Percentage\n`
+  ) %>%
+  filter(!(Year %in% c("2019", "2020", "2022"))) %>%
+  select(Year, Organisation, Percentage)
 
-if (current_year != ons_year) {
-  trust_info_data4 <- trust_info_data4 %>%
-    bind_rows(data.frame(
-      Organisation = "ONS",
-      Year = as.character(current_year),
-      Percentage = NA
-    ))
-}
+# --- Combine ---
+trust_info_data4 <- bind_rows(ons_data, nisra_data)
 
+# --- Choose years explicitly (last 6 chronologically) ---
+years <- sort(unique(trust_info_data4$Year))
+years_to_keep <- tail(years, 6)
+
+trust_info_data4 <- trust_info_data4 %>%
+  filter(Year %in% years_to_keep)
+
+# --- Ensure BOTH organisations exist for every year ---
+trust_info_data4 <- trust_info_data4 %>%
+  mutate(
+    Year = factor(Year, levels = sort(unique(Year))),
+    Organisation = factor(Organisation, levels = c("NISRA", "ONS"))
+  )
+trust_info_data4 <- trust_info_data4 %>%
+  complete(Year, Organisation)
 
 
 # Awareness Infographic ####

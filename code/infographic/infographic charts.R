@@ -599,57 +599,44 @@ nisra_ons_sig <- if (nisra_ons_z < qnorm(0.975) * -1) {
 chart_4_perc <- paste0(round_half_up(trust_info_data4$Percentage[trust_info_data4$Year == current_year]), "%")
 
 trust_chart_4 <- ggplot(
-  trust_info_data4 %>% filter(!is.na(Percentage)),
-  aes(x = Year, y = Percentage, fill = factor(Organisation))) +
+  trust_info_data4,
+  aes(x = Year, y = Percentage, fill = Organisation, group = Organisation)
+) +
   geom_bar(
     stat = "identity",
     colour = NA,
-    size = 0,
-    width = 0.6,
-    position = position_dodge2(preserve = "single")
+    width = 0.65,
+    position = position_dodge2(width = 0.45, preserve = "single")
   ) +
-  labs(
-    title = bquote("Trust in" ~ bold("NISRA") ~ "statistics is" ~ bold(.(nisra_ons_sig)) ~ .(if (nisra_ons_sig == "similar") "to" else "than")),
-    subtitle = bquote(~ "trust in" ~ bold("ONS") ~ "statistics") 
+  geom_text(
+    aes(label = ifelse(is.na(Percentage), "", paste0(round_half_up(Percentage), "%"))),
+    position = position_dodge2(width = 0.6, preserve = "single"),
+    vjust = -0.25,
+    size = 7.0,
+    fontface = "bold"
   ) +
   scale_fill_manual(values = alpha(c("#00205b", "#5094dc"))) +
+  scale_y_continuous(limits = c(0, 100)) +
+  coord_cartesian(expand = FALSE) +
+  labs(
+    title = bquote("Trust in" ~ bold("NISRA") ~ "statistics is" ~ bold(.(nisra_ons_sig)) ~ .(if (nisra_ons_sig == "similar") "to" else "than")),
+    subtitle = bquote(~ "trust in" ~ bold("ONS") ~ "statistics")
+  ) +
   theme(
     axis.text.y = element_blank(),
     axis.ticks = element_blank(),
     legend.position = "bottom",
     legend.title = element_blank(),
-    axis.title.y = element_blank(),
-    axis.title.x = element_blank(),
+    axis.title = element_blank(),
     legend.text = element_text(size = 24),
     axis.text.x = element_text(size = 24),
-    plot.title = element_text(
-      hjust = 0.5,
-      size = 29,
-      color = "#747474"
-    ),
-    plot.subtitle = element_text(
-      hjust = 0.5,
-      size = 29,
-      color = "#747474"
-    ),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
+    plot.title = element_text(hjust = 0.5, size = 29, color = "#747474"),
+    plot.subtitle = element_text(hjust = 0.5, size = 29, color = "#747474"),
+    panel.grid = element_blank(),
     panel.border = element_blank(),
     panel.background = element_blank(),
-    axis.line.x = element_line(
-      color = "#000000",
-      linewidth = 2
-    )
-  ) +
-  geom_text(
-    size = 7.5,
-    aes(label = paste0(round_half_up(Percentage), "%")),
-    position = position_dodge(width = 0.7),
-    vjust = -0.25,
-    fontface = "bold"
-  ) +
-  scale_y_continuous(limits = c(0, 100)) +
-  coord_cartesian(expand = FALSE)
+    axis.line.x = element_line(color = "#000000", linewidth = 2)
+  )
 
 trust_chart_4
 
