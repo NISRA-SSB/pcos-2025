@@ -598,13 +598,14 @@ nisra_ons_sig <- if (nisra_ons_z < qnorm(0.975) * -1) {
 
 chart_4_perc <- paste0(round_half_up(trust_info_data4$Percentage[trust_info_data4$Year == current_year]), "%")
 
-trust_chart_4 <- ggplot(trust_info_data4, aes(x = Year, y = Percentage, group = factor(Organisation))) +
+trust_chart_4 <- ggplot(
+  trust_info_data4 %>% filter(!is.na(Percentage)),
+  aes(x = Year, y = Percentage, fill = factor(Organisation))) +
   geom_bar(
     stat = "identity",
     colour = NA,
     size = 0,
     width = 0.6,
-    aes(fill = factor(Organisation)),
     position = position_dodge2(preserve = "single")
   ) +
   labs(
