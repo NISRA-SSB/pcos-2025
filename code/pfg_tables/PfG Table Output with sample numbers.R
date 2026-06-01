@@ -15,7 +15,9 @@ data_years <- c(seq(2012, 2018, 2), 2019:current_year)
 questions <- c("TrustMedia2", "TrustAssemblyElectedBody2")
 
 # Co-variates to include ####
-co_vars <- c("AGE2", "SEX", "EMPST2", "DERHIanalysis", "OwnRelig2", "URBH")
+co_vars <- c("AGE2", "SEX"
+             #, "EMPST2", "DERHIanalysis", "OwnRelig2", "URBH"
+             )
 
 # Lookup table for EQUALGROUPS labels (taken from PfG documentation) ####
 eq_labels <- read.xlsx(
@@ -159,13 +161,16 @@ for (question in questions) {
             weight <- age_weight
           } else if (grepl("SEX", var)) {
             data_year <- data_year %>%
-              mutate(SEX = factor(SEX,
-                levels = levels(SEX),
-                labels = c("Sex - Male", "Sex - Female", "Refusal", "Don't Know")
+              mutate(
+                SEX = as.character(SEX),
+                SEX = case_when(
+                  SEX %in% c("M", "Male", "1") ~ "Sex - Male",
+                  SEX %in% c("F", "Female", "2") ~ "Sex - Female",
+                  TRUE ~ NA_character_
               )) %>%
-              filter(SEX %in% c("Sex - Male", "Sex - Female")) %>%
-              mutate(SEX = factor(SEX,
-                levels = c("Sex - Male", "Sex - Female")
+              filter(!is.na(SEX)) %>%
+              mutate(
+                SEX = factor(SEX, levels = c("Sex - Male", "Sex - Female")
               ))
 
             weight <- sex_weight
@@ -291,9 +296,9 @@ for (question in questions) {
   sort_order <- c("Northern Ireland")
   
   for (var in co_vars) {
-    
-    sort_order <- c(sort_order, levels(data_year[[var]]))
-    
+    if (var %in% names(data_year) && is.factor(data_year[[var]])) {
+      sort_order <- c(sort_order, levels(data_year[[var]]))
+    }
   }
 
   question_data <- question_data %>%
