@@ -1,3 +1,4 @@
+# Debug log
 message("data_prep.R has started running")
 # Set folder path
 library(here)
@@ -14,14 +15,14 @@ trust_q_new <- c("TrustCivilService2", trust_body_var, "TrustAssemblyElectedBody
 agree_q_old <- c("PCOS4", "PCOS5", "PCOS6")
 agree_q_new <- c("NISRAstatsImp2", "Political2", "Confidential2")
 
-# Set locale to always use UTF-8
+# Set locale to always use UTF-8 
 Sys.setlocale("LC_CTYPE", "UTF-8")
 
 # Read data in from SPSS ####
 data_raw <- f_read_spss(filepath = paste0(data_folder, "Raw/", data_filename),
                         pass = password)
 
-## Raw variable check ran and output to Excel workbook in Outputs folder ####
+# Raw variable check ran and output to Excel workbook in Outputs folder ####
 source(paste0(here(), "/code/html_publication/check_raw_variables.R"))
 
 # Read in ONS data from Excel ####
@@ -69,21 +70,6 @@ data_final <- data_raw %>%
       AGE <= 59 ~ "59",
       TRUE ~ "60+"
     )),
-    # DERHIanalysis = case_when(
-    #   DERHI == "Other qualifications" ~ NA,
-    #   TRUE ~ DERHI
-    # ),
-    # DERHIanalysis = factor(DERHIanalysis,
-    #   levels = c(
-    #     "Degree, or Degree equivalent and above",
-    #     "Other higher education below degree level",
-    #     "A levels, vocational level 3 and equivalents",
-    #     "GCSE/O level grade A*-C. vocational level 2 and equivalents",
-    #     "Qualifications at level 1 and below",
-    #     "No qualification"
-    #   )
-    # ),
-    # EMPST2 = factor(EMPST2, levels = c("In paid employment", "Not in paid employment")),
     remove = FALSE,
     AwareNISRA2 = factor(PCOS1, levels = setdiff(levels(PCOS1), "Refusal"), labels = gsub("DontKnow", "Don't know", setdiff(levels(PCOS1), "Refusal")))
   ) %>% ## Added for later
@@ -181,10 +167,9 @@ for (i in 1:length(agree_q_old)) {
 }
 
 ## Merge pcos3b 1/2/3 and pcos3c 1/2/3 ####
-# unnecessary?
+# move to here
 
 ## Recode Refusals to Missing ####
-# Added pcos1d10 and pcos3b/3c to recode logic
 
 vars_to_recode_to_missing <- names(data_final)[c(
   which(names(data_final) == "PCOS1"):which(names(data_final) == "PCOS1d10"),
@@ -192,10 +177,8 @@ vars_to_recode_to_missing <- names(data_final)[c(
   which(names(data_final) == "PCOS3b_1"):which(names(data_final) == "PCOS3cOth")
 )]
 
-## Convert all "" to NA in vars_to_recode_to_missing
-# data_final <- data_final %>%
-#   mutate(across(all_of(vars_to_recode_to_missing),
-#                 ~ na_if(trimws(as.character(.)), "")))
+## Convert all "" to NA in problematic cols ####
+# add logic to look for problematic cols
 
 problematic_cols <- c("PCOS3bOth", "PCOS3cOth")
 
@@ -237,21 +220,21 @@ for (i in 1:nrow(data_final)) {
   }
 }
 
-## Test that NA/DK removal logic working - if any non zero, then no working
+## Test that NA/DK removal logic working - if any non zero, then not working
+# Maybe add in to code with break if non zero found?
 # data_final %>%
-#   select(all_of(vars_to_recode_to_missing)) %>% 
+#   select(all_of(vars_to_recode_to_missing)) %>%
 #   summarise(across(everything(), ~ sum(. == "", na.rm=TRUE)))
 
 
 ## Tidy up data ####
 data_final <- data_final %>%
   filter(!remove) %>%
-  select(-remove) #%>%
-  # relocate("DERHIanalysis", .after = "Confidential2")
+  select(-remove)
 
 saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year, " Final Dataset.RDS"))
-#saveRDS(data_final, paste0(data_folder, "Final/PCOS ", current_year, " TEST.RDS"))
 
+## Folder check ####
 # Check for existence of pre 2021 data
 if (!file.exists(paste0(data_folder, "Final/PCOS 2021 Final Dataset.RDS"))) {
   source(paste0(here(), "/code/pfg_tables/Historic Data to R.R"))
