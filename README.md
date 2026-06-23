@@ -282,7 +282,7 @@ There is no need to run this script as it is called at a specific point in the r
 
 This script takes the data frames created in `infographic prep.R` and produces charts using [ggplot2](https://ggplot2.tidyverse.org/reference/). It also uses the content of the data frames to output alt text on each figure.
 
-The charts are then embedded in the infogrpahic templates, along with the alt text and these are then saved as PDF files in the `outputs` folder. The individual infographics are also saved in the outputs folder as .png images where they can be used in social media posts.
+The charts are then embedded in the infographic templates, along with the alt text and these are then saved as PDF files in the `outputs` folder. The individual infographics are also saved in the outputs folder as .png images where they can be used in social media posts.
 
 ### [code/ministerial_sub](code/ministerial_sub)
 
