@@ -1,0 +1,340 @@
+---
+title: "PfG Report 2025"
+lang: "en"
+output:
+  rmarkdown::html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_download: no
+    css: "../style.css"
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../../outputs/",
+      envir = globalenv()
+    )
+  })
+---
+
+<div id = "cookie-banner"></div>
+<script src = "../cookies.js"></script>
+
+```{r settings, include=FALSE}
+
+knitr::opts_chunk$set(
+  message = FALSE, echo = FALSE, warning = FALSE, out.width = "100%", fig.height = 4
+)
+
+library(here)
+source(paste0(here(), "/code/pfg_tables/PfG Data Prep.R"))
+
+```
+
+::: {data-nics-theme="`r nics_theme`"}
+`r f_banner(title = rmarkdown::metadata$title)`
+
+`r f_header()`
+
+`r f_borderline()`
+
+## Context
+
+The [Programme for Government (PfG) Wellbeing Framework](https://datavis.nisra.gov.uk/executiveofficeni/pfg_wellbeing_dashboard.html) includes two indicators within its 
+Living Peacefully domain taken from the Public Awareness and Trust in Official Statistics report:
+
+* Trust in the media - Percentage of the population aged 16+ who said they tend to trust the
+media or trust the media a great deal.
+* Trust in the NI Assembly - Percentage of the population aged 16+ who said they tend to trust
+the Northern Ireland Assembly or trust it a great deal.
+
+These questions are included in the Northern Ireland Continuous Household Survey (CHS) in the Autumn of each year, alongside questions on Trust in the Northern Ireland Statistics and Research Agency (NISRA) and Trust in the Civil Service. In 2019 and 2023, as the NI Assembly was suspended at the time, respondents were asked whether they trusted elected bodies such as the NI Assembly or UK Parliament.
+
+As the figures are based on a representative sample of the population rather than the whole population, they are estimates and will have a margin of error. Differences are only reported when they are likely to represent a real difference between groups (i.e. are statistically significant) taking account of the margin of error. Further details on the methodology and quality information can be found in [Appendix A of the Public Awareness of and Trust in Official Statistics report](https://datavis.nisra.gov.uk/ssb/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2025.html#Appendix_A:_Methodology_and_Quality_Information).
+
+This report is accompanied by data tables. These include estimates for equality (section 75), urban rural, deprivation and geographical population subgroups where there is sufficient sample size to do so, along with confidence intervals and guidance on interpreting the figures. Details of the available breakdowns are included in last section of this report (Background Information). 
+
+`r f_borderline()`
+
+## Trust in the Media
+
+### Most recent year, 2025
+
+In Autumn 2024, three out of every ten individuals aged 16 plus (30%) tended to trust or trusted the media a great deal, while around two-thirds (67%) tended to distrust or distrusted the media greatly. The remaining individuals (2%) didn’t know whether they trusted the media or not (Chart 1). 
+
+### Comparison over time
+
+There has been no real change (i.e. no significant difference) in the level of trust in the media between 2024 (the latest year) and 2020 (the PfG comparison year). However, the level of trust in the media was lower in 2024 than in 2023 and 2022 (Chart 1). 
+
+#### Chart 1: Trust in the media, 2014 to 2025
+
+```{r Chart 1, fig.alt = "Vertical stacked bar chart, with those who trust represented by the dark blue segments, distrust by the light blue segments, and don't know responses represented by grey."}
+
+f_stacked_bar_vertical(pfg_media)
+
+```
+
+### Equality groups
+
+The data were analysed by equality groups: Sex, Age [^1], Marital Status, Religion, Dependants, Disability, Deprivation, and Urban Rural. Sample sizes for Sexual Orientation and Ethnic group were too small to allow for reliable analysis. Political opinion was not collected in the survey.
+
+### Most recent year, 2025
+
+In Autumn 2024, there were statistically significant differences in the level of trust in the media between age groups; marital statuses; and those with a disability and those without. Further information on these differences is provided in the accompanying data tables.  
+
+**Age**
+
+Individuals aged 65 to 74 and 75 and over were more likely to trust the media than those aged 25 to 34, 35 to 44, 45 to 54 and 55 to 64. 
+
+**Marital status**
+
+Individuals who were married or in a civil partnership were more likely to trust the media than those who were single.
+
+**Disability**
+
+Individuals with a disability were less likely to trust the media than those without a disability. 
+
+[^1]: The sample size for 16 to 24 year olds was too small to allow for reliable comparisons, so this age group was excluded from the analysis.
+
+### Comparisons over time
+
+There is no consistent pattern over time. For all equality characteristics, statistically significant differences were observed in some years. The main findings are summarised below. Further information on these differences is provided in the accompanying data tables.
+
+**Sex**
+
+In 2020, males were significantly more likely to trust the media than females.
+
+**Age**
+
+In 2016, 2019, 2021, 2022 and 2024, individuals aged 75 and over were significantly more likely to trust the media than those aged 25 to 34, 35 to 44 and 55 to 64; and in 2019, 2022 and 2024 they were also significantly more likely to trust the media than those aged 45-54.. In 2016 and 2024, individuals aged 65 to 74 were significantly more likely to trust the media than those aged 25 to 34, 35 to 44 and 55 to 64 (in 2016), and those aged 25 to 34, 35 to 44, 45 to 54 and 55 to 64 (in 2024).  In 2020, individuals aged 25 to 34 were significantly less likely to trust the media than those aged 45 to 54, 55 to 64, 65 to 74 and 75 and over. Due to small sample sizes, this analysis does not include those aged 16 to 24. 
+
+**Marital status**
+
+In 2023, individuals who were married or in a civil partnership were significantly more likely to trust the media than those with a marital status of other (separated, divorced/dissolved or widowed), and in 2024 those who were married or in a civil partnership were significantly more likely to trust the media than those who were single.  
+
+**Religion**
+
+In 2019, Catholics were significantly more likely to trust the media than those from ‘Protestant and other Christian religions’, and in 2023 Catholics were more likely to trust the media than those from ‘Other religions and no religion’.   
+
+**Dependents**
+
+In 2019, 2020 and 2021, individuals with dependants were significantly less likely to trust the media than those without dependants.
+
+**Disability**
+
+In 2022, 2023 and 2024, individuals with a disability were significantly less likely to trust the media than those without a disability. 
+
+**Deprivation**
+
+In 2021, individuals living in the most deprived areas in Northern Ireland (Quintile 1) were significantly less likely to trust the media than those living in Quintiles 2, 3, 4 or 5, and in 2023 they were significantly less likely to trust the media than those living in Quintiles 2, 3 and 4. In 2019, individuals living in the least deprived areas in Northern Ireland (Quintile 5) were significantly more likely to trust the media than those living in Quintiles 1, 2 or 4, whilst in 2023 they were significantly less likely to trust the media than those living in Quintiles 2, 3 and 4. 
+
+**Urban Rural**
+
+In 2023, individuals living in rural areas were significantly more likely to trust the media than those living in urban areas. 
+
+### Geography
+
+Sample sizes were too small to allow for reliable analysis across Local Government Districts or Assembly Areas. Estimates for Local Government Districts have been included in the data tables where sample sizes permit. 
+
+`r f_borderline()`
+
+## Trust in the NI Assembly
+
+### Most recent year, 2025
+
+In Autumn 2025, three out of every ten individuals (30%) tended to trust or trusted the NI Assembly a great deal, while almost two-thirds (66%) tended to distrust or distrusted the NI Assembly greatly. The remaining individuals (4%) didn’t know whether they trusted the NI Assembly or not (Chart 2). 
+
+### Comparison over time
+
+There was no real change (i.e. no significant difference) in the level of trust in the NI Assembly between 2024 (the latest year) and 2020 (the PfG comparison year). However, the level of trust in the NI Assembly/Elected Bodies2 was higher in 2024 than in 2023, 2022 and 2019 (Chart 2). 
+
+#### Chart 2: Trust in the NI Assembly/Elected Bodies [^2], 2014 to 2025
+
+```{r Chart 2, fig.alt = "Vertical stacked bar chart, with those who trust represented by the dark blue segments, distrust by the light blue segments, and don't know responses represented by grey."}
+
+f_stacked_bar_vertical(pfg_assembly)
+
+```
+
+[^2]: In 2019 and 2023, respondents were asked whether they trusted elected bodies such as the NI Assembly or UK Parliament, as the NI Assembly was suspended at this time. 
+
+### Equality groups
+
+The data were analysed by equality groups: Sex, Age [^3], Marital Status, Religion, Dependants, Disability, Deprivation, and Urban Rural. Sample sizes for Sexual Orientation and Ethnic group were too small to allow for reliable analysis. Political opinion was not collected in the survey. 
+
+### Most recent year, 2025
+
+In Autumn 2024, there were statistically significant differences in the level of trust between age groups; those with a disability and those without; and individuals living in urban and rural areas. Further information on these differences is provided in the accompanying data tables. 
+
+**Age**
+
+Individuals aged 75 and over were more likely to trust the NI Assembly than those aged 35 to 44, 45 
+to 54 and 55 to 64.
+
+**Disability**
+
+Individuals with a disability were less likely to trust the NI Assembly than those without a disability.
+
+**Urban Rural**
+
+Individuals living in rural areas were more likely to trust the NI Assembly than those living in urban 
+areas.
+
+### Comparisons over time
+
+There is no consistent pattern over time. For all equality characteristics, apart from sex, statistically significant differences were observed in some years. The main findings are summarised below. Further information on these differences is provided in the accompanying data tables. 
+
+**Age**
+
+In 2022 and 2024, individuals aged 75 and over were significantly more likely to trust the NI Assembly than those aged 35 to 44, 45 to 54 and 55 to 64; and in 2019 and 2020 they were significantly more likely to trust the NI Assembly/Elected Bodies than those aged 25 to 34, 35 to 44 and 55 to 64.  In 2019 and 2021, individuals aged 25 to 34 were significantly less likely to trust the NI Assembly/Elected Bodies than those aged 45 to 54, 65 to 74 and 75 and over (in 2019), and those aged 35 to 44, 45 to 54 and 75 and over (in 2021). Due to small sample sizes, this analysis does not include those aged 16-24. 
+
+**Marital Status**
+
+In 2021 and 2023, individuals with a marital status of other (separated, divorced/dissolved or widowed) were significantly less likely to trust the NI Assembly/Elected bodies than those who were married or in a civil partnership. In 2014 and 2021, those with a marital status of other (separated, divorced/dissolved or widowed) were significantly less likely to trust the NI Assembly than those who were single. 
+
+**Religion**
+
+In 2020, Catholics and those from ‘Protestant and other Christian religions’ were significantly more likely to trust the NI Assembly than those from ‘Other religions and no religion’. In 2023, those from ‘Protestant and other Christian religions’ were significantly more likely to trust Elected bodies than Catholics. 
+
+**Dependents**
+
+In 2019, individuals with dependants were significantly less likely to trust Elected bodies than those without dependants.
+
+**Disability**
+
+In 2022, 2023 and 2024, individuals with a disability were significantly less likely to trust the NI Assembly/Elected bodies than those without a disability. 
+
+**Deprivation**
+
+In 2021, individuals living in the most deprived areas in Northern Ireland (Quintile 1) were significantly less likely to trust the NI Assembly than those living in Quintiles 2, 3 or 5, and in 2023 they were significantly less likely to trust Elected bodies than those living in Quintiles 2, 4 and 5. 
+
+**Urban Rural**
+
+In 2020 and 2024, individuals living in rural areas were significantly more likely to trust the NI Assembly than those living in urban areas. 
+
+### Geography
+
+Sample sizes were too small to allow for reliable analysis across Local Government Districts or Assembly Areas. Estimates for Local Government Districts have been included in the data tables where sample sizes permit.
+
+[^3]: The sample size for 16 to 24 year olds was too small to allow for reliable comparisons, so this age group was excluded from the analysis.
+
+`r f_borderline()`
+
+## Background Information
+
+### Survey estimates
+
+Surveys gather information from a sample rather than from the whole population. Results from surveys are always estimates, not precise figures. This means that they have a margin of error which impacts how changes or differences in the observed percentages should be interpreted. An estimate of the margin of error due to the sampling process can be calculated and used to produce a range of values known as a 95% confidence interval. This means that if several hundred samples were drawn from the population, the true value would be expected to fall within 95% of these confidence intervals. Significance tests were carried out to determine if there were real differences between population subgroups. The significance tests were carried out at 5% significance level (which corresponds to a 95% confidence interval) and only differences which were statistically significant (p<0.05) are included in this report. This means that we can be relatively confident that there is a real difference between the views of these subgroups, and the observed difference didn't just occur by chance.
+
+### Publication threshold
+
+It is the nature of sampling variability that the smaller the sample, the less precise (proportionately) the estimate will be, and the greater the risk of sampling bias. To reduce the risk of sampling bias, estimates for population subgroups where the sample base is less than 100 have been omitted from the analysis and the accompanying data tables, as they are likely to be unreliable. These population subgroups have been denoted with an asterisk (*) in the accompanying data tables.
+
+### Equality breakdowns
+
+The following breakdowns have been used in the analysis: 
+
+**Sex**
+
+Male; Female.
+
+**Age**
+
+25 to 34; 35 to 44; 45 to 54; 55 to 64; 65 to 74; 75 plus.  
+Sample sizes for those aged 16 to 24 were too small to produce reliable estimates, so this age 
+group has not been included in the analysis.
+
+**Marital Status**
+
+* Single (never married or never legally registered in a civil partnership);
+* Married or in a legally registered civil partnership;
+* Other marital or civil partnership status which includes:
+    - Separated (but still legally married or still legally in a civil partnership),
+    - Divorced or formerly in a civil partnership which is now legally dissolved,
+    - Widowed or surviving member of a legally registered civil partnership. 
+
+**Religion**
+
+* Catholic; 
+* Protestant and other Christian religions;
+* Other religions and no religion.
+
+where ‘no religion’ refers to those individuals who stated that they had No Religion. Respondents 
+who did not answer the question were not included in the analysis.
+
+**Dependents**
+
+* With dependants;
+* Without dependants.
+
+where ‘With dependants’ includes individuals who have responsibility for the care of a child, a 
+person with a disability and/or a dependant elderly person.
+
+**Disability**
+
+* With a disability
+* Without a disability 
+
+Individuals are defined as having a disability if they have any physical or mental health conditions or 
+illnesses lasting or expected to last for 12 months or more, and the condition(s) or illness(es) reduce 
+their ability to carry out day to day activities.
+
+**Ethnic Group**
+
+* White;
+* Other ethnic group. 
+
+Other ethnic group includes: Irish Traveller; White and Black Caribbean; White and Black African; White and Asian; Any other Mixed/Multiple ethnic background; Indian; Pakistani; Bangladeshi; Chinese; Any other Asian background; African; Caribbean; Any other Black/African/Caribbean background; Arab; Any other ethnic group. Estimates were only available for 'White' as sample sizes were too small to produce reliable estimates for 'Other ethnic group'. As a result, Ethnic group was not included in the analysis.
+
+**Sexual Orientation**
+
+* Heterosexual or straight
+* Gay, lesbian, bisexual and other sexual orientation
+
+Respondent were presented with four options (Heterosexual or straight; Gay or Lesbian; Bisexual; Other) and asked to 'select the option which best describes how you think of yourself'. Estimates were only available for 'Heterosexual or straight' as sample sizes were too small to produce reliable estimates for 'Gay, lesbian, bisexual and other sexual orientation'. As a result, sexual orientation was not included in the analysis. 
+
+**Deprivation**
+
+Quintile 1 - most deprived; Quintile 2; Quintile 3; Quintile 4; Quintile 5 - least deprived. Respondents have been assigned to a deprivation quintile based on the area in which they live. Super output areas (SOAs) in Northern Ireland are ranked using the [2017 NI Multiple Deprivation Measure](https://www.nisra.gov.uk/statistics/deprivation-and-poverty/northern-ireland-multiple-deprivation-measure-2017-nimdm2017). Quintile 1 represents the 20% most deprived areas, and Quintile 5 represents the 20% least deprived areas. 
+
+**Urban Rural**
+
+* Urban;
+* Rural.
+
+Respondents have been categorised as living in an urban or rural area based on the [2015 (settlement based) urban rural classification](https://www.nisra.gov.uk/publications/urban-rural-geography-documents-2015). 
+
+### Methodology and Quality Information
+
+Detailed information on the data source, sampling methodology and quality checks are available in [Appendix A of the Public Awareness of and Trust in Official Statistics, Northern Ireland 2024 report](https://datavis.nisra.gov.uk/ssb/public-awareness-of-and-trust-in-official-statistics-northern-ireland-2024.html#Appendix_A:_Methodology_and_Quality_Information). 
+
+### Official Statistics
+
+These official statistics are produced in compliance with the [Code of Practice for Statistics](https://code.statisticsauthority.gov.uk/). Our statistical practice is regulated by the Office for Statistics Regulation (OSR). OSR sets the standards of trustworthiness, quality and value in the Code of Practice for Statistics that all producers of official statistics should adhere to. You are welcome to contact us directly with any comments about how we meet these standards by emailing  Norma.Broomfield@nisra.gov.uk. Alternatively, you can contact OSR by emailing regulation@statistics.gov.uk or via the [OSR website](https://osr.statisticsauthority.gov.uk/). 
+
+### Data Tables
+
+[Data tables](https://www.nisra.gov.uk/publications/pfg-trust-in-the-media-and-trust-in-the-NI-assembly-2024) are published alongside this report. These contain the estimated percentage of the population aged 16 plus, who trust (and distrust) the Northern Ireland Assembly, and who trust (and distrust) the media: for 2014 to 2024, broken down by equality group, urban rural, deprivation and local government district, where the data and breakdown are available, and there is sufficient sample size to do so. Lower and upper 95% confidence limits are included, as well as guidance on how to interpret the figures.
+
+### Data Availability
+
+**Equality Groups**
+
+* Sex, age, marital status, dependents and ethnic group (white only) are available for all years.
+* Disability is available for all years except 2020. 
+* Sexual orientation (heterosexual or straight only) is available for all years except 2020 and 2021.
+* Religion, deprivation and urban rural are available from 2019. 
+* Political opinion is not available for any year as this question is not asked in the survey.
+
+**Geographical Breakdowns**
+
+* Local government districts (where sample sizes permit) are available for all years 
+* Assembly areas are not available for any year due to small sample sizes. 
+
+### Contact details
+
+For further details regarding this publication contact:
+
+`r f_contact()`
+
+`r f_footer()`
