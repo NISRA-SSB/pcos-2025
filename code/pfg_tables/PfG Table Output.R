@@ -133,14 +133,14 @@ for (question in questions) {
             weight <- age_weight
           } else if (grepl("SEX", var)) {
             data_year <- data_year %>%
-              mutate(SEX = factor(SEX,
-                levels = levels(SEX),
-                labels = c("Sex - Male", "Sex - Female", "Refusal", "Don't Know")
-              )) %>%
-              filter(SEX %in% c("Sex - Male", "Sex - Female")) %>%
-              mutate(SEX = factor(SEX,
-                levels = c("Sex - Male", "Sex - Female")
-              ))
+              mutate(
+                SEX = case_when(
+                  SEX == "M" ~ "Sex - Male",
+                  SEX == "F" ~ "Sex - Female",
+                  TRUE ~ NA_character_
+                )
+              ) %>%
+              filter(!is.na(SEX))
 
             weight <- sex_weight
           } else {
