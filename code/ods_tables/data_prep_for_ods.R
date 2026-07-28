@@ -77,7 +77,6 @@ for (i in 1:length(PCOS1d_vars)) {
 ## Table 2.1j: Number of selected NISRA statistics respondents had heard of (among those who were not previously aware of NISRA) ####
 
 table_2.1j_data <- data_final %>%
-  # filter(PCOS1 == "No") %>%
   group_by(pcos_yes_count) %>%
   summarise(count = sum(W3)) %>%
   mutate(current_year = count / sum(count) * 100) %>%
@@ -90,51 +89,7 @@ table_2.1j_data <- data_final %>%
 names(table_2.1j_data) <- c("Response (%)", current_year)
 
 # Awareness of NISRA Statistics by those previously aware of NISRA ####
-
-## Table 2.2a: Aware that statistics on the number of deaths in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2b: Aware that statistics on recorded levels of crime in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2c: Aware that statistics on the qualifications of school leavers in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2d: Aware that statistics on the number of people who live in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2e: Aware that statistics on hospital waiting times in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2f: Aware that statistics on the Northern Ireland Census every ten years are produced by NISRA statisticians ####
-## Table 2.2g: Aware that statistics on the unemployment rate in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2h: Aware that statistics on people living in poverty in Northern Ireland are produced by NISRA statisticians ####
-## Table 2.2i: Aware that statistics on percentage of journeys made by walking, cycling or public transport in Northern Ireland are produced by NISRA statisticians ####
-
-# for (i in 1:length(PCOS1c_vars)) {
-#   df_name <- paste0("table_2.2", letters[i], "_data")
-#   output_name <- sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>%
-#     trimws()
-# 
-#   df <- data.frame(
-#     response = c("Yes", "No", "Don't Know", "Number of Respondents"),
-#     current_year = c(
-#       aware_stats_by_nisra_data$yes[gsub("\n", "", aware_stats_by_nisra_data$output) == output_name],
-#       aware_stats_by_nisra_data$no[gsub("\n", "", aware_stats_by_nisra_data$output) == output_name],
-#       aware_stats_by_nisra_data$dont_know[gsub("\n", "", aware_stats_by_nisra_data$output) == output_name],
-#       nrow(data_final[!is.na(data_final[[paste0("PCOS1c", i)]]), ])
-#     )
-#   )
-# 
-#   names(df) <- c("Response (%)", current_year)
-# 
-#   assign(df_name, df)
-# }
-
-## Table 2.2j: Number of selected NISRA statistics respondents had heard of (among those who were previously aware of NISRA) ####
-
-# table_2.2j_data <- data_final %>%
-#   filter(PCOS1 == "Yes") %>%
-#   group_by(heard_yes_count) %>%
-#   summarise(count = sum(W3)) %>%
-#   mutate(current_year = count / sum(count) * 100) %>%
-#   select(heard_yes_count, current_year) %>%
-#   rbind(data.frame(
-#     heard_yes_count = "Number of Respondents",
-#     current_year = nrow(data_final[!is.na(data_final$PCOS1c1), ])
-#   ))
-# 
-# names(table_2.2j_data) <- c("Response (%)", current_year)
+# removed for 2025
 
 # Trust in NISRA ####
 
