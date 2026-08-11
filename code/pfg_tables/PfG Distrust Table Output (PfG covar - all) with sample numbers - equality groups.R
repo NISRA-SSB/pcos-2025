@@ -14,13 +14,29 @@ if (!dir.exists(paste0(here(), "/outputs/PfG"))) {
 wb <- createWorkbook() 
 
 # Define all available years based on current_year value from config ####
-data_years <- c(seq(2012, 2018, 2), 2019:current_year)
+data_years <- current_year
 
 # Questions to analyse ####
-questions <- c("TrustMedia2", "TrustAssemblyElectedBody2")
+questions <- c("TrustMedia2",
+               "TrustAssemblyElectedBody2"
+               )
 
 # Co-variates to include ####
-co_vars <- c("URBH", "SEX", "AGE2","MS","MS_GRP", "OwnRelig2", "LimLongStand", "Ethnic_group", "Ethnic_white_other", "Dependants", "DEPEND1", "DEPEND2", "DEPEND3", "Sexual_orient", "Deprivation")
+co_vars <- c("URBH", 
+             "SEX", 
+             "AGE2",
+             #"MS",
+             "MS_GRP", 
+             "OwnRelig2", 
+             "LimLongStand", 
+             #"Ethnic_group", 
+             "Ethnic_white_other", 
+             "Dependants", 
+             #"DEPEND1", 
+             #"DEPEND2", 
+             #"DEPEND3", 
+             "Sexual_orient", 
+             "Deprivation")
 
 # Lookup table for EQUALGROUPS labels (taken from PfG documentation) ####
 eq_labels <- read.xlsx(
@@ -160,14 +176,15 @@ for (question in questions) {
           } else if (grepl("SEX", var)) {
             #### Reword value labels - sex ####
             pfg_data_year <- pfg_data_year %>%
-              mutate(SEX = factor(SEX,
-                levels = levels(SEX),
-                labels = c("Sex - Male", "Sex - Female", "Refusal", "Don't Know")
-              )) %>%
+              mutate(
+                SEX = recode(
+                  SEX,
+                  "M" = "Sex - Male",
+                  "F" = "Sex - Female"
+                )
+              ) %>%
               filter(SEX %in% c("Sex - Male", "Sex - Female")) %>%
-              mutate(SEX = factor(SEX,
-                levels = c("Sex - Male", "Sex - Female")
-              ))
+              mutate(SEX = factor(SEX))
 
             weight <- sex_weight
           } else {
@@ -378,7 +395,51 @@ for (question in questions) {
                                     levels = sort_order
     )) %>%
     arrange(`Variable name`, `TLIST(A1)`)
-
+  
+  ## Apply suppression where sample size < 100 ####
+  # Take out if excel sheet unstable
+  
+  suppression_rows <- question_n_data$VALUE < 100
+  
+  question_data_rounded <- question_data_rounded %>%
+    mutate(
+      `Lower limit` = as.character(`Lower limit`),
+      VALUE = as.character(VALUE),
+      `Upper limit` = as.character(`Upper limit`)
+    )
+  
+  question_data <- question_data %>%
+    mutate(
+      `Lower limit` = as.character(`Lower limit`),
+      VALUE = as.character(VALUE),
+      `Upper limit` = as.character(`Upper limit`)
+    )
+  
+  question_data_rounded[suppression_rows, c("Lower limit", "VALUE", "Upper limit")] <- "*"
+  
+  question_data[suppression_rows, c("Lower limit", "VALUE", "Upper limit")] <- "*"
+  
+  ## Add footer to explain suppression ####
+  
+  add_suppression_note <- function(wb, sheet, n_rows) {
+    footer_row <- n_rows + 4
+    
+    writeData(
+      wb,
+      sheet,
+      "* Sample sizes fewer than 100 respondents have been suppressed.",
+      startRow = footer_row,
+      startCol = 1
+    )
+    
+    addStyle(
+      wb,
+      sheet,
+      createStyle(textDecoration = "italic"),
+      rows = footer_row,
+      cols = 1
+    )
+  }
 
   ## Write to Excel ####
 
@@ -389,6 +450,8 @@ for (question in questions) {
     tableStyle = "none",
     withFilter = FALSE
   )
+  
+  add_suppression_note(wb, paste0("Dis",question), nrow(question_data_rounded))
 
   addStyle(wb, paste0("Dis",question),
     style = ns_pfg,
@@ -412,6 +475,8 @@ for (question in questions) {
                  withFilter = FALSE
   )
   
+  add_suppression_note(wb, unrounded_sheet, nrow(question_data))
+  
   addStyle(wb, unrounded_sheet,
            style = ns_pfg,
            rows = 2:(nrow(question_data) + 1),
@@ -421,7 +486,15 @@ for (question in questions) {
   
   setColWidths(wb, unrounded_sheet,
                cols = 1:7,
-               widths = c(22.86, 14.14, 12.86, 52.43, 10.14, 10.14, 10.71)
+               widths = c(
+                 22.86,  # STATISTIC
+                 14.14,  # TLIST(A1)
+                 12.86,  # EQUALGROUPS
+                 52.43,  # Variable name
+                 22,     # Lower limit
+                 22,     # VALUE
+                 22      # Upper limit
+               )
   )
   
   n_sheet <- paste(substr(paste0("Dis",question), 1, 19), "(SAMPLENUM)")

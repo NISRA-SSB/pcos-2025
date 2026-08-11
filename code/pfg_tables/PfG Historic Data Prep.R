@@ -215,8 +215,15 @@ for (year in c(seq(2014, 2016, 2), 2019:current_year)) {
   }
    
   ### Urban Rural (URBH) ####
-  # convert to factor
   
+  if (year >= 2025) {
+    data_year <- data_year %>%
+      mutate(
+        URBH = SETTLEMENT15_URBAN_RURAL
+      )
+  }
+  
+  # convert to factor
   if ("URBH" %in% names(data_year)) {
     data_year <- data_year %>%
       mutate(
@@ -339,6 +346,52 @@ for (year in c(seq(2014, 2016, 2), 2019:current_year)) {
       )
   }
   
+  ### Religion ####
+  #for 2025
+  
+  if (year >= 2025) {
+    data_year <- data_year %>%
+      mutate(
+        OwnRelig2 = case_when(
+          RELQ2 == "2. Catholic" ~ "Catholic",
+          
+          RELQ2 %in% c(
+            "3. Presbyterian",
+            "4. Church of Ireland",
+            "5. Methodist",
+            "6. Baptist",
+            "7. Free Presbyterian",
+            "9. Protestant - not specified"
+          ) ~ "Protestant",
+          
+          RELQ2 %in% c(
+            "1. No religion",
+            "10. Christian - not specified",
+            "11. Buddhist",
+            "12. Hindu",
+            "13. Jewish",
+            "14. Muslim",
+            "15. Sikh",
+            "16. Any other religion, please describe"
+          ) ~ "Other/No Religion",
+          
+          RELQ2 == "Refusal" ~ "Refusal",
+          RELQ2 == "DontKnow" ~ "Dont know"
+        ),
+        
+        OwnRelig2 = factor(
+          OwnRelig2,
+          levels = c(
+            "Catholic",
+            "Protestant",
+            "Other/No Religion",
+            "Refusal",
+            "Dont know"
+          )
+        )
+      )
+  }
+  
   ### LimLongStand ####
   # needs to be created from component variables (HLONGILL & REDACT) in 2019 & 2021, called DISABIL in 2014 & 2016
   
@@ -365,7 +418,7 @@ for (year in c(seq(2014, 2016, 2), 2019:current_year)) {
   ### ETHNIC ####
   # recode where present in data
   
- if ((year %in% c(2019:current_year)) & year != 2020 & year != 2024) {
+ if ((year %in% c(2019:2023)) & year != 2020) {
     data_year <- data_year %>%
       mutate(
         ETHNIC = factor(ETHNIC,
@@ -383,7 +436,7 @@ for (year in c(seq(2014, 2016, 2), 2019:current_year)) {
                                       "Refusal", "DontKnow"))
       )
   }
- if (year == 2024) {
+ if (year >= 2024) {
     data_year <- data_year %>%
       mutate(
         ETHNIC = factor(ETHNIC,
