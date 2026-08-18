@@ -18,7 +18,7 @@ bilingual <- TRUE
 # Location of data folder - see sourced script
 source(paste0(here::here(), "/code/path_to_data.R"))
 
-data_filename <- "CHS_PCOS25_PROVISIONAL.sav"
+data_filename <- "CHS2526_PCOS_FINAL_DATASET_PASSWORDED"
 password <- "CHS2526"
 
 ons_filename <- "ONS PCOS Data - 2023.xlsx"
