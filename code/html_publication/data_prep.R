@@ -341,31 +341,7 @@ sort_order <- aware_stats_data %>%
   mutate(order = as.numeric(rownames(.))) %>%
   select(output, order)
 
-# Removing chart 4 for 2025
-
-## Chart 4: Awareness of specific NISRA statistics for respondents who were aware of NISRA ####
-
-# aware_stats_by_nisra_data <- data.frame(
-#   output = character(),
-#   yes = numeric(),
-#   no = numeric(),
-#   dont_know = numeric()
-# )
-# 
-# for (i in 1:length(PCOS1c_vars)) {
-#   aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
-#     rbind(data.frame(
-#       output = f_wrap_labels(sub("\\..*", "", attributes(data_final[[PCOS1c_vars[i]]])$label) %>% trimws(), 47),
-#       yes = f_return_p(data_final, PCOS1c_vars[i], "Yes") * 100,
-#       no = f_return_p(data_final, PCOS1c_vars[i], "No") * 100,
-#       dont_know = f_return_p(data_final, PCOS1c_vars[i], "DontKnow") * 100
-#     ))
-# }
-# 
-# aware_stats_by_nisra_data <- aware_stats_by_nisra_data %>%
-#   left_join(sort_order) %>%
-#   arrange(order) %>%
-#   select(-order)
+## Chart 4 removed for 2025
 
 ## Chart 5: Trust in NISRA by year ####
 trust_nisra_data <- trust_nisra_data %>%
