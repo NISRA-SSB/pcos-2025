@@ -398,7 +398,6 @@ for (question in questions) {
     arrange(`Variable name`, `TLIST(A1)`)
   
   ## Apply suppression where sample size < 100 ####
-  # Take out if excel sheet unstable
   
   suppression_rows <- question_n_data$VALUE < 100
   
@@ -452,6 +451,7 @@ for (question in questions) {
     withFilter = FALSE
   )
   
+  # Suppression Note
   add_suppression_note(wb, question, nrow(question_data_rounded))
 
   addStyle(wb, question,
@@ -476,6 +476,7 @@ for (question in questions) {
                  withFilter = FALSE
   )
   
+  # Suppression Note  
   add_suppression_note(wb, unrounded_sheet, nrow(question_data))
   
   addStyle(wb, unrounded_sheet,
