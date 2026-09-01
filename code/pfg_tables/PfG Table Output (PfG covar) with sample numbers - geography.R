@@ -11,7 +11,7 @@ wb_LGD <- createWorkbook()
 wb_AA <- createWorkbook()
 
 # Define all available years based on current_year value from config ####
-data_years <- c(seq(2012, 2018, 2), 2019:current_year)
+data_years <- current_year
 
 # Questions to analyse ####
 questions <- c("TrustMedia2", "TrustAssemblyElectedBody2")
@@ -269,6 +269,74 @@ for (question in questions) {
                                     levels = levels(pfg_data_year[['AsmblyArea']])
     )) %>%
     arrange(AA, `TLIST(A1)`)
+  
+  ## Suppression ####
+  
+  ### LGD ####
+  
+  suppression_rows_lgd <- question_lgd_n_data$VALUE < 100
+  
+  question_lgd_data_rounded <- question_lgd_data_rounded %>%
+    mutate(
+      `Lower limit` = as.character(`Lower limit`),
+      VALUE = as.character(VALUE),
+      `Upper limit` = as.character(`Upper limit`)
+    )
+  
+  question_lgd_data <- question_lgd_data %>%
+    mutate(
+      `Lower limit` = as.character(`Lower limit`),
+      VALUE = as.character(VALUE),
+      `Upper limit` = as.character(`Upper limit`)
+    )
+  
+  question_lgd_data_rounded[suppression_rows_lgd, c("Lower limit", "VALUE", "Upper limit")] <- "*"
+  
+  question_lgd_data[suppression_rows_lgd, c("Lower limit", "VALUE", "Upper limit")] <- "*"
+  
+  ### AA ####
+  
+  suppression_rows_aa <- question_aa_n_data$VALUE < 100
+  
+  question_aa_data_rounded <- question_aa_data_rounded %>%
+    mutate(
+      `Lower limit` = as.character(`Lower limit`),
+      VALUE = as.character(VALUE),
+      `Upper limit` = as.character(`Upper limit`)
+    )
+  
+  question_aa_data <- question_aa_data %>%
+    mutate(
+      `Lower limit` = as.character(`Lower limit`),
+      VALUE = as.character(VALUE),
+      `Upper limit` = as.character(`Upper limit`)
+    )
+  
+  question_aa_data_rounded[suppression_rows_aa, c("Lower limit", "VALUE", "Upper limit")] <- "*"
+  
+  question_aa_data[suppression_rows_aa, c("Lower limit", "VALUE", "Upper limit")] <- "*"
+  
+  ## Add footer to explain suppression ####
+  
+  add_suppression_note <- function(wb, sheet, n_rows) {
+    footer_row <- n_rows + 4
+    
+    writeData(
+      wb,
+      sheet,
+      "* Sample sizes fewer than 100 respondents have been suppressed.",
+      startRow = footer_row,
+      startCol = 1
+    )
+    
+    addStyle(
+      wb,
+      sheet,
+      createStyle(textDecoration = "italic"),
+      rows = footer_row,
+      cols = 1
+    )
+  }
 
   ## Write to Excel ####
 
@@ -281,6 +349,9 @@ for (question in questions) {
     tableStyle = "none",
     withFilter = FALSE
   )
+  
+  # Suppression Note
+  add_suppression_note(wb_LGD, question, nrow(question_lgd_data_rounded))
 
   addStyle(wb_LGD, question,
     style = ns_pfg,
@@ -304,6 +375,9 @@ for (question in questions) {
                  withFilter = FALSE
   )
   
+  # Suppression Note
+  add_suppression_note(wb_LGD, unrounded_sheet, nrow(question_lgd_data))
+  
   addStyle(wb_LGD, unrounded_sheet,
            style = ns_pfg,
            rows = 2:(nrow(question_lgd_data) + 1),
@@ -313,7 +387,15 @@ for (question in questions) {
   
   setColWidths(wb_LGD, unrounded_sheet,
                cols = 1:7,
-               widths = c(22.86, 14.14, 12.86, 52.43, 10.14, 10.14, 10.71)
+               widths = c(
+                 22.86,  # STATISTIC
+                 14.14,  # TLIST(A1)
+                 12.86,  # EQUALGROUPS
+                 52.43,  # Variable name
+                 22,     # Lower limit
+                 22,     # VALUE
+                 22      # Upper limit
+                 )
   )
   
   n_sheet <- paste(substr(question, 1, 19), "(SAMPLENUM)")
@@ -348,6 +430,9 @@ writeDataTable(wb_AA, question,
                withFilter = FALSE
 )
 
+# Suppression Note
+add_suppression_note(wb_AA, question, nrow(question_aa_data_rounded))
+
 addStyle(wb_AA, question,
          style = ns_pfg,
          rows = 2:(nrow(question_aa_data_rounded) + 1),
@@ -370,6 +455,9 @@ writeDataTable(wb_AA, unrounded_sheet,
                withFilter = FALSE
 )
 
+# Suppression Note
+add_suppression_note(wb_AA, unrounded_sheet, nrow(question_aa_data))
+
 addStyle(wb_AA, unrounded_sheet,
          style = ns_pfg,
          rows = 2:(nrow(question_aa_data) + 1),
@@ -379,7 +467,15 @@ addStyle(wb_AA, unrounded_sheet,
 
 setColWidths(wb_AA, unrounded_sheet,
              cols = 1:7,
-             widths = c(22.86, 14.14, 12.86, 52.43, 10.14, 10.14, 10.71)
+             widths = c(
+               22.86,  # STATISTIC
+               14.14,  # TLIST(A1)
+               12.86,  # EQUALGROUPS
+               52.43,  # Variable name
+               22,     # Lower limit
+               22,     # VALUE
+               22      # Upper limit
+               )
 )
 
 n_sheet <- paste(substr(question, 1, 19), "(SAMPLENUM)")
