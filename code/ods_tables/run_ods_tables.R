@@ -465,7 +465,7 @@ f_worksheet(wb,
 
 # Save workbook ####
 
-xl_filename <- paste0(here(), "/outputs/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx")
+xl_filename <- paste0(here(), "/outputs/PCOS/Public-Awareness-of-and-Trust-in-Official-Statistics-Northern-Ireland-", current_year, "-tables.xlsx")
 ods_filename <- sub(".xlsx", ".ods", xl_filename)
 
 saveWorkbook(wb, xl_filename, overwrite = TRUE)

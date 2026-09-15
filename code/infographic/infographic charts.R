@@ -388,14 +388,14 @@ for (plot in c("Overview1", "Overview2", "Overview3", "Overview4", "Overview5"))
   )
 }
 
-writeLines(infographic_template, paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
+writeLines(infographic_template, paste0(here(), "/outputs/infographics/Overview Infographic - ", current_year, ".svg"))
 
 rsvg_pdf(
-  svg = paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"),
-  file = paste0(here(), "/outputs/NOT USED Overview Infographic - ", current_year, ".pdf")
+  svg = paste0(here(), "/outputs/infographics/Overview Infographic - ", current_year, ".svg"),
+  file = paste0(here(), "/outputs/infographics/NOT USED Overview Infographic - ", current_year, ".pdf")
 )
 
-unlink(paste0(here(), "/outputs/Overview Infographic - ", current_year, ".svg"))
+unlink(paste0(here(), "/outputs/infographics/Overview Infographic - ", current_year, ".svg"))
 
 
 # Trust Infographic ####
@@ -675,14 +675,14 @@ for (plot in c("trust1", "trust2", "trust3", "trust4")) {
   )
 }
 
-writeLines(trust_template, paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
+writeLines(trust_template, paste0(here(), "/outputs/infographics/Trust Infographic - ", current_year, ".svg"))
 
 rsvg_pdf(
-  svg = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"),
-  file = paste0(here(), "/outputs/Trust Infographic - ", current_year, ".pdf")
+  svg = paste0(here(), "/outputs/infographics/Trust Infographic - ", current_year, ".svg"),
+  file = paste0(here(), "/outputs/infographics/Trust Infographic - ", current_year, ".pdf")
 )
 
-unlink(paste0(here(), "/outputs/Trust Infographic - ", current_year, ".svg"))
+unlink(paste0(here(), "/outputs/infographics/Trust Infographic - ", current_year, ".svg"))
 
 # Awareness Infographic ####
 
@@ -1095,11 +1095,11 @@ for (plot in c("info1", "info2", "info3", "info4")) {
   )
 }
 
-writeLines(awareness_template, paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"))
+writeLines(awareness_template, paste0(here(), "/outputs/infographics/Awareness Infographic - ", current_year, ".svg"))
 
 rsvg_pdf(
-  svg = paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"),
-  file = paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".pdf")
+  svg = paste0(here(), "/outputs/infographics/Awareness Infographic - ", current_year, ".svg"),
+  file = paste0(here(), "/outputs/infographics/Awareness Infographic - ", current_year, ".pdf")
 )
 
-unlink(paste0(here(), "/outputs/Awareness Infographic - ", current_year, ".svg"))
+unlink(paste0(here(), "/outputs/infographics/Awareness Infographic - ", current_year, ".svg"))

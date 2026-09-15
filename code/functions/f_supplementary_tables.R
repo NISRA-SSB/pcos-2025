@@ -151,7 +151,7 @@ f_supplementary_tables <- function (data, year, trust_q, agree_q, co_var, age_we
   }
   
   saveWorkbook(wb,
-               paste0(here(), "/outputs/Supplementary tables ", year, ".xlsx"),
+               paste0(here(), "/outputs/supplementary_tables/Supplementary tables ", year, ".xlsx"),
                overwrite = TRUE
   )
   

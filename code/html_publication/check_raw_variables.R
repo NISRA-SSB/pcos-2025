@@ -228,74 +228,6 @@ freezePane(wb, "Raw Variables",
   firstCol = TRUE
 )
 
-# PCOS 1c Crosstabs ####
-
-# addWorksheet(wb, "PCOS1c Raw")
-# 
-# r <- 1
-# 
-# for (i in 1:length(PCOS1c_vars)) {
-#   responses <- levels(data_raw[[PCOS1c_vars[i]]])
-# 
-#   crosstab <- data.frame(PCOS1 = c("Yes", "No", "Don't know"))
-# 
-#   for (j in 1:length(responses)) {
-#     crosstab[[responses[j]]] <- c(
-#       data_raw %>%
-#         filter(PCOS1 == "Yes" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
-#         nrow(),
-#       data_raw %>%
-#         filter(PCOS1 == "No" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
-#         nrow(),
-#       data_raw %>%
-#         filter(PCOS1 == "Don't know" & .[[PCOS1c_vars[i]]] == responses[j]) %>%
-#         nrow()
-#     )
-#   }
-# 
-#   writeData(wb, "PCOS1c Raw",
-#     x = paste0(PCOS1c_vars[i], " by PCOS1"),
-#     startRow = r
-#   )
-# 
-#   addStyle(wb, "PCOS1c Raw",
-#     pt2,
-#     rows = r,
-#     cols = 1
-#   )
-# 
-#   r <- r + 1
-# 
-#   writeData(wb, "PCOS1c Raw",
-#     x = PCOS1c_vars[i],
-#     startRow = r,
-#     startCol = 2
-#   )
-# 
-#   mergeCells(wb, "PCOS1c Raw",
-#     cols = 2:ncol(crosstab),
-#     rows = r
-#   )
-# 
-#   addStyle(wb, "PCOS1c Raw",
-#     ch2,
-#     rows = r,
-#     cols = 2
-#   )
-# 
-#   r <- r + 1
-# 
-#   writeDataTable(wb, "PCOS1c Raw",
-#     crosstab,
-#     tableStyle = "none",
-#     headerStyle = ch,
-#     withFilter = FALSE,
-#     startRow = r
-#   )
-# 
-#   r <- r + nrow(crosstab) + 2
-# }
-
 # PCOS 1d Crosstabs ####
 
 addWorksheet(wb, "PCOS1d Raw")
@@ -365,6 +297,6 @@ for (i in 1:length(PCOS1d_vars)) {
 }
 
 saveWorkbook(wb,
-  paste0(here(), "/outputs/Variable checks ", current_year, ".xlsx"),
+  paste0(here(), "/outputs/PCOS/Variable checks ", current_year, ".xlsx"),
   overwrite = TRUE
 )

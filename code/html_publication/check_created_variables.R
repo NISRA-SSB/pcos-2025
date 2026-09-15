@@ -2,7 +2,7 @@
 
 # Load checks workbook ####
 
-wb <- loadWorkbook(paste0(here(), "/outputs/Variable checks ", current_year, ".xlsx"))
+wb <- loadWorkbook(paste0(here(), "/outputs/PCOS/Variable checks ", current_year, ".xlsx"))
 
 # Check Recoded vars vs Recoded previous year ####
 
@@ -257,6 +257,6 @@ freezePane(wb, "Crosstabs",
 )
 
 saveWorkbook(wb,
-  paste0(here(), "/outputs/Variable checks ", current_year, ".xlsx"),
+  paste0(here(), "/outputs/PCOS/Variable checks ", current_year, ".xlsx"),
   overwrite = TRUE
 )

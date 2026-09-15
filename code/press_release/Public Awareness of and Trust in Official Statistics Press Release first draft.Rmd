@@ -5,7 +5,7 @@ output:
 knit: (function(input, ...) {
     rmarkdown::render(
       input,
-      output_dir = "../../outputs/",
+      output_dir = "../../outputs/press_release",
       envir = globalenv()
     )
   })
